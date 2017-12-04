@@ -17,7 +17,7 @@ sourceSets {
 }
 
 def TEAM = 6458
-def ROBOT_CLASS = "frc.team0000.robot.Robot"
+def ROBOT_CLASS = "team6458.SemiRobot"
 def KOTLIN_VERSION = "1.2.0"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
