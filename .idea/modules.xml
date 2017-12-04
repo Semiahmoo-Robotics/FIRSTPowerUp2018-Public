@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FIRSTRobotics2018.iml" filepath="$PROJECT_DIR$/FIRSTRobotics2018.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Team6458-2018.iml" filepath="$PROJECT_DIR$/.idea/modules/Team6458-2018.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Team6458-2018_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Team6458-2018_main.iml" group="Team6458-2018" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Team6458-2018_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Team6458-2018_test.iml" group="Team6458-2018" />
     </modules>
   </component>
 </project>
