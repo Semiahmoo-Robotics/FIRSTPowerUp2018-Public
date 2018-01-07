@@ -90,8 +90,8 @@ public final class PlateAssignment {
         /**
          * Get a PlateSide enum from a letter.
          *
-         * @param letter L, l, R, r
-         * @return The corresponding PlateSide enum, or the {@link #INVALID} enum
+         * @param letter L, R
+         * @return The corresponding PlateSide enum, or the {@link #INVALID} enum if it doesn't match
          */
         public static PlateSide getFromLetter(char letter) {
             switch (letter) {
