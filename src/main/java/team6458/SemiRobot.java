@@ -30,9 +30,15 @@ public final class SemiRobot extends IterativeRobot {
      */
     private void updatePlateAssignmentFromFMS() {
         String fmsData = DriverStation.getInstance().getGameSpecificMessage();
-        if (fmsData == null && plateAssignment != PlateAssignment.ALL_INVALID) { // Note: a reference equality check is valid here
-            LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment);
-            plateAssignment = PlateAssignment.ALL_INVALID;
+        if (fmsData == null) {
+            /*
+            Note: a reference equality check is valid here because ALL_INVALID is the only possible "unknown"
+            constant that is settable in these conditional branches
+             */
+            if (plateAssignment != PlateAssignment.ALL_INVALID) {
+                LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment);
+                plateAssignment = PlateAssignment.ALL_INVALID;
+            }
         } else {
             if (!plateAssignment.toString().equals(fmsData)) {
                 LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, was %s", fmsData, plateAssignment));
