@@ -32,6 +32,10 @@ public final class PlateAssignment {
      * @param input A three-letter, non-null string, only consisting of the letters L and R
      */
     public PlateAssignment(String input) {
+        if (input == null) {
+            throw new IllegalArgumentException("Input cannot be null");
+        }
+
         sides = new PlateSide[] {
                 PlateSide.getFromLetter(input.charAt(0)),
                 PlateSide.getFromLetter(input.charAt(1)),
