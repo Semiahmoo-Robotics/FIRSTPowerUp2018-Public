@@ -29,6 +29,7 @@ public final class SemiRobot extends TimedRobot {
      * Internal method that updates the plate assignment from the Field Management System.
      */
     private void updatePlateAssignmentFromFMS() {
+        boolean isFMSAttached = DriverStation.getInstance().isFMSAttached();
         String fmsData = DriverStation.getInstance().getGameSpecificMessage();
         if (fmsData == null) {
             /*
@@ -36,7 +37,7 @@ public final class SemiRobot extends TimedRobot {
             constant that is settable in these conditional branches
              */
             if (plateAssignment != PlateAssignment.ALL_INVALID) {
-                LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment);
+                LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment + " (FMS attached: " + isFMSAttached + ")");
                 plateAssignment = PlateAssignment.ALL_INVALID;
             }
         } else {
