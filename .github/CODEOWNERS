@@ -8,6 +8,4 @@
 # *.js   @octocat @github/js
 
 # These owners will be the default owners for everything in the repo.
-*   @chrislo27
-*   @GQYZ
-*   @TobCar
+*   @chrislo27 @GQYZ @TobCar
