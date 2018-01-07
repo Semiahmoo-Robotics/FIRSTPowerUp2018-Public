@@ -19,8 +19,8 @@ Reviewing others' pull requests is an **essential** part of the workflow
 we have. Without reviews, bad code tends to get put in and malfunctions
 and bugs occur. Last year, only **one** person wrote the entire robot's
 systems, and the number of **human injuries** that nearly occurred were far
-too frequent. To avoid damage to the robot and human injuries
-(humans heal--robots don't), we need to make sure all possible sources of
+too frequent. To avoid damage to the robot and human injuries,
+we need to make sure all possible sources of
 error are filtered out first and foremost--especially before testing on the real thing.
 
 ## Installation
