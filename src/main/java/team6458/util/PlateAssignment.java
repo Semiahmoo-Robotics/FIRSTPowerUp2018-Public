@@ -21,7 +21,7 @@ public final class PlateAssignment {
      * @param input A three-letter, non-null string, only consisting of the letters L and R
      */
     public PlateAssignment(String input) {
-        sides = new PlateSide[]{
+        sides = new PlateSide[] {
                 PlateSide.getFromLetter(input.charAt(0)),
                 PlateSide.getFromLetter(input.charAt(1)),
                 PlateSide.getFromLetter(input.charAt(2))
@@ -74,6 +74,7 @@ public final class PlateAssignment {
 
         /**
          * Get a PlateSide enum from a letter.
+         *
          * @param letter L, l, R, r
          * @return The corresponding PlateSide enum, or the {@link #INVALID} enum
          */
