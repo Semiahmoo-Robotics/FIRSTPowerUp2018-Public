@@ -57,6 +57,11 @@ unused code only for reference, and it should not be tampered with.)
   * Java 9 is not supported, unfortunately.
 * Use `private static final Logger LOGGER` instances where logging is necessary. See
 [SemiRobot.java](src/main/java/team6458/SemiRobot.java) for an example.
+* [Null is bad.](https://en.wikipedia.org/wiki/Tony_Hoare#Apologies_and_retractions)
+Avoid nulls wherever possible. State all return values
+and accepted inputs as nullable or non-null. The last thing that should
+happen is that the robot locks up and crashes with a NullPointerException
+due to poor practices.
 
 ### Formatting
 * Four spaces or tabs set to four space widths
