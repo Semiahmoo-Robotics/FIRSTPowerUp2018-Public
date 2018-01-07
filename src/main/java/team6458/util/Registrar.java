@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * Taken from https://github.com/Open-RIO/ToastAPI/<p>
- *
+ * "Borrowed" from https://github.com/Open-RIO/ToastAPI/<p>
+ * <p>
  * The Registrar is a simple class designed to get rid of Allocation exceptions in code, where if multiple
  * instances of a Motor Controller, DIO, or Analog interface are created with the same port, WPILib throws
  * a big fat error in your face. To solve this, the Registrar keeps one instance of each when you request it,
@@ -22,7 +22,7 @@ public class Registrar<ID, Type> {
 
     public static volatile Registrar<Integer, PWM> pwmRegistrar = new Registrar<>();
     public static volatile Registrar<Integer, SpeedController> canRegistrar = new Registrar<>();
-    public static volatile Registrar<Integer, DigitalSource> dioRegistrar = new Registrar<>();
+    public static volatile Registrar<Integer, SendableBase> dioRegistrar = new Registrar<>();
 
     // -- STATICS -- //
     public static volatile Registrar<Integer, Relay> relayRegistrar = new Registrar<>();
@@ -38,9 +38,7 @@ public class Registrar<ID, Type> {
      * @param port the DIO port to use
      */
     public static DigitalOutput digitalOutput(int port) {
-        return dioRegistrar.fetch(port, DigitalOutput.class, () -> {
-            return new DigitalOutput(port);
-        });
+        return dioRegistrar.fetch(port, DigitalOutput.class, () -> new DigitalOutput(port));
     }
 
     /**
@@ -49,9 +47,7 @@ public class Registrar<ID, Type> {
      * @param port the DIO port to use
      */
     public static DigitalInput digitalInput(int port) {
-        return dioRegistrar.fetch(port, DigitalInput.class, () -> {
-            return new DigitalInput(port);
-        });
+        return dioRegistrar.fetch(port, DigitalInput.class, () -> new DigitalInput(port));
     }
 
     /**
@@ -60,9 +56,7 @@ public class Registrar<ID, Type> {
      * @param port the AO port to use
      */
     public static AnalogOutput analogOutput(int port) {
-        return aoRegistrar.fetch(port, AnalogOutput.class, () -> {
-            return new AnalogOutput(port);
-        });
+        return aoRegistrar.fetch(port, AnalogOutput.class, () -> new AnalogOutput(port));
     }
 
     /**
@@ -71,9 +65,7 @@ public class Registrar<ID, Type> {
      * @param port the AI port to use
      */
     public static AnalogInput analogInput(int port) {
-        return aiRegistrar.fetch(port, AnalogInput.class, () -> {
-            return new AnalogInput(port);
-        });
+        return aiRegistrar.fetch(port, AnalogInput.class, () -> new AnalogInput(port));
     }
 
     /**
@@ -82,9 +74,7 @@ public class Registrar<ID, Type> {
      * @param relayPort the Relay port to use
      */
     public static Relay relay(int relayPort) {
-        return relayRegistrar.fetch(relayPort, Relay.class, () -> {
-            return new Relay(relayPort);
-        });
+        return relayRegistrar.fetch(relayPort, Relay.class, () -> new Relay(relayPort));
     }
 
     /**
@@ -93,9 +83,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM Port to use
      */
     public static Talon talon(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, Talon.class, () -> {
-            return new Talon(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, Talon.class, () -> new Talon(pwmPort));
     }
 
     /**
@@ -103,10 +91,8 @@ public class Registrar<ID, Type> {
      *
      * @param pwmPort the PWM Port to use
      */
-    public static TalonSRX talonSRX(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, TalonSRX.class, () -> {
-            return new TalonSRX(pwmPort);
-        });
+    public static PWMTalonSRX talonSRX(int pwmPort) {
+        return pwmRegistrar.fetch(pwmPort, PWMTalonSRX.class, () -> new PWMTalonSRX(pwmPort));
     }
 
     // -- Motor Controllers -- //
@@ -117,9 +103,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM port to use
      */
     public static Jaguar jaguar(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, Jaguar.class, () -> {
-            return new Jaguar(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, Jaguar.class, () -> new Jaguar(pwmPort));
     }
 
     /**
@@ -128,9 +112,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM port to use
      */
     public static Victor victor(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, Victor.class, () -> {
-            return new Victor(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, Victor.class, () -> new Victor(pwmPort));
     }
 
     /**
@@ -139,9 +121,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM port to use
      */
     public static VictorSP victorSP(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, VictorSP.class, () -> {
-            return new VictorSP(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, VictorSP.class, () -> new VictorSP(pwmPort));
     }
 
     /**
@@ -150,9 +130,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM port to use
      */
     public static Spark spark(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, Spark.class, () -> {
-            return new Spark(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, Spark.class, () -> new Spark(pwmPort));
     }
 
     /**
@@ -161,9 +139,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM port to use
      */
     public static SD540 sd540(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, SD540.class, () -> {
-            return new SD540(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, SD540.class, () -> new SD540(pwmPort));
     }
 
     /**
@@ -172,9 +148,7 @@ public class Registrar<ID, Type> {
      * @param pwmPort the PWM port to use
      */
     public static Servo servo(int pwmPort) {
-        return pwmRegistrar.fetch(pwmPort, Servo.class, () -> {
-            return new Servo(pwmPort);
-        });
+        return pwmRegistrar.fetch(pwmPort, Servo.class, () -> new Servo(pwmPort));
     }
 
     /**
@@ -183,9 +157,7 @@ public class Registrar<ID, Type> {
      * @param pcmID the PCM CAN Device ID to use
      */
     public static Compressor compressor(int pcmID) {
-        return compressorRegistrar.fetch(pcmID, Compressor.class, () -> {
-            return new Compressor(pcmID);
-        });
+        return compressorRegistrar.fetch(pcmID, Compressor.class, () -> new Compressor(pcmID));
     }
 
     /**
@@ -195,9 +167,7 @@ public class Registrar<ID, Type> {
      * @param solenoidChannel the channel on the PWM to use
      */
     public static Solenoid solenoid(int pcmID, int solenoidChannel) {
-        return solenoidRegistrar.fetch(new SolenoidID(pcmID, solenoidChannel), Solenoid.class, () -> {
-            return new Solenoid(pcmID, solenoidChannel);
-        });
+        return solenoidRegistrar.fetch(new SolenoidID(pcmID, solenoidChannel), Solenoid.class, () -> new Solenoid(pcmID, solenoidChannel));
     }
 
     // Commented out due to CANTalon not being used
@@ -206,7 +176,7 @@ public class Registrar<ID, Type> {
 //     * @param canID the CAN Device ID to use
 //     */
 //    public static CANTalon canTalon(int canID) {
-//        return canRegistrar.fetch(canID, CANTalon.class, () -> { return new CANTalon(canID); });
+//        return canRegistrar.fetch(canID, CANTalon.class, () -> new CANTalon(canID) );
 //    }
 
     // -- Pneumatics -- //
@@ -229,9 +199,7 @@ public class Registrar<ID, Type> {
      */
     public static DoubleSolenoid doubleSolenoid(int pcmID, int solenoidFwdChannel, int solenoidRevChannel) {
         return solenoidRegistrar
-                .fetch(new SolenoidID(pcmID, solenoidFwdChannel, solenoidRevChannel), DoubleSolenoid.class, () -> {
-                    return new DoubleSolenoid(pcmID, solenoidFwdChannel, solenoidRevChannel);
-                });
+                .fetch(new SolenoidID(pcmID, solenoidFwdChannel, solenoidRevChannel), DoubleSolenoid.class, () -> new DoubleSolenoid(pcmID, solenoidFwdChannel, solenoidRevChannel));
     }
 
     /**
@@ -254,6 +222,7 @@ public class Registrar<ID, Type> {
      * @param <T>     The type to insert / fetch from the registrar. This is a subclass of the Registrar's Type
      * @return The object in the registrar / the new object created.
      */
+    @SuppressWarnings("unchecked")
     public synchronized <T extends Type> T fetch(ID id, Class<T> clazz, Supplier<T> creator) {
         Type in_register = registered.get(id);
 
