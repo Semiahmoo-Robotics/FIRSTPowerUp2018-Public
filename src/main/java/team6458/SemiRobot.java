@@ -28,12 +28,12 @@ public final class SemiRobot extends IterativeRobot {
     private void updatePlateAssignmentFromFMS() {
         String fmsData = DriverStation.getInstance().getGameSpecificMessage();
         if (fmsData == null) {
+            LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment);
             plateAssignment = PlateAssignment.ALL_INVALID;
-            LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null");
         } else {
             if (plateAssignment == null || !plateAssignment.toString().equals(fmsData)) {
+                LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, was %s", fmsData, plateAssignment));
                 plateAssignment = new PlateAssignment(fmsData);
-                LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, got %s", plateAssignment.toString(), fmsData));
             }
         }
     }
