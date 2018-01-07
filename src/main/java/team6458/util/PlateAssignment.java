@@ -96,14 +96,12 @@ public final class PlateAssignment {
         public static PlateSide getFromLetter(char letter) {
             switch (letter) {
                 case 'L':
-                case 'l':
                     return LEFT;
                 case 'R':
-                case 'r':
                     return RIGHT;
+                default:
+                    return INVALID;
             }
-
-            return INVALID;
         }
 
         @Override
