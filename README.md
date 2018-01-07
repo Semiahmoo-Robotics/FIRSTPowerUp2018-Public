@@ -32,17 +32,17 @@ If you are using Eclipse,
 
 ### Importing git project in eclipse
 0. Go to the toolbar on the top and select Window->Perspective->Open Perspective->Other...
-1. Select Git
-2. Near the top of the page, there are 3 buttons with GIT written on it, one has a blue curved arrow and is labled "Clone a Git Repository and add the clone to this view" when your mouse hovers over it, click this button
-3. Enter URI and credentials for github, click next
-4. Choose desired branches and click next
-5. Choose directory and click finish
+1. Select "Git"
+2. Near the top of the page, there are 3 buttons with GIT written on it, one has a blue curved arrow and is labeled "Clone a Git Repository and add the clone to this view" when your mouse hovers over it, click this button
+3. Enter URI and credentials for GitHub since this is a private repository, click next
+4. Ensure that "master" and any additional branches you want are selected and click next
+5. Choose your desired directory and click finish
 4. Return to the Java view by clicking the button on the top right with the package symbol, a J and two circles
-5. Goto and right click the Package Explorer and select Import
-6. Select Projects from Git under the folder Git
-7. Select Existing local repository, then click next
-8. Select Team6458-2018, then click next
-9. Choose the radio buttion labled Import as general project, then click next
+5. Goto and right click the "Package Explorer" and select "Import"
+6. Select "Projects from Git" under the folder "Git"
+7. Select "Existing local repository", then click next
+8. Select "Team6458-2018", then click next
+9. Choose the radio button labeled "Import as general project", then click next
 11. Name the project and you are done
 
 ### Keeping the `master` branch up to date
