@@ -1,4 +1,4 @@
-## Team 6458's FIRST POWER UP 2018
+# Team 6458's FIRST POWER UP 2018
 
 Welcome to Team 6458's code repository for the 2018 FIRST POWER UP
 robotics competition.
