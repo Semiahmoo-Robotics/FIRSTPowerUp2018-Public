@@ -10,9 +10,20 @@ import java.util.logging.Logger;
  */
 public final class PlateAssignment {
 
+    /**
+     * A constant with only {@link PlateSide#INVALID} plate sides. This will be used when there is no FMS (e.g.: test runs).
+     */
     public static final PlateAssignment ALL_INVALID = new PlateAssignment("???");
+
     private static final Logger LOGGER = Logger.getLogger(PlateAssignment.class.getName());
+
+    /**
+     * Private internal array of plate sides, in order of nearest, centre, farthest from the alliance wall.
+     */
     private final PlateSide[] sides;
+    /**
+     * A cached string only used in {@link #toString()} to avoid overallocation.
+     */
     private final String cachedString;
 
     /**
