@@ -1,1 +1,1 @@
-git pull --rebase origin
+git pull --rebase --tags origin
