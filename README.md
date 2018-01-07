@@ -62,6 +62,8 @@ Avoid nulls wherever possible. State all return values
 and accepted inputs as nullable or non-null. The last thing that should
 happen is that the robot locks up and crashes with a NullPointerException
 due to poor practices.
+  * If nulls are used in non-closed scope situations, you will have to
+  justify its use. You will most likely be asked to rewrite it without null.
 
 ### Formatting
 * Four spaces or tabs set to four space widths
