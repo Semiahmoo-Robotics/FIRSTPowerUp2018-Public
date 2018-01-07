@@ -22,7 +22,7 @@ public class Registrar<ID, Type> {
 
     public static volatile Registrar<Integer, PWM> pwmRegistrar = new Registrar<>();
     public static volatile Registrar<Integer, SpeedController> canRegistrar = new Registrar<>();
-    public static volatile Registrar<Integer, Sendable> dioRegistrar = new Registrar<>();
+    public static volatile Registrar<Integer, SendableBase> dioRegistrar = new Registrar<>();
 
     // -- STATICS -- //
     public static volatile Registrar<Integer, Relay> relayRegistrar = new Registrar<>();
