@@ -42,6 +42,47 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Eclipse related
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launchls
+.autotools
+
+# Java annotation processor (APT)
+.factorypath
+
+# Tern plugin
+.tern-project
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+# Netbeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Custom
 !/gradle/wrapper/gradle-wrapper.jar
 .idea/
 
