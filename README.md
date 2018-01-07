@@ -27,9 +27,8 @@ error are filtered out first and foremost--especially before testing on the real
 1. Ensure you have [Git](https://git-scm.com/) and [JDK **8**](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) installed.
 2. Make a new directory somewhere, enter it, and start Git Bash in that directory. You can do this on Windows by right clicking in the File Explorer and clicking Git Bash Here.
 3. Type `git clone https://github.com/chrislo27/Team6458-2018` and press Enter.
-4. Using IntelliJ IDEA or Eclipse, open this as a Gradle Project with the build.gradle file inside.
-5. If you are using IntelliJ, make sure that your project settings use the
-code style outlined at [.idea/codeStyles/Project.xml](.idea/codeStyles/Project.xml).
+4. If you are using IntelliJ IDEA, navigate to File > New > Project from Existing Sources and select the build.gradle file. Uncheck "Create separate module per source set".
+If you are using Eclipse,
 
 ### Keeping the `master` branch up to date
 0. Have no unstaged changes.
