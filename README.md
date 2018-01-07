@@ -28,22 +28,22 @@ error are filtered out first and foremost--especially before testing on the real
 2. Make a new directory somewhere, enter it, and start Git Bash in that directory. You can do this on Windows by right clicking in the File Explorer and clicking Git Bash Here.
 3. Type `git clone https://github.com/chrislo27/Team6458-2018` and press Enter.
 4. If you are using IntelliJ IDEA, navigate to File > New > Project from Existing Sources and select the build.gradle file. Uncheck "Create separate module per source set".
-If you are using Eclipse,
+If you are using Eclipse, see below.
 
-### Importing git project in eclipse
-0. Go to the toolbar on the top and select Window->Perspective->Open Perspective->Other...
-1. Select "Git"
-2. Near the top of the page, there are 3 buttons with GIT written on it, one has a blue curved arrow and is labeled "Clone a Git Repository and add the clone to this view" when your mouse hovers over it, click this button
-3. Enter URI and credentials for GitHub since this is a private repository, click next
-4. Ensure that "master" and any additional branches you want are selected and click next
-5. Choose your desired directory and click finish
-4. Return to the Java view by clicking the button on the top right with the package symbol, a J and two circles
-5. Goto and right click the "Package Explorer" and select "Import"
-6. Select "Projects from Git" under the folder "Git"
-7. Select "Existing local repository", then click next
-8. Select "Team6458-2018", then click next
-9. Choose the radio button labeled "Import as general project", then click next
-11. Name the project and you are done
+### Importing git project in Eclipse
+1. Go to the toolbar on the top and select Window->Perspective->Open Perspective->Other...
+2. Select "Git"
+3. Near the top of the page, there are 3 buttons with GIT written on it, one has a blue curved arrow and is labeled "Clone a Git Repository and add the clone to this view" when your mouse hovers over it, click this button
+4. Enter URI and credentials for GitHub since this is a private repository, click Next
+5. Ensure that "master" and any additional branches you want are selected and click Next
+6. Choose your desired directory and click Finish
+7. Return to the Java view by clicking the button on the top right with the package symbol, a J and two circles
+8. Goto and right click the "Package Explorer" and select "Import"
+9. Select "Projects from Git" under the folder "Git"
+10. Select "Existing local repository", then click Next
+11. Select "Team6458-2018", then click Next
+12. Choose the radio button labeled "Import as general project", then click Next
+13. Name the project and you are done
 
 ### Keeping the `master` branch up to date
 0. Have no unstaged changes.
