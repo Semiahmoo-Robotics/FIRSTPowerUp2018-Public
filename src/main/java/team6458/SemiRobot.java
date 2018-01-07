@@ -1,7 +1,7 @@
 package team6458;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import team6458.util.CameraSetup;
 import team6458.util.PlateAssignment;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * The main robot class.
  */
-public final class SemiRobot extends IterativeRobot {
+public final class SemiRobot extends TimedRobot {
 
     private static final Logger LOGGER = Logger.getLogger(SemiRobot.class.getName());
 
