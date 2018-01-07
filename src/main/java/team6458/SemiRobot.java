@@ -1,8 +1,10 @@
 package team6458;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import team6458.util.CameraSetup;
+import team6458.util.PlateAssignment;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,25 +12,47 @@ import java.util.logging.Logger;
 /**
  * The main robot class.
  */
-public class SemiRobot extends IterativeRobot {
+public final class SemiRobot extends IterativeRobot {
 
-    private static final Logger logger = Logger.getLogger(SemiRobot.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SemiRobot.class.getName());
+
+    private PlateAssignment plateAssignment;
+
+    public PlateAssignment getPlateAssignment() {
+        return plateAssignment;
+    }
+
+    /**
+     * Internal method that updates the plate assignment from the Field Management System.
+     */
+    private void updatePlateAssignmentFromFMS() {
+        String fmsData = DriverStation.getInstance().getGameSpecificMessage();
+        if (fmsData == null) {
+            plateAssignment = PlateAssignment.ALL_INVALID;
+            LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null");
+        } else {
+            if (plateAssignment == null || !plateAssignment.toString().equals(fmsData)) {
+                plateAssignment = new PlateAssignment(fmsData);
+                LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, got %s", plateAssignment.toString(), fmsData));
+            }
+        }
+    }
 
     @Override
     public void robotInit() {
-        logger.log(Level.INFO, "\n==========================\nStarting initialization...\n==========================\n");
+        LOGGER.log(Level.INFO, "\n==========================\nStarting initialization...\n==========================\n");
 
         // Disables any commands that may run
         Scheduler.getInstance().disable();
 
         // Setup the default camera and log the result (successful or not)
         if (CameraSetup.setupDefaultCamera()) {
-            logger.log(Level.INFO, "Default camera started");
+            LOGGER.log(Level.INFO, "Default camera started");
         } else {
-            logger.log(Level.WARNING, "Failed to start default camera!");
+            LOGGER.log(Level.WARNING, "Failed to start default camera!");
         }
 
-        logger.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
+        LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
     }
 
     @Override
@@ -39,6 +63,8 @@ public class SemiRobot extends IterativeRobot {
 
     @Override
     public void autonomousInit() {
+        updatePlateAssignmentFromFMS();
+
         // Enables commands to be run
         Scheduler.getInstance().enable();
     }
@@ -63,6 +89,7 @@ public class SemiRobot extends IterativeRobot {
 
     @Override
     public void disabledPeriodic() {
+        updatePlateAssignmentFromFMS();
     }
 
     @Override
