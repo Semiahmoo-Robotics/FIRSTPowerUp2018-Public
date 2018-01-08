@@ -9,13 +9,13 @@ import java.util.logging.Logger;
  * The perspective is relative to the team facing outwards.
  */
 public final class PlateAssignment {
+    //First To avoid null pointer exception
+    private static final Logger LOGGER = Logger.getLogger(PlateAssignment.class.getName());
 
     /**
      * A constant with only {@link PlateSide#INVALID} plate sides. This will be used when there is no FMS (e.g.: test runs).
      */
     public static final PlateAssignment ALL_INVALID = new PlateAssignment("???");
-
-    private static final Logger LOGGER = Logger.getLogger(PlateAssignment.class.getName());
 
     /**
      * Private internal array of plate sides, in order of nearest, centre, farthest from the alliance wall.
@@ -43,8 +43,8 @@ public final class PlateAssignment {
         };
         cachedString = getNearest().toString() + getScale().toString() + getFarthest().toString();
 
-        // warn for plate sides being INVALID, null check so that ALL_INVALID construction does not cause LOGGER to be called
-        if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID) && LOGGER != null) {
+        // warn for plate sides being INVALID, If ???, the input is intentional and no error message should be displayed
+        if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID) && !input.equals("???")) {
             LOGGER.log(Level.WARNING, "Found unknown PlateSides: " + Arrays.toString(sides));
         }
     }
