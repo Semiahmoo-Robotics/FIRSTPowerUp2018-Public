@@ -9,7 +9,6 @@ import java.util.logging.Logger;
  * The perspective is relative to the team facing outwards.
  */
 public final class PlateAssignment {
-    //First To avoid null pointer exception
     private static final Logger LOGGER = Logger.getLogger(PlateAssignment.class.getName());
 
     /**
