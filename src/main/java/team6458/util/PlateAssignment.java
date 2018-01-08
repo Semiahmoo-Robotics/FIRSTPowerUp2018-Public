@@ -43,8 +43,8 @@ public final class PlateAssignment {
         };
         cachedString = getNearest().toString() + getScale().toString() + getFarthest().toString();
 
-        // warn for plate sides being INVALID
-        if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID)) {
+        // warn for plate sides being INVALID, null check so that ALL_INVALID construction does not cause LOGGER to be called
+        if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID) && LOGGER != null) {
             LOGGER.log(Level.WARNING, "Found unknown PlateSides: " + Arrays.toString(sides));
         }
     }
