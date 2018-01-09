@@ -22,7 +22,8 @@ public final class SemiRobot extends TimedRobot {
 
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
 
-    private final XboxController controller = new XboxController(1);
+    //Xbox controller should be connected on port 0
+    private final XboxController controller = new XboxController(0);
 
     private final DifferentialDrive differentialDrive = new DifferentialDrive(new Spark(PWMPorts.LEFT_MOTOR),new Spark(PWMPorts.RIGHT_MOTOR));
     /**
@@ -115,10 +116,8 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        /**
-         * The arcade drive function of DifferentialDrive accepts speed and rotation, which is given by the Xbox controller
-         */
-        differentialDrive.arcadeDrive(controller.getY(),controller.getX());
+        //The arcade drive function of DifferentialDrive accepts speed and rotation, which is given by the Xbox controller
+        differentialDrive.arcadeDrive(controller.getY(), controller.getX());
     }
 
     @Override
