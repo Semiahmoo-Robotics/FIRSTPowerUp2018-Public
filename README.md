@@ -87,9 +87,10 @@ due to poor practices.
 look like a bomb went off.
 
 ### Javadocs
-* **EVERYTHING** needs Javadoc documentation, unless it is:
+* **EVERY** Javadoc-able thing needs Javadoc documentation, unless it is:
   * A `private static final Logger LOGGER` instance in a class
   * An obvious getter/setter
+  * Note that normal code should only be commented with normal comments
 * All documentation must be grammatically correct English with no spelling errors
   * Note: text for `@tags` like `@param` or `@returns` do not need a full stop
 * See [PlateAssignment.java](src/main/java/team6458/util/PlateAssignment.java) for a thorough example.
