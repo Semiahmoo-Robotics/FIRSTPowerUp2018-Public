@@ -60,7 +60,7 @@ that can be edited is called branchname (where branchname is the name of the bra
 
 ## Follow these steps to practice the above commands -
 0. You will need Bash open. Open the Git Bash (see above)
-1. To create a local branch type "git branch branchname" where branchname is the name of the branch. The formate of the name should be 
+1. To create a local branch type "git branch branchname" where branchname is the name of the branch. The format of the name should be 
 "implement/feature" or "fix/BugName"
 2. To push your branch to remote (create a remote branch) , type "git push origin branchname" (where branchname is the name of the branch)
 You will need a remote branch so other people can see what feature you are working on. You also need it for pull requests, when you wish
@@ -83,11 +83,11 @@ quotes about this commit).
 12. If you get an error saying "Fatal - unable to autodetect email adress", means your git account has not been synchronized.
 13. Follow the instructions. (i.e. git config -- gloabl user.email "your email" and git config -- global user.name "your name"
 14. Once you are done, push the branch to remote. Syntax was mentioned above. Check your branch on Git Hub after you are done.
-15. Congratulations. You now know how rto write code and push it into the repository through your branch. If you think code should be 
+15. Congratulations. You now know how to write code and push it into the repository through your branch. If you think code should be 
 implemented on the robot, you can pull request from the website, where the codeowners will review and merge or reject your code. 
 16. To delete your remote branch, use the Bash and type "git push origin :branchname" (where branchname is the name of the branch).
 17. Remember to delete local after you delete remote (git branch -d branchname)(where branchname is the name of the branch)
-18. To switch a branch, type "git branch". This should show you the current available branches. Switch to the branch by typing "git branch
+18. To switch a branch, type "git branch". This should show you the current available branches. Switch to the branch by typing "git checkout
 branchname" (where branchname is the name of the branch)
 19. In case you really screw up, reset everything to the base code by typing "git fetch origin" and then type "git reset --hard origin/master"
 20. If master code has been updated, you can update you code by typing "git pull".
