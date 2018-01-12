@@ -131,7 +131,8 @@ due to poor practices.
   justify its use. You will most likely be asked to rewrite it without null.
 
 ### Formatting
-* Four spaces or tabs set to four space widths
+* Four spaces ONLY
+  * [Eclipse instructions](https://stackoverflow.com/questions/407929/how-do-i-change-eclipse-to-use-spaces-instead-of-tabs)
 * Correct indentations for all code
 * Keep it neat, please. This won't be nitpicked to a T, but it shouldn't
 look like a bomb went off.
