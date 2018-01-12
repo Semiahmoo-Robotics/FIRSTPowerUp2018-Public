@@ -3,7 +3,9 @@ package team6458;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.util.CameraSetup;
+import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
 
 import java.util.logging.Level;
@@ -62,6 +64,13 @@ public final class SemiRobot extends TimedRobot {
             LOGGER.log(Level.WARNING, "Failed to start default camera!");
         }
 
+        // Initially write values to the SmartDashboard/Shuffleboard so they can be displayed as widgets
+        // Use the DashboardKeys class for string IDs
+        {
+            // Show the positions of the switches and scale fed from the FMS
+            SmartDashboard.putString(DashboardKeys.FMS_GAME_DATA, getPlateAssignment().toString());
+        }
+
         LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
     }
 
@@ -95,6 +104,8 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
+        // Update SmartDashboard data
+        SmartDashboard.putString(DashboardKeys.FMS_GAME_DATA, getPlateAssignment().toString());
     }
 
     @Override
