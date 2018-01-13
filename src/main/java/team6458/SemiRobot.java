@@ -8,6 +8,7 @@ import team6458.subsystem.Drivetrain;
 import team6458.util.CameraSetup;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
+import team6458.util.exception.GetBeforeInitException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -115,7 +116,7 @@ public final class SemiRobot extends TimedRobot {
 
     public Drivetrain getDrivetrain() {
         if (drivetrain == null) {
-            throw new IllegalStateException("Attempt to get drivetrain instance before initialization!");
+            throw new GetBeforeInitException("drivetrain");
         }
         return drivetrain;
     }
@@ -152,7 +153,7 @@ public final class SemiRobot extends TimedRobot {
 
     public OperatorControl getOperatorControl() {
         if (opControl == null) {
-            throw new IllegalStateException("Attempt to get operator control instance before initialization!");
+            throw new GetBeforeInitException("operator control");
         }
         return opControl;
     }
