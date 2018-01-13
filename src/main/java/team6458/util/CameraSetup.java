@@ -10,9 +10,9 @@ import java.util.logging.Logger;
  */
 public final class CameraSetup {
 
+    private static final Logger logger = Logger.getLogger(CameraSetup.class.getName());
     public static final String DEFAULT_CAMERA_NAME = "cam0";
     public static final int DEFAULT_CAMERA_ID = 0;
-    private static final Logger logger = Logger.getLogger(CameraSetup.class.getName());
 
     /**
      * No instantiation.

@@ -106,7 +106,11 @@ implemented on the robot, you can pull request from the website, where the codeo
 0. Do all your work on a new branch first, not master.
 Do this by running this command with Git Bash INSIDE of the folder where
 the `.git/` folder is: `git branch <branch name>`. The branch name should
-clearly indicate it belongs to you.
+follow this pattern: `XY/type/name`, where `XY` are your first and last initials,
+`type` is the type of change (a feature, implementation, bugfix, etc),
+and name is the general name of the change.
+An example is `AB/feature/autodeliver` for someone with the initials AB
+writing a new feature which is delivery of a Power Cube in autonomous.
 1. After committing and pushing your work to `origin`, open a Pull Request. It is one of the tabs on the page.
 2. Have a clear title and description.
 3. Everyone will begin to review your work to see if it is fit for merging into the master branch. At least one of the [code owners](.github/CODEOWNERS) must approve it.
@@ -127,7 +131,8 @@ due to poor practices.
   justify its use. You will most likely be asked to rewrite it without null.
 
 ### Formatting
-* Four spaces or tabs set to four space widths
+* Four spaces ONLY
+  * [Eclipse instructions](https://stackoverflow.com/questions/407929/how-do-i-change-eclipse-to-use-spaces-instead-of-tabs)
 * Correct indentations for all code
 * Keep it neat, please. This won't be nitpicked to a T, but it shouldn't
 look like a bomb went off.
