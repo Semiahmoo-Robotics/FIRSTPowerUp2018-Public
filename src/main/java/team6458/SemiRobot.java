@@ -1,10 +1,14 @@
 package team6458;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.util.CameraSetup;
+import team6458.util.PWMPorts;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
 
@@ -20,6 +24,10 @@ public final class SemiRobot extends TimedRobot {
 
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
 
+    //Xbox controller should be connected on port 0
+    private final XboxController controller = new XboxController(0);
+
+    private final DifferentialDrive differentialDrive = new DifferentialDrive(new Spark(PWMPorts.LEFT_MOTOR),new Spark(PWMPorts.RIGHT_MOTOR));
     /**
      * @return The non-null plate assignment
      */
@@ -119,6 +127,8 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        //The arcade drive function of DifferentialDrive accepts speed and rotation, which is given by the Xbox controller
+        differentialDrive.arcadeDrive(controller.getY(), controller.getX());
     }
 
     @Override
