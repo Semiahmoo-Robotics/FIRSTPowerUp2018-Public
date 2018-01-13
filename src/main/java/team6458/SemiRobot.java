@@ -2,7 +2,6 @@ package team6458;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.subsystem.Drivetrain;
@@ -20,9 +19,10 @@ public final class SemiRobot extends TimedRobot {
 
     private static final Logger LOGGER = Logger.getLogger(SemiRobot.class.getName());
 
-    // Xbox controller should be connected on port 0
-    private XboxController controller;
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
+
+    // Operator control
+    private OperatorControl opControl;
 
     // Subsystems
     private Drivetrain drivetrain;
@@ -34,12 +34,12 @@ public final class SemiRobot extends TimedRobot {
         // Disables any commands that may run
         Scheduler.getInstance().disable();
 
+        opControl = new OperatorControl(this);
+
         // Start up the subsystems
         {
             drivetrain = new Drivetrain(this);
         }
-
-        controller = new XboxController(0);
 
         // Setup the default camera and log the result (successful or not)
         if (CameraSetup.setupDefaultCamera()) {
@@ -90,6 +90,8 @@ public final class SemiRobot extends TimedRobot {
     public void robotPeriodic() {
         // Update SmartDashboard data
         SmartDashboard.putString(DashboardKeys.FMS_GAME_DATA, getPlateAssignment().toString());
+
+        getOperatorControl().periodicUpdate();
     }
 
     @Override
@@ -103,8 +105,6 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        // The arcade drive function of DifferentialDrive accepts speed and rotation, which is given by the Xbox controller
-        getDrivetrain().drive.arcadeDrive(controller.getY(), controller.getX());
     }
 
     @Override
@@ -149,6 +149,13 @@ public final class SemiRobot extends TimedRobot {
     }
 
     // Getters and setters
+
+    public OperatorControl getOperatorControl() {
+        if (opControl == null) {
+            throw new IllegalStateException("Attempt to get operator control instance before initialization!");
+        }
+        return opControl;
+    }
 
     /**
      * @return The non-null plate assignment
