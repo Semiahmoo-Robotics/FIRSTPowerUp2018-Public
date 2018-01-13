@@ -21,7 +21,7 @@ public final class SemiRobot extends TimedRobot {
     private static final Logger LOGGER = Logger.getLogger(SemiRobot.class.getName());
 
     // Xbox controller should be connected on port 0
-    private final XboxController controller = new XboxController(0);
+    private XboxController controller;
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
 
     // Subsystems
@@ -38,6 +38,8 @@ public final class SemiRobot extends TimedRobot {
         {
             drivetrain = new Drivetrain(this);
         }
+
+        controller = new XboxController(0);
 
         // Setup the default camera and log the result (successful or not)
         if (CameraSetup.setupDefaultCamera()) {
@@ -133,7 +135,9 @@ public final class SemiRobot extends TimedRobot {
             constant that is settable in these conditional branches
              */
             if (plateAssignment != PlateAssignment.ALL_INVALID) {
-                LOGGER.log(Level.INFO, "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment + " (FMS attached: " + isFMSAttached + ")");
+                LOGGER.log(Level.INFO,
+                        "Plate assignment set to ALL_INVALID, got null, was " + plateAssignment + " (FMS attached: " +
+                                isFMSAttached + ")");
                 plateAssignment = PlateAssignment.ALL_INVALID;
             }
         } else {
