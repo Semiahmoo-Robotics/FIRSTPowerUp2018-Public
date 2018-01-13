@@ -14,7 +14,7 @@ public abstract class RobotSubsystem extends Subsystem {
     /**
      * The immutable robot instance.
      */
-    public final SemiRobot robot;
+    protected final SemiRobot robot;
 
     /**
      * The main constructor.
