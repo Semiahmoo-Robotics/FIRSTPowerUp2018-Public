@@ -81,8 +81,6 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void testInit() {
-        // Enables commands to be run
-        Scheduler.getInstance().enable();
     }
 
     // ---------------------------------------------------------------------------
