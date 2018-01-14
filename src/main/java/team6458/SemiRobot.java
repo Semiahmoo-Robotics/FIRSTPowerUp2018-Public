@@ -87,9 +87,6 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        // Update SmartDashboard data
-        SmartDashboard.putString(DashboardKeys.FMS_GAME_DATA, getPlateAssignment().toString());
-
         getOperatorControl().periodicUpdate();
     }
 
@@ -126,8 +123,9 @@ public final class SemiRobot extends TimedRobot {
      * Internal method that updates the plate assignment from the Field Management System.
      */
     private void updatePlateAssignmentFromFMS() {
-        boolean isFMSAttached = DriverStation.getInstance().isFMSAttached();
-        String fmsData = DriverStation.getInstance().getGameSpecificMessage();
+        final boolean isFMSAttached = DriverStation.getInstance().isFMSAttached();
+        final String fmsData = DriverStation.getInstance().getGameSpecificMessage();
+        final PlateAssignment oldAssignment = plateAssignment;
         if (fmsData == null) {
             /*
             Note: a reference equality check is valid here because ALL_INVALID is the only possible "unknown"
@@ -144,6 +142,11 @@ public final class SemiRobot extends TimedRobot {
                 LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, was %s", fmsData, plateAssignment.toString()));
                 plateAssignment = new PlateAssignment(fmsData);
             }
+        }
+
+        if (plateAssignment != oldAssignment) {
+            // Update SmartDashboard data
+            SmartDashboard.putString(DashboardKeys.FMS_GAME_DATA, getPlateAssignment().toString());
         }
     }
 
