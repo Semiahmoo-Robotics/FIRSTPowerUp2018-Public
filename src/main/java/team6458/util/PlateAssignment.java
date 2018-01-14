@@ -31,19 +31,19 @@ public final class PlateAssignment {
      * @param input A three-letter, non-null string, only consisting of the letters L and R
      */
     public PlateAssignment(String input) {
-        if (input == null) {
-            throw new IllegalArgumentException("Input cannot be null");
+        if (input == null || input.length() < 3) {
+            sides = new PlateSide[] { PlateSide.INVALID, PlateSide.INVALID, PlateSide.INVALID };
+        } else {
+            sides = new PlateSide[] {
+                    PlateSide.getFromLetter(input.charAt(0)),
+                    PlateSide.getFromLetter(input.charAt(1)),
+                    PlateSide.getFromLetter(input.charAt(2))
+            };
         }
-
-        sides = new PlateSide[] {
-                PlateSide.getFromLetter(input.charAt(0)),
-                PlateSide.getFromLetter(input.charAt(1)),
-                PlateSide.getFromLetter(input.charAt(2))
-        };
         cachedString = getNearest().toString() + getScale().toString() + getFarthest().toString();
 
         // warn for plate sides being INVALID and not intentionally "???"
-        if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID) && !input.equals("???")) {
+        if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID) && !"???".equals(input)) {
             LOGGER.log(Level.WARNING, "Found unknown PlateSides: " + Arrays.toString(sides));
         }
     }
