@@ -87,6 +87,8 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
+        // Run the scheduler. This does nothing if it is disabled.
+        Scheduler.getInstance().run();
         getOperatorControl().periodicUpdate();
     }
 
