@@ -10,9 +10,11 @@ public final class OperatorControl {
 
     private final SemiRobot robot;
     private final XboxController xboxController = new XboxController(0); // TODO dynamic port?
+    private boolean lastOpControl;
 
     public OperatorControl(SemiRobot robot) {
         this.robot = robot;
+        lastOpControl = robot.isOperatorControl();
     }
 
     /**
@@ -22,13 +24,20 @@ public final class OperatorControl {
      */
     public void periodicUpdate() {
         if (!robot.isOperatorControl()) {
-            // No human is allowed to control the robot at this time, don't execute future code.
-            // Old drive values persisting from the controller will be blocked by the motor safety watchdog anyway
+            if (lastOpControl) {
+                // No human is allowed to control the robot at this time, stop motors ONCE
+
+                robot.getDrivetrain().drive.arcadeDrive(0.0, 0.0);
+            }
+
+            lastOpControl = false;
             return;
         }
 
         // Drive the robot
         robot.getDrivetrain().drive.arcadeDrive(xboxController.getY(), xboxController.getX());
+
+        lastOpControl = robot.isOperatorControl();
     }
 
 }
