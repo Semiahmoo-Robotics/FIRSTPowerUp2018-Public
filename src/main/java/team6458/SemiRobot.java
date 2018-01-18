@@ -149,7 +149,7 @@ public final class SemiRobot extends TimedRobot {
         } else {
             if (!plateAssignment.toString().equals(fmsData)) {
                 LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, was %s", fmsData, plateAssignment.toString()));
-                plateAssignment = new PlateAssignment(fmsData);
+                plateAssignment = PlateAssignment.fromString(fmsData);
             }
         }
 
