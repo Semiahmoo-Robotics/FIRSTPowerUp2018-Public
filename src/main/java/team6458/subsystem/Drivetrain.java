@@ -8,9 +8,9 @@ import team6458.util.Registrar;
 
 /**
  * The drivetrain subsystem. This subsystem controls all vehicular aspects of the robot,
- * specifically the motors that make it move forwards/backwards/turn.
+ * specifically the motors that make it move forwards/backwards/turn. It also has any sensors attached.
  */
-public class Drivetrain extends RobotSubsystem {
+public final class Drivetrain extends RobotSubsystem {
 
     private final Spark leftMotor = Registrar.spark(PWMPorts.LEFT_MOTOR);
     private final Spark rightMotor = Registrar.spark(PWMPorts.RIGHT_MOTOR);

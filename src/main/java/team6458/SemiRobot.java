@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.subsystem.Drivetrain;
+import team6458.subsystem.Sensors;
 import team6458.util.CameraSetup;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
@@ -27,6 +28,7 @@ public final class SemiRobot extends TimedRobot {
 
     // Subsystems
     private Drivetrain drivetrain;
+    private Sensors sensors;
 
     @Override
     public void robotInit() {
@@ -40,6 +42,7 @@ public final class SemiRobot extends TimedRobot {
         // Start up the subsystems
         {
             drivetrain = new Drivetrain(this);
+            sensors = new Sensors(this);
         }
 
         // Setup the default camera and log the result (successful or not)
@@ -119,6 +122,9 @@ public final class SemiRobot extends TimedRobot {
         return drivetrain;
     }
 
+    public Sensors getSensors() {
+        return sensors;
+    }
 
     // Private methods
 
