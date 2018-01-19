@@ -1,6 +1,6 @@
 package team6458.util;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,12 +9,18 @@ import java.util.logging.Logger;
  * The perspective is relative to the team facing outwards.
  */
 public final class PlateAssignment {
+
     private static final Logger LOGGER = Logger.getLogger(PlateAssignment.class.getName());
 
     /**
      * A constant with only {@link PlateSide#INVALID} plate sides. This will be used when there is no FMS (e.g.: test runs).
      */
     public static final PlateAssignment ALL_INVALID = new PlateAssignment("???");
+    /**
+     * An unmodifiable list containing the four valid plate assignments in a real match. They are LLL, RRR, LRL, and RLR.
+     */
+    public static final List<PlateAssignment> VALID_STATES = Collections.unmodifiableList(Arrays.asList(new PlateAssignment("LLL"),
+            new PlateAssignment("RRR"), new PlateAssignment("LRL"), new PlateAssignment("RLR")));
 
     /**
      * Private internal array of plate sides, in order of nearest, centre, farthest from the alliance wall.
@@ -30,9 +36,9 @@ public final class PlateAssignment {
      *
      * @param input A three-letter, non-null string, only consisting of the letters L and R
      */
-    public PlateAssignment(String input) {
+    private PlateAssignment(String input) {
         if (input == null || input.length() < 3) {
-            sides = new PlateSide[] { PlateSide.INVALID, PlateSide.INVALID, PlateSide.INVALID };
+            sides = new PlateSide[] {PlateSide.INVALID, PlateSide.INVALID, PlateSide.INVALID};
         } else {
             sides = new PlateSide[] {
                     PlateSide.getFromLetter(input.charAt(0)),
@@ -45,6 +51,23 @@ public final class PlateAssignment {
         // warn for plate sides being INVALID and not intentionally "???"
         if (Arrays.stream(sides).anyMatch(ps -> ps == PlateSide.INVALID) && !"???".equals(input)) {
             LOGGER.log(Level.WARNING, "Found unknown PlateSides: " + Arrays.toString(sides));
+        }
+    }
+
+    /**
+     * Get an instance using a three-letter message. Ex: LLL, RRR, LRL, RLR
+     *
+     * @param id A three-letter, non-null string, only consisting of the letters L and R
+     */
+    public static PlateAssignment fromString(String id) {
+        if (id == null || id.length() < 3) {
+            return ALL_INVALID;
+        } else {
+            String upper = id.toUpperCase(Locale.ROOT);
+            return VALID_STATES.stream().filter(it -> it.toString().equals(upper)).findFirst().orElseGet(() -> {
+                LOGGER.log(Level.WARNING, "Non-compliant FMS data: " + id);
+                return new PlateAssignment(upper);
+            });
         }
     }
 
