@@ -123,6 +123,9 @@ public final class SemiRobot extends TimedRobot {
     }
 
     public Sensors getSensors() {
+        if (sensors == null) {
+            throw new GetBeforeInitException("sensors");
+        }
         return sensors;
     }
 
