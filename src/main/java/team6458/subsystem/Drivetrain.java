@@ -3,7 +3,7 @@ package team6458.subsystem;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import team6458.SemiRobot;
-import team6458.util.PWMPorts;
+import team6458.util.Ports;
 import team6458.util.Registrar;
 
 /**
@@ -12,8 +12,8 @@ import team6458.util.Registrar;
  */
 public final class Drivetrain extends RobotSubsystem {
 
-    private final Spark leftMotor = Registrar.spark(PWMPorts.LEFT_MOTOR);
-    private final Spark rightMotor = Registrar.spark(PWMPorts.RIGHT_MOTOR);
+    private final Spark leftMotor = Registrar.spark(Ports.LEFT_MOTOR);
+    private final Spark rightMotor = Registrar.spark(Ports.RIGHT_MOTOR);
     public final DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
     public Drivetrain(SemiRobot robot) {
