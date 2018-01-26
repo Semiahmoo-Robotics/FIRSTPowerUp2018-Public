@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.subsystem.Drivetrain;
 import team6458.subsystem.Sensors;
-import team6458.util.CameraSetup;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
 import team6458.util.exception.GetBeforeInitException;
@@ -46,11 +45,11 @@ public final class SemiRobot extends TimedRobot {
         }
 
         // Setup the default camera and log the result (successful or not)
-        if (CameraSetup.setupDefaultCamera()) {
-            LOGGER.log(Level.INFO, "Default camera started");
-        } else {
-            LOGGER.log(Level.WARNING, "Failed to start default camera!");
-        }
+//        if (CameraSetup.setupDefaultCamera()) {
+//            LOGGER.log(Level.INFO, "Default camera started");
+//        } else {
+//            LOGGER.log(Level.WARNING, "Failed to start default camera!");
+//        }
 
         // Initially write values to the SmartDashboard/Shuffleboard so they can be displayed as widgets
         // Use the DashboardKeys class for string IDs
@@ -138,7 +137,7 @@ public final class SemiRobot extends TimedRobot {
         final boolean isFMSAttached = DriverStation.getInstance().isFMSAttached();
         final String fmsData = DriverStation.getInstance().getGameSpecificMessage();
         final PlateAssignment oldAssignment = plateAssignment;
-        if (fmsData == null) {
+        if (fmsData == null || fmsData.equals("")) {
             /*
             Note: a reference equality check is valid here because ALL_INVALID is the only possible "unknown"
             constant that is settable in these conditional branches

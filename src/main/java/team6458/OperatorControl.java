@@ -1,5 +1,6 @@
 package team6458;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
@@ -35,7 +36,8 @@ public final class OperatorControl {
         }
 
         // Drive the robot
-        robot.getDrivetrain().drive.arcadeDrive(xboxController.getY(), xboxController.getX());
+        robot.getDrivetrain().drive.arcadeDrive(xboxController.getX(GenericHID.Hand.kLeft), -xboxController.getY(
+                GenericHID.Hand.kLeft));
 
         lastOpControl = robot.isOperatorControl();
     }
