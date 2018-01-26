@@ -14,6 +14,11 @@ public final class Drivetrain extends RobotSubsystem {
 
     private final Spark leftMotor = Registrar.spark(Ports.LEFT_MOTOR);
     private final Spark rightMotor = Registrar.spark(Ports.RIGHT_MOTOR);
+
+    {
+
+    }
+
     public final DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
     public Drivetrain(SemiRobot robot) {

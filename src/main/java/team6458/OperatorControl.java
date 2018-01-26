@@ -35,9 +35,14 @@ public final class OperatorControl {
             return;
         }
 
+        final double stickX = xboxController.getX(GenericHID.Hand.kLeft);
+        final double stickY = -xboxController.getY(GenericHID.Hand.kLeft);
+
+        final double magnitude = stickY;
+        final double curve = -stickX;
+
         // Drive the robot
-        robot.getDrivetrain().drive.arcadeDrive(xboxController.getX(GenericHID.Hand.kLeft), -xboxController.getY(
-                GenericHID.Hand.kLeft));
+        robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
 
         lastOpControl = robot.isOperatorControl();
     }
