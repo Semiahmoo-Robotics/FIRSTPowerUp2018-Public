@@ -35,7 +35,7 @@ public final class Drivetrain extends RobotSubsystem {
         e.setDistancePerPulse(preset.distanceMPerPulse);
         e.setSamplesToAverage(7);
         e.setMaxPeriod(0.15); // 0.15 seconds
-        e.setMinRate(0.01); // 1 cm
+        e.setMinRate(0.04); // 4 cm
 
         return e;
     }
