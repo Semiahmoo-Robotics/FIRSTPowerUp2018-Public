@@ -41,6 +41,7 @@ public final class SemiRobot extends TimedRobot {
         // Start up the subsystems
         {
             drivetrain = new Drivetrain(this);
+            // Sensors should be last: a gyroscope will be calibrated for around 5 seconds blocking the thread
             sensors = new Sensors(this);
         }
 
