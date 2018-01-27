@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 /**
  * A simple utility class for holding information about the encoders on the robot.
  */
-public final class EncoderData {
+public final class EncoderPresets {
 
     /**
      * The encoder data for the <a href="https://www.andymark.com/encoder-p/am-3314a.htm">CIMcoder</a> encoder type.
@@ -16,7 +16,7 @@ public final class EncoderData {
      * <p>The wheels have a diameter of 15.24 cm (6"), which is a circumference of ~47.878 cm.
      * <b>Note that the values are in the instance are in <i>metres</i>.</b>
      */
-    public static final EncoderData CIMCODER = new EncoderData(EncodingType.k2X, 20,
+    public static final EncoderPresets CIMCODER = new EncoderPresets(EncodingType.k2X, 20,
             (Math.PI * 0.1524) / 5.95);
 
     /**
@@ -36,7 +36,7 @@ public final class EncoderData {
      */
     public final double distanceMPerPulse;
 
-    public EncoderData(EncodingType encodingType, int pulsesPerRevolution, double distanceMPerRevolution) {
+    public EncoderPresets(EncodingType encodingType, int pulsesPerRevolution, double distanceMPerRevolution) {
         this.encodingType = encodingType;
         this.pulsesPerRevolution = pulsesPerRevolution;
         this.distanceMPerRevolution = distanceMPerRevolution;
