@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team6458.cmd.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
 import team6458.subsystem.Drivetrain;
 import team6458.subsystem.Sensors;
@@ -61,6 +62,9 @@ public final class SemiRobot extends TimedRobot {
         {
             // One-time init so that they appear first
             updateSmartDashboardPeriodic();
+
+            // Certain commands for calibration, etc
+            SmartDashboard.putData(DashboardKeys.CMD_GYRO_CALIBRATE, new GyroCalibrationCommand(this));
 
             // TESTS
             SmartDashboard.putString("Misc. Tests (Teleop only)", "Start/cancel a command below (only one active at a time)");
