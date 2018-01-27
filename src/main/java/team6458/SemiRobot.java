@@ -59,6 +59,9 @@ public final class SemiRobot extends TimedRobot {
         // Use the DashboardKeys class for string IDs
         // All other continuously updated values are updated in robotPeriodic
         {
+            // One-time init so that they appear first
+            updateSmartDashboardPeriodic();
+
             // TESTS
             SmartDashboard.putString("Misc. Tests (Teleop only)", "Start/cancel a command below (only one active at a time)");
 
@@ -71,8 +74,8 @@ public final class SemiRobot extends TimedRobot {
 
             // Gearbox wearing-in
             final String KEY_WEARING_IN = "Time left on Gearbox Wearing-in";
-            final double WEARING_IN_TIME = 30 * 60;
-            SmartDashboard.putData("TEST (Gearboxes): Wear in gearboxes for 30 minutes",
+            final int WEARING_IN_TIME = 30 * 60;
+            SmartDashboard.putData("TEST (Gearboxes): Wear in gearboxes for " + (WEARING_IN_TIME / 60) + " minutes",
                     new TimedCommand("Gearbox Wearing-in", WEARING_IN_TIME) {
                         private long startTime = System.currentTimeMillis();
 
@@ -148,7 +151,7 @@ public final class SemiRobot extends TimedRobot {
         Scheduler.getInstance().run();
 
         // Update SmartDashboard
-        SmartDashboard.putNumber(DashboardKeys.GYRO_HEADING, getSensors().gyro.getAngle());
+        updateSmartDashboardPeriodic();
     }
 
     @Override
@@ -185,6 +188,13 @@ public final class SemiRobot extends TimedRobot {
     }
 
     // Private methods
+
+    /**
+     * Update certain values on the SmartDashboard.
+     */
+    private void updateSmartDashboardPeriodic() {
+        SmartDashboard.putNumber(DashboardKeys.GYRO_HEADING, getSensors().gyro.getAngle());
+    }
 
     /**
      * Internal method that updates the plate assignment from the Field Management System.
