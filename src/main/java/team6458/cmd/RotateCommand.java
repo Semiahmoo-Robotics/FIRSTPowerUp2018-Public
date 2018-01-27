@@ -18,18 +18,18 @@ public class RotateCommand extends RobotCommand {
     public static final double ANGLE_TOLERANCE = 5.0;
 
     public final double headingChange;
-    public final double speed;
+    public final double throttle;
 
     private double originalOrientation;
     private double targetOrientation;
 
-    public RotateCommand(SemiRobot robot, double headingChange, double speed) {
+    public RotateCommand(SemiRobot robot, double headingChange, double throttle) {
         super(robot);
         requires(robot.getDrivetrain());
         setTimeout(10.0);
 
         this.headingChange = headingChange;
-        this.speed = speed;
+        this.throttle = throttle;
     }
 
     public RotateCommand(SemiRobot robot, double headingChange) {
@@ -46,7 +46,8 @@ public class RotateCommand extends RobotCommand {
     @Override
     protected void execute() {
         super.execute();
-        robot.getDrivetrain().drive.curvatureDrive(0.0, Math.copySign(speed, targetOrientation - originalOrientation), true);
+        robot.getDrivetrain().drive.curvatureDrive(0.0, Math.copySign(throttle,
+                targetOrientation - originalOrientation), true);
     }
 
     @Override
