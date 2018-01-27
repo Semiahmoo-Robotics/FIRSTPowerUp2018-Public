@@ -8,7 +8,7 @@ import team6458.util.Utils;
  */
 public class RotateCommand extends RobotCommand {
 
-    public static final double DEFAULT_SPEED = 0.4;
+    public static final double DEFAULT_SPEED = 0.3;
     public static final double ANGLE_TOLERANCE = 5.0;
 
     public final double headingChange;
