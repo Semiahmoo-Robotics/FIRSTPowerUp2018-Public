@@ -8,7 +8,13 @@ import team6458.util.Utils;
  */
 public class RotateCommand extends RobotCommand {
 
+    /**
+     * The default throttle.
+     */
     public static final double DEFAULT_SPEED = 0.3;
+    /**
+     * The default angle tolerance in degrees at which the target angle and real angle have to match by.
+     */
     public static final double ANGLE_TOLERANCE = 5.0;
 
     public final double headingChange;
