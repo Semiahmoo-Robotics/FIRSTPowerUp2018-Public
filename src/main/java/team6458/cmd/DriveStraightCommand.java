@@ -16,21 +16,29 @@ public class DriveStraightCommand extends RobotCommand {
      */
     private static final double kP = 0.025;
 
+    /**
+     * The distance to travel. May be negative to go backwards.
+     */
     public final double distance;
-    public final double speed;
+    /**
+     * The throttle to go at, from 0.0 to 1.0.
+     */
+    public final double throttle;
 
     private double initialHeading;
 
-    public DriveStraightCommand(SemiRobot robot, double distance, double speed) {
+    public DriveStraightCommand(SemiRobot robot, double distance, double throttle) {
         super(robot);
         requires(robot.getDrivetrain());
-        this.speed = speed;
+
+        this.throttle = Math.abs(Math.abs(throttle) > 1.0 ? 1.0 : throttle);
         this.distance = distance;
     }
 
     @Override
     public synchronized void start() {
         super.start();
+
         initialHeading = robot.getSensors().gyro.getAngle();
     }
 
@@ -41,7 +49,7 @@ public class DriveStraightCommand extends RobotCommand {
         final double currentHeading = robot.getSensors().gyro.getAngle();
         final double angleDiff = currentHeading - initialHeading;
 
-        robot.getDrivetrain().drive.curvatureDrive(Math.copySign(speed, distance), -angleDiff * kP, false);
+        robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle, distance), -angleDiff * kP, false);
     }
 
     @Override
