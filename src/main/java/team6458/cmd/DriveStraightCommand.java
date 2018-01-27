@@ -66,7 +66,7 @@ public class DriveStraightCommand extends RobotCommand {
     @Override
     protected boolean isFinished() {
         // TODO average out the two encoders for distance
-        return false;
+        return true;
     }
 
     @Override
