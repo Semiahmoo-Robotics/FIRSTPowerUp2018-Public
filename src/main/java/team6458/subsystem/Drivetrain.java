@@ -1,8 +1,11 @@
 package team6458.subsystem;
 
+import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import team6458.SemiRobot;
+import team6458.sensor.EncoderPresets;
 import team6458.util.Ports;
 import team6458.util.Registrar;
 
@@ -24,5 +27,16 @@ public final class Drivetrain extends RobotSubsystem {
     @Override
     protected void initDefaultCommand() {
 
+    }
+
+    private Encoder createEncoder(EncoderPresets preset, DigitalSource channelA, DigitalSource channelB, boolean reverse) {
+        final Encoder e = new Encoder(channelA, channelB, reverse, preset.encodingType);
+
+        e.setDistancePerPulse(preset.distanceMPerPulse);
+        e.setSamplesToAverage(7);
+        e.setMaxPeriod(0.15); // 0.15 seconds
+        e.setMinRate(0.01); // 1 cm
+
+        return e;
     }
 }
