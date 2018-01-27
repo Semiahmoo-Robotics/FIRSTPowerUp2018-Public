@@ -27,6 +27,11 @@ public class DriveStraightCommand extends RobotCommand {
 
     private double initialHeading;
 
+    /**
+     * Constructor.
+     * @param distance Distance in metres, may be negative
+     * @param throttle Throttle between 0.0 and 1.0 (positive only)
+     */
     public DriveStraightCommand(SemiRobot robot, double distance, double throttle) {
         super(robot);
         requires(robot.getDrivetrain());
@@ -60,6 +65,7 @@ public class DriveStraightCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
+        // TODO average out the two encoders for distance
         return false;
     }
 
