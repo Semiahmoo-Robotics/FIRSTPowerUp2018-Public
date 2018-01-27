@@ -22,6 +22,7 @@ public final class GyroCalibrationCommand extends RobotCommand {
         super.start();
         LOGGER.log(Level.INFO, "Calibrating gyroscope...");
         robot.getSensors().gyro.calibrate();
+        robot.getSensors().gyro.reset();
         LOGGER.log(Level.INFO, "Gyroscope calibrated.");
     }
 
