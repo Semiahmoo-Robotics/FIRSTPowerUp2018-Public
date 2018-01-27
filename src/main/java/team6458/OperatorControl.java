@@ -28,7 +28,7 @@ public final class OperatorControl {
             if (lastOpControl) {
                 // No human is allowed to control the robot at this time, stop motors ONCE
 
-                robot.getDrivetrain().drive.arcadeDrive(0.0, 0.0);
+                robot.getDrivetrain().drive.stopMotor();
             }
 
             lastOpControl = false;

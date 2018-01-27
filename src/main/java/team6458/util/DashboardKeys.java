@@ -6,6 +6,7 @@ package team6458.util;
 public final class DashboardKeys {
 
     public static final String FMS_GAME_DATA = "Switch/Scale Positions";
+    public static final String GYRO_HEADING = "Gyro (deg)";
 
     /**
      * No instantiation.
