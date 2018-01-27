@@ -56,6 +56,6 @@ public class RotateCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        return Utils.isEqual(originalOrientation, targetOrientation, ANGLE_TOLERANCE);
+        return Utils.isEqual(robot.getSensors().gyro.getAngle(), targetOrientation, ANGLE_TOLERANCE);
     }
 }
