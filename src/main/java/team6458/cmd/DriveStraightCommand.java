@@ -9,11 +9,6 @@ import team6458.SemiRobot;
 public class DriveStraightCommand extends RobotCommand {
 
     /**
-     * The default speed to supply to the drive commands.
-     */
-    public static final double DEFAULT_SPEED = 0.3;
-
-    /**
      * A proportional constant used for gyroscopic correction. If this value is too high, the robot
      * may oscillate.
      * <p>
@@ -31,10 +26,6 @@ public class DriveStraightCommand extends RobotCommand {
         requires(robot.getDrivetrain());
         this.speed = speed;
         this.distance = distance;
-    }
-
-    public DriveStraightCommand(SemiRobot robot, double distance) {
-        this(robot, distance, DEFAULT_SPEED);
     }
 
     @Override
