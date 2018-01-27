@@ -13,11 +13,11 @@ public final class EncoderData {
      * <p>The gearbox ratio for the motors these CIMcoders are mounted on is 5.95:1.
      * (The motor spins 5.95 times for every 1 rotation of the wheels.)
      *
-     * <p>The wheels have a diameter of X cm, which is a circumference of Y cm.
-     * <b>Note that the values are in <i>metres</i>.</b>
+     * <p>The wheels have a diameter of 15.24 cm (6"), which is a circumference of ~47.878 cm.
+     * <b>Note that the values are in the instance are in <i>metres</i>.</b>
      */
     public static final EncoderData CIMCODER = new EncoderData(EncodingType.k2X, 20,
-            (Math.PI * 0.0) / 5.95);
+            (Math.PI * 0.1524) / 5.95);
 
     /**
      * The sample rate for the encoder.
@@ -43,4 +43,5 @@ public final class EncoderData {
 
         this.distanceMPerPulse = distanceMPerRevolution / pulsesPerRevolution;
     }
+
 }
