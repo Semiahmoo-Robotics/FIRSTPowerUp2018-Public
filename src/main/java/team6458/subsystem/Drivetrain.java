@@ -9,8 +9,6 @@ import team6458.sensor.EncoderPresets;
 import team6458.util.Ports;
 import team6458.util.Registrar;
 
-import java.util.stream.Stream;
-
 import static team6458.sensor.EncoderPresets.CIMCODER;
 import static team6458.util.Ports.DIO.*;
 
@@ -37,39 +35,44 @@ public final class Drivetrain extends RobotSubsystem {
     protected void initDefaultCommand() {
     }
 
-    /**
-     * @return A stream consisting of the encoder objects
-     */
-    public Stream<Encoder> streamEncoders() {
-        return Stream.of(leftEncoder, rightEncoder);
-    }
+//    /**
+//     * @return A stream consisting of the encoder objects
+//     */
+//    public Stream<Encoder> streamEncoders() {
+//        return Stream.of(leftEncoder, rightEncoder);
+//    }
 
     /**
      * Resets all encoders to zero.
      */
     public void resetEncoders() {
-        streamEncoders().forEach(Encoder::reset);
+//        streamEncoders().forEach(Encoder::reset);
+        leftEncoder.reset();
+        rightEncoder.reset();
     }
 
     /**
      * @return The average distance per second of the encoders in m/s
      */
     public double getAverageRate() {
-        return streamEncoders().mapToDouble(Encoder::getRate).average().orElse(0.0);
+//        return streamEncoders().mapToDouble(Encoder::getRate).average().orElse(0.0);
+        return (leftEncoder.getRate() + rightEncoder.getRate()) / 2.0;
     }
 
     /**
      * @return The average recorded distance of the encoders in metres
      */
     public double getAverageDistance() {
-        return streamEncoders().mapToDouble(Encoder::getDistance).average().orElse(0.0);
+//        return streamEncoders().mapToDouble(Encoder::getDistance).average().orElse(0.0);
+        return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2.0;
     }
 
     /**
      * @return True if any encoders are stopped, false if all are still moving
      */
     public boolean areEncodersStopped() {
-        return streamEncoders().anyMatch(Encoder::getStopped);
+//        return streamEncoders().anyMatch(Encoder::getStopped);
+        return leftEncoder.getStopped() || rightEncoder.getStopped();
     }
 
     private Encoder createEncoder(EncoderPresets preset, DigitalSource channelA, DigitalSource channelB, boolean reverse) {
