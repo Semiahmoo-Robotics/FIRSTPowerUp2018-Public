@@ -54,7 +54,8 @@ public class DriveStraightCommand extends RobotCommand {
         final double currentHeading = robot.getSensors().gyro.getAngle();
         final double angleDiff = currentHeading - initialHeading;
 
-        robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle, distance), -angleDiff * kP, false);
+        robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle, distance),
+                Math.copySign(angleDiff * kP, -distance), false);
     }
 
     @Override
