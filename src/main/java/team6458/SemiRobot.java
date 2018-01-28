@@ -2,6 +2,7 @@ package team6458;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,6 +17,8 @@ import team6458.util.exception.GetBeforeInitException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static team6458.util.DashboardKeys.*;
 
 /**
  * The main robot class.
@@ -63,11 +66,25 @@ public final class SemiRobot extends TimedRobot {
             // One-time init so that they appear first
             updateSmartDashboardPeriodic();
 
-            // Certain commands for calibration, etc
-            SmartDashboard.putData(DashboardKeys.CMD_GYRO_CALIBRATE, new GyroCalibrationCommand(this));
+            // Autonomous command selection
 
-            // TESTS
-            SmartDashboard.putString("Misc. Tests (Teleop only)", "Start/cancel a command below (only one active at a time)");
+            // Self-updating sendables, like the gyroscope and encoders
+            SmartDashboard.putData(GYROSCOPE, getSensors().gyro);
+            SmartDashboard.putData(LEFT_ENCODER, getDrivetrain().leftEncoder);
+            SmartDashboard.putData(RIGHT_ENCODER, getDrivetrain().rightEncoder);
+
+            // Commands
+            SmartDashboard.putData(CMD_GYRO_CALIBRATE, new GyroCalibrationCommand(this));
+            SmartDashboard.putData(CMD_RESET_ENCODERS, new InstantCommand() {
+                @Override
+                protected void execute() {
+                    super.execute();
+                    getDrivetrain().resetEncoders();
+                }
+            });
+
+            // TESTS -----------------------------------------------------------------------
+            SmartDashboard.putString("Debug Tests (Teleop only)", "Start/cancel a command below (only one active at a time)");
 
             // RotateCommand tests
             final int[] angles = {15, 45, 90, 180, 270, 360};
@@ -197,7 +214,6 @@ public final class SemiRobot extends TimedRobot {
      * Update certain values on the SmartDashboard.
      */
     private void updateSmartDashboardPeriodic() {
-        SmartDashboard.putNumber(DashboardKeys.GYRO_HEADING, getSensors().gyro.getAngle());
     }
 
     /**
