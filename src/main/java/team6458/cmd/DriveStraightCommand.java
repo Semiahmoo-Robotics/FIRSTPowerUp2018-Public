@@ -45,6 +45,7 @@ public class DriveStraightCommand extends RobotCommand {
         super.start();
 
         initialHeading = robot.getSensors().gyro.getAngle();
+        robot.getDrivetrain().resetEncoders();
     }
 
     @Override
@@ -66,8 +67,7 @@ public class DriveStraightCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        // TODO average out the two encoders for distance
-        return true;
+        return robot.getDrivetrain().getAverageDistance() >= distance;
     }
 
     @Override
