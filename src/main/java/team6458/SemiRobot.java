@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.TimedCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
@@ -18,7 +17,11 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static team6458.util.DashboardKeys.*;
+import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
+import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
+import static team6458.util.DashboardKeys.GYROSCOPE;
+import static team6458.util.DashboardKeys.LEFT_ENCODER;
+import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 
 /**
  * The main robot class.
@@ -92,47 +95,6 @@ public final class SemiRobot extends TimedRobot {
                 SmartDashboard.putData("TEST (Gyro): Turn +" + d + " deg (RIGHT)", new RotateCommand(this, d));
                 SmartDashboard.putData("TEST (Gyro): Turn -" + d + " deg (LEFT)", new RotateCommand(this, -d));
             });
-
-            // Gearbox wearing-in
-            final String KEY_WEARING_IN = "Time left on Gearbox Wearing-in";
-            final int WEARING_IN_TIME = 30 * 60;
-            SmartDashboard.putData("TEST (Gearboxes): Wear in gearboxes for " + (WEARING_IN_TIME / 60) + " minutes",
-                    new TimedCommand("Gearbox Wearing-in", WEARING_IN_TIME) {
-                        private long startTime = System.currentTimeMillis();
-
-                        {
-                            requires(getDrivetrain());
-                        }
-
-                        @Override
-                        public synchronized void start() {
-                            super.start();
-                            startTime = System.currentTimeMillis();
-                        }
-
-                        @Override
-                        protected void end() {
-                            super.end();
-                            getDrivetrain().drive.stopMotor();
-                            SmartDashboard.putString(KEY_WEARING_IN, "Command ended");
-                        }
-
-                        @Override
-                        protected void execute() {
-                            super.execute();
-                            getDrivetrain().drive.curvatureDrive(0.3, 0.0, true);
-                            double timeLeft = WEARING_IN_TIME - ((System.currentTimeMillis() - startTime) / 1000.0);
-                            SmartDashboard.putString(KEY_WEARING_IN,
-                                    String.format("%.2f", (timeLeft > 60.0 ? timeLeft / 60 : timeLeft)) + " " +
-                                            (timeLeft > 60.0 ? "min" : "sec") + " left");
-                        }
-
-                        @Override
-                        public synchronized boolean isInterruptible() {
-                            return true;
-                        }
-                    });
-            SmartDashboard.putString(KEY_WEARING_IN, "Not started yet");
         }
 
         LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
