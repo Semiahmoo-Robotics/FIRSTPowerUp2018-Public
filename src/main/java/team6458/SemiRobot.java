@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
 import team6458.subsystem.Drivetrain;
@@ -95,6 +96,13 @@ public final class SemiRobot extends TimedRobot {
                 SmartDashboard.putData("TEST (Gyro): Turn +" + d + " deg (RIGHT)", new RotateCommand(this, d));
                 SmartDashboard.putData("TEST (Gyro): Turn -" + d + " deg (LEFT)", new RotateCommand(this, -d));
             });
+
+            // Encoder tests
+            final double[] distances = {0.5, 1.0, 2.0, 2.5, 3.0};
+            for (double distance : distances) {
+                SmartDashboard.putData("TEST (Encoders): Drive " + distance + " m",
+                        new DriveStraightCommand(this, distance, 0.25));
+            }
         }
 
         LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
