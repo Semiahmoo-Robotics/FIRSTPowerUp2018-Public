@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 public final class OperatorControl {
 
     private final SemiRobot robot;
-    private final XboxController xboxController = new XboxController(0); // TODO dynamic port?
+    private final XboxController xboxController = new XboxController(0);
     private boolean lastOpControl;
 
     public OperatorControl(SemiRobot robot) {
