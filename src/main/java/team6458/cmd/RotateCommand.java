@@ -94,8 +94,7 @@ public class RotateCommand extends RobotCommand {
             return speedGradient.maxSpeed;
         } else {
             // Compute the throttle which should be in between min and max speed
-            double rangePercentage = (remainingAngle - speedGradient.rangeOffset) / (speedGradient.degreesRange +
-                    speedGradient.rangeOffset);
+            double rangePercentage = (remainingAngle - speedGradient.rangeOffset) / speedGradient.degreesRange;
             return speedGradient.minSpeed + (speedGradient.maxSpeed - speedGradient.minSpeed) * rangePercentage;
         }
     }
