@@ -11,7 +11,7 @@ public class RotateCommand extends RobotCommand {
     /**
      * The default throttle.
      */
-    public static final double DEFAULT_SPEED = 0.3;
+    public static final double DEFAULT_SPEED = 0.35;
     /**
      * The default angle tolerance in degrees at which the target angle and real angle have to match by.
      */
@@ -26,7 +26,7 @@ public class RotateCommand extends RobotCommand {
     public RotateCommand(SemiRobot robot, double headingChange, double throttle) {
         super(robot);
         requires(robot.getDrivetrain());
-        setTimeout(10.0);
+        setTimeout(5.0);
 
         this.headingChange = headingChange;
         this.throttle = throttle;
@@ -63,6 +63,6 @@ public class RotateCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        return Utils.isEqual(robot.getSensors().gyro.getAngle(), targetOrientation, ANGLE_TOLERANCE);
+        return Utils.isEqual(robot.getSensors().gyro.getAngle(), targetOrientation, ANGLE_TOLERANCE) || isTimedOut();
     }
 }
