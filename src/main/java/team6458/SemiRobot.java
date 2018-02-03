@@ -91,14 +91,14 @@ public final class SemiRobot extends TimedRobot {
             SmartDashboard.putString("Debug Tests (Teleop only)", "Start/cancel a command below (only one active at a time)");
 
             // RotateCommand tests
-            final int[] angles = {15, 45, 90, 180, 270, 360};
+            final int[] angles = {45, 90, 180, 360};
             Arrays.stream(angles).forEach(d -> {
                 SmartDashboard.putData("TEST (Gyro): Turn +" + d + " deg (RIGHT)", new RotateCommand(this, d));
                 SmartDashboard.putData("TEST (Gyro): Turn -" + d + " deg (LEFT)", new RotateCommand(this, -d));
             });
 
             // Encoder tests
-            final double[] distances = {0.5, 1.0, 2.0, 2.5, 3.0};
+            final double[] distances = {0.5, 1.0, 2.0, 3.0};
             for (double distance : distances) {
                 SmartDashboard.putData("TEST (Encoders): Drive " + distance + " m",
                         new DriveStraightCommand(this, distance, 0.25));
