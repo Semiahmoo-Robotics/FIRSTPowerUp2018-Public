@@ -4,7 +4,7 @@ import team6458.SemiRobot;
 import team6458.util.Utils;
 
 /**
- * A command that attempts to rotate the robot left or right in a given direction.
+ * A command that rotates the robot left or right to face a new given relative heading.
  */
 public class RotateCommand extends RobotCommand {
 
