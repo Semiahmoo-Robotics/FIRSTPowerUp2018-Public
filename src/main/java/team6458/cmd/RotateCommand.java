@@ -15,7 +15,7 @@ public class RotateCommand extends RobotCommand {
     /**
      * The default angle tolerance in degrees at which the target angle and real angle have to match by.
      */
-    public static final double ANGLE_TOLERANCE = 5.0;
+    public static final double ANGLE_TOLERANCE = 4.0;
 
     public final double headingChange;
     public final double throttle;
@@ -23,13 +23,19 @@ public class RotateCommand extends RobotCommand {
     private double originalOrientation;
     private double targetOrientation;
 
+    /**
+     * Constructor.
+     * @param robot The robot instance
+     * @param headingChange The amount to change the heading by, positive is clockwise
+     * @param throttle The throttle as a percentage, positive values only
+     */
     public RotateCommand(SemiRobot robot, double headingChange, double throttle) {
         super(robot);
         requires(robot.getDrivetrain());
         setTimeout(5.0);
 
         this.headingChange = headingChange;
-        this.throttle = throttle;
+        this.throttle =  Math.abs(Math.abs(throttle) > 1.0 ? 1.0 : throttle);
     }
 
     public RotateCommand(SemiRobot robot, double headingChange) {
@@ -61,8 +67,17 @@ public class RotateCommand extends RobotCommand {
         return true;
     }
 
+    /**
+     * @return True if the current heading has overshot the target, false otherwise
+     */
+    protected final boolean hasOvershot() {
+        double currentAngle = robot.getSensors().gyro.getAngle();
+        return (headingChange >= 0.0 ? currentAngle > targetOrientation : currentAngle < targetOrientation);
+    }
+
     @Override
     protected boolean isFinished() {
-        return Utils.isEqual(robot.getSensors().gyro.getAngle(), targetOrientation, ANGLE_TOLERANCE) || isTimedOut();
+        return Utils.isEqual(robot.getSensors().gyro.getAngle(),
+                targetOrientation, ANGLE_TOLERANCE) || hasOvershot() || isTimedOut();
     }
 }
