@@ -62,7 +62,7 @@ public class RotateCommand extends RobotCommand {
     @Override
     protected void end() {
         super.end();
-        robot.getDrivetrain().drive.curvatureDrive(0.0, 0.0, true);
+        robot.getDrivetrain().drive.stopMotor();
     }
 
     @Override
