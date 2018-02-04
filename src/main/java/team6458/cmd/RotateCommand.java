@@ -16,6 +16,8 @@ public class RotateCommand extends RobotCommand {
      * The default speed gradient to use.
      * <p>
      * Max of 0.45, min of 0.2, range of 20 deg starting at 10 deg.
+     *
+     * <p>Desmos curve: https://www.desmos.com/calculator/4fpdhdevdn
      */
     public static final SpeedGradient DEFAULT_GRADIENT = new SpeedGradient(0.45, 0.2, 20.0, 10.0);
 
