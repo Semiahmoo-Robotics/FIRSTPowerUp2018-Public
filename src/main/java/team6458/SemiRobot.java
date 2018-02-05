@@ -2,8 +2,10 @@ package team6458;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.GyroCalibrationCommand;
@@ -18,11 +20,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
-import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
-import static team6458.util.DashboardKeys.GYROSCOPE;
-import static team6458.util.DashboardKeys.LEFT_ENCODER;
-import static team6458.util.DashboardKeys.RIGHT_ENCODER;
+import static team6458.util.DashboardKeys.*;
 
 /**
  * The main robot class.
@@ -30,12 +28,11 @@ import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 public final class SemiRobot extends TimedRobot {
 
     private static final Logger LOGGER = Logger.getLogger(SemiRobot.class.getName());
-
+    // Debug
+    private final SendableChooser<Command> debugCommands = new SendableChooser<>();
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
-
     // Operator control
     private OperatorControl opControl;
-
     // Subsystems
     private Drivetrain drivetrain;
     private Sensors sensors;
@@ -88,21 +85,24 @@ public final class SemiRobot extends TimedRobot {
             });
 
             // TESTS -----------------------------------------------------------------------
-            SmartDashboard.putString("Debug Tests (Teleop only)", "Start/cancel a command below (only one active at a time)");
+            debugCommands.addDefault("None", new InstantCommand());
 
             // RotateCommand tests
             final int[] angles = {45, 90, 180, 360};
             Arrays.stream(angles).forEach(d -> {
-                SmartDashboard.putData("TEST (Gyro): Turn +" + d + " deg (RIGHT)", new RotateCommand(this, d));
-                SmartDashboard.putData("TEST (Gyro): Turn -" + d + " deg (LEFT)", new RotateCommand(this, -d));
+                debugCommands.addObject("Turn +" + d + " deg (RIGHT)", new RotateCommand(this, d));
+                debugCommands.addObject("Turn -" + d + " deg (LEFT)", new RotateCommand(this, -d));
             });
 
             // Encoder tests
             final double[] distances = {0.5, 1.0, 2.0, 3.0};
             for (double distance : distances) {
-                SmartDashboard.putData("TEST (Encoders): Drive " + distance + " m",
+                debugCommands.addObject("Drive " + distance + " m",
                         new DriveStraightCommand(this, distance, 0.25));
             }
+
+
+            SmartDashboard.putData("DEBUG Commands (Enabling Test Mode will run the command)", debugCommands);
         }
 
         LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
@@ -112,6 +112,7 @@ public final class SemiRobot extends TimedRobot {
     public void disabledInit() {
         // Disables any commands that may run
         Scheduler.getInstance().disable();
+        Scheduler.getInstance().removeAll();
     }
 
     @Override
@@ -130,6 +131,13 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void testInit() {
+        final Command cmd = debugCommands.getSelected();
+        Scheduler.getInstance().removeAll();
+        if (cmd != null) {
+            // Enables commands to be run
+            Scheduler.getInstance().enable();
+            cmd.start();
+        }
     }
 
     // ---------------------------------------------------------------------------
