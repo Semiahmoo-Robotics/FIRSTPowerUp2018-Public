@@ -39,7 +39,7 @@ public final class OperatorControl {
         final double stickY = -xboxController.getY(GenericHID.Hand.kLeft);
 
         final double magnitude = stickY;
-        final double curve = -stickX;
+        final double curve = stickX;
 
         // Drive the robot
         robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
