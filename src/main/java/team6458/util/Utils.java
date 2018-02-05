@@ -22,4 +22,15 @@ public final class Utils {
         return Math.abs(a - b) <= tolerance;
     }
 
+    /**
+     * Linearly interpolate (lerp) between two values.
+     * @param a The first value
+     * @param b The second value
+     * @param alpha The percentage to lerp by. 0.0 is fully a, 1.0 is fully b.
+     * @return The interpolated value
+     */
+    public static double lerp(double a, double b, double alpha) {
+        return a + (b - a) * alpha;
+    }
+
 }
