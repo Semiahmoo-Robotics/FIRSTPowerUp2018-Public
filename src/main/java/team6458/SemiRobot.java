@@ -68,6 +68,9 @@ public final class SemiRobot extends TimedRobot {
             updateSmartDashboardPeriodic();
 
             // Autonomous command selection
+            final SendableChooser<Command> autoChooser = new SendableChooser<>();
+
+            SmartDashboard.putData(CHOOSER_AUTONOMOUS, autoChooser);
 
             // Self-updating sendables, like the gyroscope and encoders
             SmartDashboard.putData(GYROSCOPE, getSensors().gyro);
@@ -101,8 +104,7 @@ public final class SemiRobot extends TimedRobot {
                         new DriveStraightCommand(this, distance, 0.25));
             }
 
-
-            SmartDashboard.putData("DEBUG Commands (Enabling Test Mode will run the command)", debugCommands);
+            SmartDashboard.putData("DEBUG (Enabling Test Mode will run sel. command)", debugCommands);
         }
 
         LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
