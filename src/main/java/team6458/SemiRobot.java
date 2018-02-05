@@ -88,7 +88,7 @@ public final class SemiRobot extends TimedRobot {
             debugCommands.addDefault("None", new InstantCommand());
 
             // RotateCommand tests
-            final int[] angles = {45, 90, 180, 360};
+            final int[] angles = {20, 45, 50, 90, 180, 360};
             Arrays.stream(angles).forEach(d -> {
                 debugCommands.addObject("Turn -" + d + " deg (LEFT)", new RotateCommand(this, -d));
                 debugCommands.addObject("Turn +" + d + " deg (RIGHT)", new RotateCommand(this, d));
