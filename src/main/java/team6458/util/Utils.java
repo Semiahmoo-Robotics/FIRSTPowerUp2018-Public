@@ -33,4 +33,15 @@ public final class Utils {
         return a + (b - a) * alpha;
     }
 
+    /**
+     * Clamp a value between a minimum and maximum value.
+     * @param value The value to clamp
+     * @param min The minimum value
+     * @param max The maximum value
+     * @return The clamped value between the minimum and maximum
+     */
+    public static double clamp(double value, double min, double max) {
+        return Math.min(max, Math.max(min, value));
+    }
+
 }

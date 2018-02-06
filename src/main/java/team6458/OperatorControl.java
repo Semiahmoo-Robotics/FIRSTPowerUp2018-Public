@@ -1,7 +1,8 @@
 package team6458;
 
-import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import team6458.util.Utils;
 
 /**
  * This is the human interface "subsystem", if you will. While not traditionally a proper subsystem,
@@ -63,8 +64,8 @@ public final class OperatorControl {
             return;
         }
 
-        final double stickX = xboxController.getX(GenericHID.Hand.kLeft); // positive is clockwise
-        final double stickY = -xboxController.getY(GenericHID.Hand.kLeft); // positive is forward
+        final double stickX = xboxController.getX(Hand.kLeft); // positive is clockwise
+        final double stickY = -xboxController.getY(Hand.kLeft); // positive is forward
         final double angle = robot.getSensors().gyro.getAngle();
         final boolean isHeadingLockHeld = xboxController.getXButton() || xboxController.getYButton();
         final boolean isRunHeld = xboxController.getBButton() || xboxController.getAButton();
@@ -80,6 +81,8 @@ public final class OperatorControl {
         // Initial magnitude and curve using the controller
         double magnitude = (isRunHeld ? stickX : (stickX * MAX_NOT_RUN_HELD));
         double curve = stickX;
+        double intakeThrottle = Utils.clamp(
+                (-xboxController.getTriggerAxis(Hand.kLeft) + xboxController.getTriggerAxis(Hand.kRight)), -1.0, 1.0);
 
         // Correct for angle drift
         if (isHeadingLocked) {
@@ -88,6 +91,8 @@ public final class OperatorControl {
 
         // Drive the robot
         robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
+
+        // TODO drive intake motors
 
         lastOpControl = true;
     }
