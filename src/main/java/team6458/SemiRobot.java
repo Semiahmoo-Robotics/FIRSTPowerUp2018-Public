@@ -19,15 +19,11 @@ import team6458.util.PlateAssignment;
 import team6458.util.exception.GetBeforeInitException;
 
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static team6458.util.DashboardKeys.CHOOSER_AUTONOMOUS;
-import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
-import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
-import static team6458.util.DashboardKeys.GYROSCOPE;
-import static team6458.util.DashboardKeys.LEFT_ENCODER;
-import static team6458.util.DashboardKeys.RIGHT_ENCODER;
+import static team6458.util.DashboardKeys.*;
 
 /**
  * The main robot class.
@@ -35,8 +31,10 @@ import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 public final class SemiRobot extends TimedRobot {
 
     private static final Logger LOGGER = Logger.getLogger(SemiRobot.class.getName());
-    // Debug
+    // SendableChoosers
     private final SendableChooser<Command> debugCommands = new SendableChooser<>();
+    private final SendableChooser<Supplier<Command>> autoChooser = new SendableChooser<>();
+    // Plate assignment
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
     // Operator control
     private OperatorControl opControl;
@@ -75,8 +73,7 @@ public final class SemiRobot extends TimedRobot {
             updateSmartDashboardPeriodic();
 
             // Autonomous command selection
-            final SendableChooser<Command> autoChooser = new SendableChooser<>();
-
+            // TODO put the three sides here
             SmartDashboard.putData(CHOOSER_AUTONOMOUS, autoChooser);
 
             // Self-updating sendables, like the gyroscope and encoders
@@ -146,6 +143,15 @@ public final class SemiRobot extends TimedRobot {
 
         // Enables commands to be run
         Scheduler.getInstance().enable();
+
+        // Choose autonomous program
+        final Supplier<Command> supplier = autoChooser.getSelected();
+        if (supplier == null) {
+            LOGGER.log(Level.WARNING, "Null auto command");
+        } else {
+            // TODO start cmd
+//            final Command cmd = supplier.get();
+        }
     }
 
     @Override
