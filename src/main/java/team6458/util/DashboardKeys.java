@@ -11,9 +11,6 @@ public final class DashboardKeys {
     public static final String RIGHT_ENCODER = "Right Encoder";
 
     public static final String CHOOSER_AUTONOMOUS = "Autonomous Command";
-    public static final String AUTO_LEFT = "Left Side";
-    public static final String AUTO_CENTRE = "Centred";
-    public static final String AUTO_RIGHT = "Right Side";
 
     public static final String CMD_RESET_ENCODERS = "Reset Encoders to Zero";
     public static final String CMD_GYRO_CALIBRATE = "Calibrate Gyroscope";
