@@ -1,6 +1,7 @@
 package team6458.cmd;
 
 import team6458.SemiRobot;
+import team6458.util.Utils;
 
 /**
  * A command that drives straight for X metres, using the encoders on the {@link team6458.subsystem.Drivetrain}
@@ -36,7 +37,7 @@ public class DriveStraightCommand extends RobotCommand {
         super(robot);
         requires(robot.getDrivetrain());
 
-        this.throttle = Math.abs(Math.abs(throttle) > 1.0 ? 1.0 : throttle);
+        this.throttle = Utils.clamp(Math.abs(throttle), 0.0, 1.0);
         this.distance = distance;
     }
 
