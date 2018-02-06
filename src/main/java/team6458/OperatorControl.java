@@ -2,6 +2,7 @@ package team6458;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import team6458.cmd.DriveStraightCommand;
 import team6458.util.Utils;
 
 /**
@@ -19,9 +20,10 @@ import team6458.util.Utils;
 public final class OperatorControl {
 
     /**
-     * The coefficient used for the heading lock function.
+     * The coefficient used for the heading lock function. For now, uses the same value for the drive straight command.
+     * @see DriveStraightCommand#GYRO_CORRECTION
      */
-    private static final double GYRO_KP = 0.025;
+    private static final double GYRO_KP = DriveStraightCommand.GYRO_CORRECTION;
     /**
      * The maximum absolute throttle value when run is not held.
      */

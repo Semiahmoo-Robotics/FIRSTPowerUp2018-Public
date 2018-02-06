@@ -14,7 +14,7 @@ public class DriveStraightCommand extends RobotCommand {
      * <p>
      * This value should be tweaked through trial and error for best results.
      */
-    private static final double kP = 0.025;
+    public static final double GYRO_CORRECTION = 0.025;
 
     /**
      * The distance to travel. May be negative to go backwards.
@@ -56,7 +56,7 @@ public class DriveStraightCommand extends RobotCommand {
         final double angleDiff = currentHeading - initialHeading;
 
         robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle, distance),
-                Math.copySign(angleDiff * kP, -distance), false);
+                Math.copySign(angleDiff * GYRO_CORRECTION, -distance), false);
     }
 
     @Override
