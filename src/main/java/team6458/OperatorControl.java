@@ -21,6 +21,10 @@ public final class OperatorControl {
      * The coefficient used for the heading lock function.
      */
     private static final double GYRO_KP = 0.025;
+    /**
+     * The maximum absolute throttle value when run is not held.
+     */
+    private static final double MAX_NOT_RUN_HELD = 0.75;
 
     private final SemiRobot robot;
     private final XboxController xboxController = new XboxController(0);
@@ -62,29 +66,30 @@ public final class OperatorControl {
         final double stickX = xboxController.getX(GenericHID.Hand.kLeft); // positive is clockwise
         final double stickY = -xboxController.getY(GenericHID.Hand.kLeft); // positive is forward
         final double angle = robot.getSensors().gyro.getAngle();
-        final boolean buttonHeadingLock = xboxController.getXButton() || xboxController.getYButton();
+        final boolean isHeadingLockHeld = xboxController.getXButton() || xboxController.getYButton();
+        final boolean isRunHeld = xboxController.getBButton() || xboxController.getAButton();
 
         // Check heading lock (X/Y)
-        if (buttonHeadingLock && !isHeadingLocked) {
+        if (isHeadingLockHeld && !isHeadingLocked) {
             isHeadingLocked = true;
             targetLockedHeading = angle;
-        } else if (!buttonHeadingLock && isHeadingLocked) {
+        } else if (!isHeadingLockHeld && isHeadingLocked) {
             isHeadingLocked = false;
         }
 
         // Initial magnitude and curve using the controller
-        double magnitude = stickY;
+        double magnitude = (isRunHeld ? stickX : (stickX * MAX_NOT_RUN_HELD));
         double curve = stickX;
 
         // Correct for angle drift
         if (isHeadingLocked) {
-            curve = Math.copySign(GYRO_KP * (angle - targetLockedHeading), -(magnitude == 0.0 ? 1 : magnitude));
+            curve = Math.copySign(GYRO_KP * (angle - targetLockedHeading), -magnitude);
         }
 
         // Drive the robot
         robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
 
-        lastOpControl = robot.isOperatorControl();
+        lastOpControl = true;
     }
 
 }
