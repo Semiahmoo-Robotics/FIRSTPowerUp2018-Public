@@ -104,6 +104,11 @@ public final class SemiRobot extends TimedRobot {
             // Encoder tests
             final double[] distances = {0.5, 1.0, 2.0, 3.0};
             for (double distance : distances) {
+                debugCommands.addObject("Drive +" + distance + " m",
+                        new DriveStraightCommand(this, distance, 0.35));
+
+                distance *= -1;
+
                 debugCommands.addObject("Drive " + distance + " m",
                         new DriveStraightCommand(this, distance, 0.35));
             }
@@ -149,7 +154,7 @@ public final class SemiRobot extends TimedRobot {
         if (supplier == null) {
             LOGGER.log(Level.WARNING, "Null auto command");
         } else {
-            // TODO start cmd
+            // TODO start autonomous cmd
 //            final Command cmd = supplier.get();
         }
     }
