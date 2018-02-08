@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team6458.cmd.AutoDeliverCommand;
+import team6458.cmd.AutoDeliverCommand.AllianceSide;
 import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
@@ -24,7 +26,12 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static team6458.util.DashboardKeys.*;
+import static team6458.util.DashboardKeys.CHOOSER_AUTONOMOUS;
+import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
+import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
+import static team6458.util.DashboardKeys.GYROSCOPE;
+import static team6458.util.DashboardKeys.LEFT_ENCODER;
+import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 
 /**
  * The main robot class.
@@ -46,7 +53,8 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void robotInit() {
-        LOGGER.log(Level.INFO, "\n==========================\nStarting initialization...\n==========================\n");
+        LOGGER.log(Level.INFO,
+                "\n==========================\nStarting initialization...\n==========================\n");
 
         // Disables any commands that may run
         Scheduler.getInstance().disable();
@@ -76,8 +84,38 @@ public final class SemiRobot extends TimedRobot {
             updateSmartDashboardPeriodic();
 
             // Autonomous command selection
-            // TODO put the three sides here
-            SmartDashboard.putData(CHOOSER_AUTONOMOUS, autoChooser);
+            {
+                final SpeedGradient gradient = RotateCommand.DEFAULT_GRADIENT;
+                final double throttle = 0.5;
+
+                autoChooser.addDefault("Centre position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
+                                getPlateAssignment().getNearest(), true,
+                                throttle, gradient));
+                autoChooser.addObject("Left position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                                getPlateAssignment().getNearest(), true,
+                                throttle, gradient));
+                autoChooser.addObject("Right position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                                getPlateAssignment().getNearest(), true,
+                                throttle, gradient));
+
+                autoChooser.addDefault("NO DELIVERY - Centre position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
+                                getPlateAssignment().getNearest(), false,
+                                throttle, gradient));
+                autoChooser.addObject("NO DELIVERY - Left position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                                getPlateAssignment().getNearest(), false,
+                                throttle, gradient));
+                autoChooser.addObject("NO DELIVERY - Right position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                                getPlateAssignment().getNearest(), false,
+                                throttle, gradient));
+
+                SmartDashboard.putData(CHOOSER_AUTONOMOUS, autoChooser);
+            }
 
             // Self-updating sendables, like the gyroscope and encoders
             SmartDashboard.putData(GYROSCOPE, getSensors().gyro);
@@ -107,10 +145,8 @@ public final class SemiRobot extends TimedRobot {
             // Encoder tests
             final double[] distances = {0.5, 1.0, 2.0, 3.0};
             for (double distance : distances) {
-                debugCommands.addObject("Drive +" + distance + " m",
-                        new DriveStraightCommand(this, distance, 0.35));
-                debugCommands.addObject("Drive -" + distance + " m",
-                        new DriveStraightCommand(this, -distance, 0.35));
+                debugCommands.addObject("Drive +" + distance + " m", new DriveStraightCommand(this, distance, 0.35));
+                debugCommands.addObject("Drive -" + distance + " m", new DriveStraightCommand(this, -distance, 0.35));
             }
 
             debugCommands.addObject("Taunt", new CommandGroup() {
@@ -133,7 +169,8 @@ public final class SemiRobot extends TimedRobot {
             SmartDashboard.putData("DEBUG (Enabling Test Mode will run sel. command)", debugCommands);
         }
 
-        LOGGER.log(Level.INFO, "\n==============================\nRobot initialization complete.\n==============================\n");
+        LOGGER.log(Level.INFO,
+                "\n==============================\nRobot initialization complete.\n==============================\n");
     }
 
     @Override
@@ -258,7 +295,8 @@ public final class SemiRobot extends TimedRobot {
             }
         } else {
             if (!plateAssignment.toString().equals(fmsData)) {
-                LOGGER.log(Level.INFO, String.format("Plate assignment set to %s, was %s", fmsData, plateAssignment.toString()));
+                LOGGER.log(Level.INFO,
+                        String.format("Plate assignment set to %s, was %s", fmsData, plateAssignment.toString()));
                 plateAssignment = PlateAssignment.fromString(fmsData);
             }
         }
