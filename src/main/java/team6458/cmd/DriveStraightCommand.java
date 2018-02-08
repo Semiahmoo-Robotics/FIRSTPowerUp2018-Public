@@ -15,7 +15,7 @@ public class DriveStraightCommand extends RobotCommand {
      * <p>
      * This value should be tweaked through trial and error for best results.
      */
-    public static final double GYRO_CORRECTION = 0.025;
+    public static final double GYRO_CORRECTION = 0.0275;
 
     /**
      * The distance to travel. May be negative to go backwards.
