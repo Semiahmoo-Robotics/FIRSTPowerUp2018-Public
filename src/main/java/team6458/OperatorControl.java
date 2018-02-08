@@ -88,7 +88,7 @@ public final class OperatorControl {
 
         // Correct for angle drift
         if (isHeadingLocked) {
-            curve = Math.copySign(GYRO_KP * (angle - targetLockedHeading), -magnitude);
+            curve = -GYRO_KP * (angle - targetLockedHeading);
         }
 
         // Drive the robot

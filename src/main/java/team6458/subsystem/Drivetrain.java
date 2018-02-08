@@ -19,7 +19,7 @@ import static team6458.util.Ports.DIO.*;
 public final class Drivetrain extends RobotSubsystem {
 
     public final Encoder leftEncoder = createEncoder(CIMCODER,
-            Registrar.digitalInput(LEFT_ENCODER_CHANNEL_A), Registrar.digitalInput(LEFT_ENCODER_CHANNEL_B), false);
+            Registrar.digitalInput(LEFT_ENCODER_CHANNEL_A), Registrar.digitalInput(LEFT_ENCODER_CHANNEL_B), true);
     public final Encoder rightEncoder = createEncoder(CIMCODER,
             Registrar.digitalInput(RIGHT_ENCODER_CHANNEL_A), Registrar.digitalInput(RIGHT_ENCODER_CHANNEL_B), false);
 
