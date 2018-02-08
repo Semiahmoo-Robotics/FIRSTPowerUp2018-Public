@@ -67,7 +67,7 @@ public class DriveStraightCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        return robot.getDrivetrain().getAverageDistance() >= distance;
+        return distance >= 0 ? robot.getDrivetrain().getAverageDistance() >= distance : robot.getDrivetrain().getAverageDistance() <= distance;
     }
 
     @Override
