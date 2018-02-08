@@ -18,8 +18,8 @@ public final class GyroCalibrationCommand extends RobotCommand {
     }
 
     @Override
-    public synchronized void start() {
-        super.start();
+    protected void execute() {
+        super.execute();
         LOGGER.log(Level.INFO, "Calibrating gyroscope...");
         robot.getSensors().gyro.calibrate();
         robot.getSensors().gyro.reset();

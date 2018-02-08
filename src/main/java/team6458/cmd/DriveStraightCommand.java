@@ -42,9 +42,8 @@ public class DriveStraightCommand extends RobotCommand {
     }
 
     @Override
-    public synchronized void start() {
-        super.start();
-
+    protected void initialize() {
+        super.initialize();
         initialHeading = robot.getSensors().gyro.getAngle();
         robot.getDrivetrain().resetEncoders();
     }

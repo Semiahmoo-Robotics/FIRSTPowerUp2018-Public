@@ -48,10 +48,9 @@ public class RotateCommand extends RobotCommand {
     }
 
     @Override
-    public synchronized void start() {
-        super.start();
+    protected void initialize() {
+        super.initialize();
         originalOrientation = robot.getSensors().gyro.getAngle();
-        System.out.println(originalOrientation);
         targetOrientation = originalOrientation + headingChange;
     }
 
@@ -66,7 +65,6 @@ public class RotateCommand extends RobotCommand {
     protected void end() {
         super.end();
         robot.getDrivetrain().drive.stopMotor();
-        System.out.println("End rotate");
     }
 
     @Override
@@ -78,9 +76,8 @@ public class RotateCommand extends RobotCommand {
      * @return True if the current heading has overshot the target, false otherwise
      */
     public final boolean hasOvershot() {
-        return false;
-//        double currentAngle = robot.getSensors().gyro.getAngle();
-//        return (headingChange >= 0.0 ? currentAngle > targetOrientation : currentAngle < targetOrientation);
+        double currentAngle = robot.getSensors().gyro.getAngle();
+        return (headingChange >= 0.0 ? currentAngle > targetOrientation + ANGLE_TOLERANCE : currentAngle < targetOrientation - ANGLE_TOLERANCE);
     }
 
     /**
@@ -106,10 +103,6 @@ public class RotateCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        if ( Utils.isEqual(robot.getSensors().gyro.getAngle(),
-                targetOrientation, ANGLE_TOLERANCE)) {
-            System.out.println("Angles match: " + robot.getSensors().gyro.getAngle() + ", " + targetOrientation);
-        }
         return Utils.isEqual(robot.getSensors().gyro.getAngle(),
                 targetOrientation, ANGLE_TOLERANCE) || hasOvershot() || isTimedOut();
     }
