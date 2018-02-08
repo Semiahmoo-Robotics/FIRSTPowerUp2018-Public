@@ -101,7 +101,7 @@ public final class SemiRobot extends TimedRobot {
                                 getPlateAssignment().getNearest(), true,
                                 throttle, gradient));
 
-                autoChooser.addDefault("NO DELIVERY - Centre position",
+                autoChooser.addObject("NO DELIVERY - Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
                                 getPlateAssignment().getNearest(), false,
                                 throttle, gradient));
