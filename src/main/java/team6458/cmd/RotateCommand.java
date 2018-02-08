@@ -51,6 +51,7 @@ public class RotateCommand extends RobotCommand {
     public synchronized void start() {
         super.start();
         originalOrientation = robot.getSensors().gyro.getAngle();
+        System.out.println(originalOrientation);
         targetOrientation = originalOrientation + headingChange;
     }
 
@@ -105,6 +106,10 @@ public class RotateCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
+        if ( Utils.isEqual(robot.getSensors().gyro.getAngle(),
+                targetOrientation, ANGLE_TOLERANCE)) {
+            System.out.println("Angles match: " + robot.getSensors().gyro.getAngle() + ", " + targetOrientation);
+        }
         return Utils.isEqual(robot.getSensors().gyro.getAngle(),
                 targetOrientation, ANGLE_TOLERANCE) || hasOvershot() || isTimedOut();
     }
