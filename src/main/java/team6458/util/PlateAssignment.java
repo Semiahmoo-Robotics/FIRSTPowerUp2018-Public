@@ -100,7 +100,7 @@ public final class PlateAssignment {
     /**
      * A simple enum that either indicates left, right, or an invalid position.
      */
-    enum PlateSide {
+    public enum PlateSide {
         LEFT('L'), RIGHT('R'), INVALID('?');
 
         public final char letter;

@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * The launcher/intake system. Holds motor controllers.
  */
-public final class Launcher extends RobotSubsystem {
+public final class Intake extends RobotSubsystem {
 
     // TODO invert a certain side
     public final Spark intakeLeft = Registrar.spark(PWM.LEFT_INTAKE);
@@ -24,7 +24,7 @@ public final class Launcher extends RobotSubsystem {
      *
      * @param robot The robot instance
      */
-    public Launcher(SemiRobot robot) {
+    public Intake(SemiRobot robot) {
         super(robot, "Launcher");
     }
 
