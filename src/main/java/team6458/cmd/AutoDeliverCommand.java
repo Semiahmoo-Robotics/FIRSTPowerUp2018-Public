@@ -17,6 +17,15 @@ public class AutoDeliverCommand extends CommandGroup {
     }
 
     /**
+     * The speed at which to run the intakes at.
+     */
+    public static final double INTAKE_SPEED = 0.75;
+    /**
+     * The time in seconds to run the intake for.
+     */
+    public static final double INTAKE_TIME = 2.0;
+
+    /**
      * Constructor. All parameters should not be null.
      *
      * @param robot          The robot instance
@@ -58,7 +67,8 @@ public class AutoDeliverCommand extends CommandGroup {
         }
 
         if (canDeliver) {
-            // TODO run intale motors
+            // TODO calibrate
+            addSequential(new IntakeMotorCommand(robot, INTAKE_SPEED, INTAKE_TIME));
         }
     }
 }
