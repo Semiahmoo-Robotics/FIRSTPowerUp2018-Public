@@ -106,11 +106,8 @@ public final class SemiRobot extends TimedRobot {
             for (double distance : distances) {
                 debugCommands.addObject("Drive +" + distance + " m",
                         new DriveStraightCommand(this, distance, 0.35));
-
-                distance *= -1;
-
-                debugCommands.addObject("Drive " + distance + " m",
-                        new DriveStraightCommand(this, distance, 0.35));
+                debugCommands.addObject("Drive -" + distance + " m",
+                        new DriveStraightCommand(this, -distance, 0.35));
             }
 
             debugCommands.addObject("Taunt", new CommandGroup() {
