@@ -105,12 +105,12 @@ public final class SemiRobot extends TimedRobot {
             final double[] distances = {0.5, 1.0, 2.0, 3.0};
             for (double distance : distances) {
                 debugCommands.addObject("Drive " + distance + " m",
-                        new DriveStraightCommand(this, distance, 0.25));
+                        new DriveStraightCommand(this, distance, 0.35));
             }
 
             debugCommands.addObject("Taunt", new CommandGroup() {
                 {
-                    final SpeedGradient grad = new SpeedGradient(0.4, 0.4, 0, 0);
+                    final SpeedGradient grad = new SpeedGradient(0.375, 0.375, 0, 0);
                     final double waggle = 20.0;
                     addSequential(new RotateCommand(SemiRobot.this, 180.0, grad));
                     addSequential(new RotateCommand(SemiRobot.this, -waggle, grad));
