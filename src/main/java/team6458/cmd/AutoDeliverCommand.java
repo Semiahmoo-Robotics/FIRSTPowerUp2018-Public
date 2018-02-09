@@ -59,11 +59,11 @@ public class AutoDeliverCommand extends CommandGroup {
             }
         } else {
             final int sideSign = plateSide == PlateSide.LEFT ? -1 : 1; // -1 if left plate, 1 for right
-            addSequential(new DriveStraightCommand(robot, 1.1, throttle));
+            addSequential(new DriveStraightCommand(robot, 0.94, throttle));
             addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, 1.6, throttle));
+            addSequential(new DriveStraightCommand(robot, 1.67, throttle));
             addSequential(new RotateCommand(robot, -sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, 1.1, throttle));
+            addSequential(new DriveStraightCommand(robot, 0.94, throttle));
         }
 
         if (canDeliver) {
