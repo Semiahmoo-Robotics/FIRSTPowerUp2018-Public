@@ -13,8 +13,8 @@ import team6458.util.Utils;
  * <li>LS - Drive</li>
  * <li>Hold A/B - Run</li>
  * <li>Hold X/Y - Lock heading</li>
- * <li>RT - Intake cube</li>
- * <li>LT - Expel cube</li>
+ * <li>RT - Intake/launch cube (towards back)</li>
+ * <li>LT - Reverse cube (towards front)</li>
  * </ul>
  */
 public final class OperatorControl {
