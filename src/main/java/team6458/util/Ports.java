@@ -12,10 +12,10 @@ public final class Ports {
         public static final int LEFT_MOTOR = 0;
         public static final int RIGHT_MOTOR = 1;
 
-        public static final int LEFT_INTAKE = 2;
-        public static final int RIGHT_INTAKE = 3;
-        public static final int LEFT_RAMP = 4;
-        public static final int RIGHT_RAMP = 5;
+        public static final int LEFT_INTAKE = 4;
+        public static final int RIGHT_INTAKE = 5;
+        public static final int LEFT_RAMP = 6;
+        public static final int RIGHT_RAMP = 7;
 
         private PWM() {
         }
