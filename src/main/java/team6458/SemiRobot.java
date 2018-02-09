@@ -186,14 +186,15 @@ public final class SemiRobot extends TimedRobot {
 
         // Enables commands to be run
         Scheduler.getInstance().enable();
+        Scheduler.getInstance().removeAll();
 
         // Choose autonomous program
         final Supplier<Command> supplier = autoChooser.getSelected();
         if (supplier == null) {
             LOGGER.log(Level.WARNING, "Null auto command");
         } else {
-            // TODO start autonomous cmd
-//            final Command cmd = supplier.get();
+            final Command cmd = supplier.get();
+            cmd.start();
         }
     }
 
