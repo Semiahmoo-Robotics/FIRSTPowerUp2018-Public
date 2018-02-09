@@ -59,7 +59,7 @@ public final class OperatorControl {
                 // No human is allowed to control the robot at this time, stop motors and cancel anything necessary
 
                 robot.getDrivetrain().drive.stopMotor();
-                robot.getIntake().stopMotors();
+                robot.getRamp().stopMotors();
                 isHeadingLocked = false;
             }
 
@@ -96,7 +96,7 @@ public final class OperatorControl {
         robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
 
         // Drive intake/launcher motors
-        robot.getIntake().setSpeed(intakeThrottle);
+        robot.getRamp().setSpeed(intakeThrottle);
 
         lastOpControl = true;
     }

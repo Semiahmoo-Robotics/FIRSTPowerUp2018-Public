@@ -15,7 +15,7 @@ import team6458.cmd.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
 import team6458.cmd.RotateCommand.SpeedGradient;
 import team6458.subsystem.Drivetrain;
-import team6458.subsystem.Intake;
+import team6458.subsystem.Ramp;
 import team6458.subsystem.Sensors;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
@@ -49,7 +49,7 @@ public final class SemiRobot extends TimedRobot {
     // Subsystems
     private Drivetrain drivetrain;
     private Sensors sensors;
-    private Intake intake;
+    private Ramp ramp;
 
     @Override
     public void robotInit() {
@@ -64,7 +64,7 @@ public final class SemiRobot extends TimedRobot {
         // Start up the subsystems
         {
             drivetrain = new Drivetrain(this);
-            intake = new Intake(this);
+            ramp = new Ramp(this);
             // Sensors should be last: a gyroscope will be calibrated for around 5 seconds blocking the thread
             sensors = new Sensors(this);
         }
@@ -261,11 +261,11 @@ public final class SemiRobot extends TimedRobot {
         return sensors;
     }
 
-    public Intake getIntake() {
-        if (intake == null) {
+    public Ramp getRamp() {
+        if (ramp == null) {
             throw new GetBeforeInitException("intake");
         }
-        return intake;
+        return ramp;
     }
 
     // Private methods

@@ -1,10 +1,11 @@
 package team6458.cmd;
 
 import team6458.SemiRobot;
+import team6458.subsystem.Ramp;
 import team6458.util.Utils;
 
 /**
- * Run the {@link team6458.subsystem.Intake} motors for a given time.
+ * Run the {@link Ramp} motors for a given time.
  */
 public class IntakeMotorCommand extends RobotCommand {
 
@@ -18,7 +19,7 @@ public class IntakeMotorCommand extends RobotCommand {
      */
     protected IntakeMotorCommand(SemiRobot robot, double speed, double timeout) {
         super(robot);
-        requires(robot.getIntake());
+        requires(robot.getRamp());
         setTimeout(timeout);
         setInterruptible(true);
         this.speed = Utils.clamp(speed, -1.0, 1.0);
@@ -27,13 +28,13 @@ public class IntakeMotorCommand extends RobotCommand {
     @Override
     protected void execute() {
         super.execute();
-        robot.getIntake().setSpeed(speed);
+        robot.getRamp().setSpeed(speed);
     }
 
     @Override
     protected void end() {
         super.end();
-        robot.getIntake().stopMotors();
+        robot.getRamp().stopMotors();
     }
 
     @Override
