@@ -179,7 +179,7 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void disabledInit() {
-        // Disables any commands that may run
+        // Disables any trailing cmds
         Scheduler.getInstance().removeAll();
     }
 
