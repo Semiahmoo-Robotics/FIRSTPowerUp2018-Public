@@ -83,7 +83,7 @@ public final class OperatorControl {
 
         // Initial magnitude and curve using the controller
         double magnitude = (isRunHeld ? stickY : (stickY * MAX_NOT_RUN_HELD));
-        double curve = stickX;
+        double curve = (isRunHeld ? stickX : (stickX * MAX_NOT_RUN_HELD));
         double intakeThrottle = Utils.clamp(
                 (-xboxController.getTriggerAxis(Hand.kLeft) + xboxController.getTriggerAxis(Hand.kRight)), -1.0, 1.0);
 
