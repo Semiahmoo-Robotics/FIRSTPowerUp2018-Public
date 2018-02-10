@@ -40,10 +40,17 @@ public final class Ramp extends RobotSubsystem {
         return Stream.of(intakeLeft, intakeRight, rampLeft, rampRight);
     }
 
+    /**
+     * Stop all ramp motors.
+     */
     public void stopMotors() {
         stream().forEach(Spark::stopMotor);
     }
 
+    /**
+     * Set all ramp motors to this speed.
+     * @param speed The throttle between -1.0 and 1.0 (will be clamped)
+     */
     public void setSpeed(double speed) {
         final double clamped = Utils.clamp(speed, -1.0, 1.0);
         stream().forEach(it -> it.setSpeed(clamped));
