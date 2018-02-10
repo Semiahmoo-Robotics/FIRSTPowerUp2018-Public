@@ -7,7 +7,7 @@ import team6458.util.Utils;
 /**
  * Run the {@link Ramp} motors for a given time.
  */
-public class IntakeMotorCommand extends RobotCommand {
+public class RampMotorCommand extends RobotCommand {
 
     private final double speed;
 
@@ -17,7 +17,7 @@ public class IntakeMotorCommand extends RobotCommand {
      * @param speed The speed to run the motors at, between -1.0 and 1.0
      * @param timeout The positive time to run the motors for before stopping
      */
-    protected IntakeMotorCommand(SemiRobot robot, double speed, double timeout) {
+    protected RampMotorCommand(SemiRobot robot, double speed, double timeout) {
         super(robot);
         requires(robot.getRamp());
         setTimeout(timeout);

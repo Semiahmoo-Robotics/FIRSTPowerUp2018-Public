@@ -67,8 +67,7 @@ public class AutoDeliverCommand extends CommandGroup {
         }
 
         if (canDeliver) {
-            // TODO calibrate
-            addSequential(new IntakeMotorCommand(robot, INTAKE_SPEED, INTAKE_TIME));
+            addSequential(new RampMotorCommand(robot, INTAKE_SPEED, INTAKE_TIME));
         }
     }
 }

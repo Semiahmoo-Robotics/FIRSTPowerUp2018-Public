@@ -13,7 +13,6 @@ import java.util.stream.Stream;
  */
 public final class Ramp extends RobotSubsystem {
 
-    // TODO invert a certain side
     public final Spark intakeLeft = Registrar.spark(PWM.LEFT_INTAKE);
     public final Spark intakeRight = Registrar.spark(PWM.RIGHT_INTAKE);
     public final Spark rampLeft = Registrar.spark(PWM.LEFT_RAMP);
@@ -26,6 +25,10 @@ public final class Ramp extends RobotSubsystem {
      */
     public Ramp(SemiRobot robot) {
         super(robot, "Launcher");
+
+        // Invert a certain side
+        intakeLeft.setInverted(true);
+        rampLeft.setInverted(true);
     }
 
     @Override
