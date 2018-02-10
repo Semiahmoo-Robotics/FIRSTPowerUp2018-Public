@@ -261,7 +261,7 @@ public final class SemiRobot extends TimedRobot {
 
     public Ramp getRamp() {
         if (ramp == null) {
-            throw new GetBeforeInitException("intake");
+            throw new GetBeforeInitException("ramp");
         }
         return ramp;
     }
