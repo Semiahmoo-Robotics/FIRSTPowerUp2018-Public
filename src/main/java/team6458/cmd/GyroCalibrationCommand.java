@@ -15,6 +15,7 @@ public final class GyroCalibrationCommand extends RobotCommand {
     public GyroCalibrationCommand(SemiRobot robot) {
         super(robot);
         setTimeout(6.0);
+        setRunWhenDisabled(true);
     }
 
     @Override

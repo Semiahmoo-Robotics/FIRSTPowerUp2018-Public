@@ -56,8 +56,7 @@ public final class SemiRobot extends TimedRobot {
         LOGGER.log(Level.INFO,
                 "\n==========================\nStarting initialization...\n==========================\n");
 
-        // Disables any commands that may run
-        Scheduler.getInstance().disable();
+        Scheduler.getInstance().enable();
 
         opControl = new OperatorControl(this);
 
@@ -125,6 +124,11 @@ public final class SemiRobot extends TimedRobot {
             // Commands
             SmartDashboard.putData(CMD_GYRO_CALIBRATE, new GyroCalibrationCommand(this));
             SmartDashboard.putData(CMD_RESET_ENCODERS, new InstantCommand() {
+
+                {
+                    setRunWhenDisabled(true);
+                }
+
                 @Override
                 protected void execute() {
                     super.execute();
@@ -176,7 +180,6 @@ public final class SemiRobot extends TimedRobot {
     @Override
     public void disabledInit() {
         // Disables any commands that may run
-        Scheduler.getInstance().disable();
         Scheduler.getInstance().removeAll();
     }
 
@@ -185,7 +188,6 @@ public final class SemiRobot extends TimedRobot {
         updatePlateAssignmentFromFMS();
 
         // Enables commands to be run
-        Scheduler.getInstance().enable();
         Scheduler.getInstance().removeAll();
 
         // Choose autonomous program
@@ -200,8 +202,6 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        // Enables commands to be run
-        Scheduler.getInstance().enable();
     }
 
     @Override
@@ -209,8 +209,6 @@ public final class SemiRobot extends TimedRobot {
         final Command cmd = debugCommands.getSelected();
         Scheduler.getInstance().removeAll();
         if (cmd != null) {
-            // Enables commands to be run
-            Scheduler.getInstance().enable();
             cmd.start();
         }
     }
