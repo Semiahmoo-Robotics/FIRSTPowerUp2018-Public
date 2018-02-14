@@ -30,6 +30,7 @@ import static team6458.util.DashboardKeys.CHOOSER_AUTONOMOUS;
 import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
 import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
 import static team6458.util.DashboardKeys.GYROSCOPE;
+import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
 import static team6458.util.DashboardKeys.LEFT_ENCODER;
 import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 
@@ -81,6 +82,8 @@ public final class SemiRobot extends TimedRobot {
         {
             // One-time init so that they appear first
             updateSmartDashboardPeriodic();
+
+            SmartDashboard.putNumber(INTAKE_THROTTLE, 0.0);
 
             // Autonomous command selection
             {

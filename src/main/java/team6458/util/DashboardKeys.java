@@ -9,6 +9,7 @@ public final class DashboardKeys {
     public static final String GYROSCOPE = "Gyroscope";
     public static final String LEFT_ENCODER = "Left Encoder";
     public static final String RIGHT_ENCODER = "Right Encoder";
+    public static final String INTAKE_THROTTLE = "Intake Throttle";
 
     public static final String CHOOSER_AUTONOMOUS = "Autonomous Command";
 

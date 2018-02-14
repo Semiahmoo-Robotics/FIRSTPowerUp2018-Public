@@ -55,6 +55,6 @@ public final class Ramp extends RobotSubsystem {
      */
     public void setSpeed(double speed) {
         final double clamped = Utils.clamp(speed, -1.0, 1.0);
-        stream().forEach(it -> it.setSpeed(clamped));
+        stream().forEach(it -> it.set(clamped));
     }
 }

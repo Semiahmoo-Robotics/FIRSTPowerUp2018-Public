@@ -2,8 +2,11 @@ package team6458;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.DriveStraightCommand;
 import team6458.util.Utils;
+
+import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
 
 /**
  * This is the human interface "subsystem", if you will. While not traditionally a proper subsystem,
@@ -97,6 +100,7 @@ public final class OperatorControl {
 
         // Drive intake/launcher motors
         robot.getRamp().setSpeed(intakeThrottle);
+        SmartDashboard.putNumber(INTAKE_THROTTLE, intakeThrottle);
 
         lastOpControl = true;
     }
