@@ -13,8 +13,8 @@ import java.util.stream.Stream;
  */
 public final class Ramp extends RobotSubsystem {
 
-    public final Spark intakeLeft = Registrar.spark(PWM.LEFT_INTAKE);
-    public final Spark intakeRight = Registrar.spark(PWM.RIGHT_INTAKE);
+    //    public final Spark intakeLeft = Registrar.spark(PWM.LEFT_INTAKE);
+//    public final Spark intakeRight = Registrar.spark(PWM.RIGHT_INTAKE);
     public final Spark rampLeft = Registrar.spark(PWM.LEFT_RAMP);
     public final Spark rampRight = Registrar.spark(PWM.RIGHT_RAMP);
 
@@ -27,7 +27,7 @@ public final class Ramp extends RobotSubsystem {
         super(robot, "Launcher");
 
         // Invert a certain side
-        intakeLeft.setInverted(true);
+//        intakeLeft.setInverted(true);
         rampLeft.setInverted(true);
     }
 
@@ -37,7 +37,8 @@ public final class Ramp extends RobotSubsystem {
     }
 
     public Stream<Spark> stream() {
-        return Stream.of(intakeLeft, intakeRight, rampLeft, rampRight);
+//        return Stream.of(intakeLeft, intakeRight, rampLeft, rampRight);
+        return Stream.of(rampLeft, rampRight);
     }
 
     /**
@@ -49,6 +50,7 @@ public final class Ramp extends RobotSubsystem {
 
     /**
      * Set all ramp motors to this speed.
+     *
      * @param speed The throttle between -1.0 and 1.0 (will be clamped)
      */
     public void setSpeed(double speed) {
