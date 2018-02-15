@@ -158,7 +158,7 @@ public final class SemiRobot extends TimedRobot {
 
             debugCommands.addObject("Taunt", new CommandGroup() {
                 {
-                    final double speed = 0.3;
+                    final double speed = 0.4;
                     final SpeedGradient grad = new SpeedGradient(speed, speed, 0, 0);
                     final double waggle = 20.0;
                     addSequential(new RotateCommand(SemiRobot.this, 180.0, grad));
@@ -210,6 +210,7 @@ public final class SemiRobot extends TimedRobot {
     @Override
     public void testInit() {
         final Command cmd = debugCommands.getSelected();
+        Scheduler.getInstance().enable();
         Scheduler.getInstance().removeAll();
         if (cmd != null) {
             cmd.start();
