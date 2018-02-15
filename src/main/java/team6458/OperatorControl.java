@@ -66,6 +66,8 @@ public final class OperatorControl {
                 isHeadingLocked = false;
             }
 
+            SmartDashboard.putNumber(INTAKE_THROTTLE, 0.0);
+
             lastOpControl = false;
             return;
         }
