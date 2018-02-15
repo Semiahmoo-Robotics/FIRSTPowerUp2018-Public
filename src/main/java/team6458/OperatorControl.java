@@ -59,7 +59,7 @@ public final class OperatorControl {
      * unintentionally.
      */
     public void periodicUpdate() {
-        if (!robot.isOperatorControl()) {
+        if (!robot.isOperatorControl() || robot.isDisabled()) {
             if (lastOpControl) {
                 // No human is allowed to control the robot at this time, stop motors and cancel anything necessary
 
