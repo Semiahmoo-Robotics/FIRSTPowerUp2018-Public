@@ -9,7 +9,7 @@ import team6458.util.Utils;
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
 
 /**
- * This is the human interface "subsystem", if you will. While not traditionally a proper subsystem,
+ * This is the human interface controller. While not traditionally a proper subsystem,
  * it acts similarly, holding controllers and other data related to the human controlling the robot.
  *
  * <ul>
