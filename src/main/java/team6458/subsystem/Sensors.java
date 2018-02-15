@@ -2,7 +2,11 @@ package team6458.subsystem;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.SemiRobot;
+import team6458.sensor.AnalogRangefinder;
+import team6458.util.Allocator;
+import team6458.util.Ports;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,11 +21,14 @@ public final class Sensors extends RobotSubsystem {
 
     public final BuiltInAccelerometer accelerometer;
     public final ADXRS450_Gyro gyro;
+    public final AnalogRangefinder rangefinder;
 
     public Sensors(SemiRobot robot) {
         super(robot, "Sensors");
 
         accelerometer = new BuiltInAccelerometer();
+        rangefinder = new AnalogRangefinder(Allocator.analogInput(Ports.Analog.RANGEFINDER), AnalogRangefinder.DEFAULT_SCALING_FACTOR * 2.5);
+        SmartDashboard.putData(rangefinder);
         LOGGER.log(Level.INFO, "Calibrating ADXRS250 gyroscope, expect a block");
         gyro = new ADXRS450_Gyro();
         LOGGER.log(Level.INFO, "Gyroscope calibrated.");

@@ -7,6 +7,7 @@ import team6458.cmd.DriveStraightCommand;
 import team6458.util.Utils;
 
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
+import static team6458.util.DashboardKeys.PROXIMITY_RUMBLE;
 
 /**
  * This is the human interface controller. While not traditionally a proper subsystem,
@@ -103,6 +104,10 @@ public final class OperatorControl {
         // Drive intake/launcher motors
         robot.getRamp().setSpeed(intakeThrottle);
         SmartDashboard.putNumber(INTAKE_THROTTLE, intakeThrottle);
+
+        if (SmartDashboard.getBoolean(PROXIMITY_RUMBLE, false)) {
+
+        }
 
         lastOpControl = true;
     }

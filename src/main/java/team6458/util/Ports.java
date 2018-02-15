@@ -30,4 +30,12 @@ public final class Ports {
         private DIO() {
         }
     }
+
+    public static final class Analog {
+
+        public static final int RANGEFINDER = 0;
+
+        private Analog() {
+        }
+    }
 }

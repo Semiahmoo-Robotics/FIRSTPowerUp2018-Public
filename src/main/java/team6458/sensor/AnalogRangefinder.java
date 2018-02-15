@@ -1,6 +1,8 @@
 package team6458.sensor;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 /**
  * A class ported over from 2017.
@@ -8,7 +10,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
  * Using an {@link edu.wpi.first.wpilibj.AnalogInput}, this class outputs distance based on an ultrasonic rangefinder
  * such as the <a href=https://www.maxbotix.com/Ultrasonic_Sensors/MB1010.htm>MB1010 LV-MaxSonar-EZ1</a>.
  */
-public class AnalogRangefinder {
+public class AnalogRangefinder implements Sendable {
 
     public static final double DEFAULT_SCALING_FACTOR = 5.0 / 512.0;
     private final AnalogInput analog;
@@ -28,6 +30,7 @@ public class AnalogRangefinder {
 
     /**
      * Get the distance in the units provided.
+     *
      * @param units The units to use
      * @return The value in the units provided
      */
@@ -37,11 +40,40 @@ public class AnalogRangefinder {
 
     /**
      * Get the distance in the units provided as the string {@code "# in/cm"} (in/cm depending on units).
+     *
      * @param units The units to use
      * @return The value in the units provided, with the units appended
      */
     public String getStringDistance(Units units) {
         return getDistance(units) + " " + units.unitName;
+    }
+
+    @Override
+    public String getName() {
+        return "AnalogRangefinder";
+    }
+
+    @Override
+    public void setName(String name) {
+
+    }
+
+    @Override
+    public String getSubsystem() {
+        return null;
+    }
+
+    @Override
+    public void setSubsystem(String subsystem) {
+
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.setSmartDashboardType("AnalogRangefinder");
+        builder.addDoubleProperty("Voltage", analog::getAverageVoltage, null);
+        builder.addDoubleProperty("Distance (in)", () -> getDistance(Units.INCHES), null);
+        builder.addDoubleProperty("Distance (cm)", () -> getDistance(Units.CM), null);
     }
 
     enum Units {

@@ -1,5 +1,6 @@
 package team6458.util;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
 
@@ -15,6 +16,7 @@ public final class Allocator {
 
     private static final Registrar<Spark> SPARK_REGISTRAR = new Registrar<>(Spark::new);
     private static final Registrar<DigitalInput> DIGITAL_INPUT_REGISTRAR = new Registrar<>(DigitalInput::new);
+    private static final Registrar<AnalogInput> ANALOG_INPUT_REGISTRAR = new Registrar<>(AnalogInput::new);
 
     /**
      * Gets or creates a Spark instance.
@@ -34,6 +36,16 @@ public final class Allocator {
      */
     public static DigitalInput digitalInput(int port) {
         return DIGITAL_INPUT_REGISTRAR.getOrCreate(port);
+    }
+
+    /**
+     * Gets or creates a AnalogInput instance.
+     *
+     * @param port The analog port to use
+     * @return A new or reused instance
+     */
+    public static AnalogInput analogInput(int port) {
+        return ANALOG_INPUT_REGISTRAR.getOrCreate(port);
     }
 
     private static class Registrar<T> {

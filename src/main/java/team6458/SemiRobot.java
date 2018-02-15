@@ -77,6 +77,8 @@ public final class SemiRobot extends TimedRobot {
             // One-time init so that they appear first
             updateSmartDashboardPeriodic();
 
+            SmartDashboard.putBoolean(PROXIMITY_RUMBLE, false);
+
             // Autonomous command selection
             {
                 final SpeedGradient gradient = RotateCommand.DEFAULT_GRADIENT;
