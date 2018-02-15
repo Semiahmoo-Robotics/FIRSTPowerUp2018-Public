@@ -1,15 +1,12 @@
 package team6458;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.DriveStraightCommand;
-import team6458.sensor.AnalogRangefinder;
 import team6458.util.Utils;
 
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
-import static team6458.util.DashboardKeys.PROXIMITY_RUMBLE;
 
 /**
  * This is the human interface controller. While not traditionally a proper subsystem,
@@ -110,15 +107,15 @@ public final class OperatorControl {
         robot.getRamp().setSpeed(intakeThrottle);
         SmartDashboard.putNumber(INTAKE_THROTTLE, intakeThrottle);
 
-        if (SmartDashboard.getBoolean(PROXIMITY_RUMBLE, false)) {
-            double distance =
-                    1 - (Utils.clamp(robot.getSensors().rangefinder.getDistance(AnalogRangefinder.Units.INCHES), 10.0,
-                            26.0) - 10.0) / 16;
-
-            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, distance * 0.6);
-        } else {
-            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
-        }
+//        if (SmartDashboard.getBoolean(PROXIMITY_RUMBLE, false)) {
+//            double distance =
+//                    1 - (Utils.clamp(robot.getSensors().rangefinder.getDistance(AnalogRangefinder.Units.INCHES), 10.0,
+//                            26.0) - 10.0) / 16;
+//
+//            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, distance * 0.6);
+//        } else {
+//            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+//        }
 
         lastOpControl = true;
     }
