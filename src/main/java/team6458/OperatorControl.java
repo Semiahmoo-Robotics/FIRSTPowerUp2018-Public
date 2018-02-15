@@ -112,10 +112,10 @@ public final class OperatorControl {
 
         if (SmartDashboard.getBoolean(PROXIMITY_RUMBLE, false)) {
             double distance =
-                    1 - (Utils.clamp(robot.getSensors().rangefinder.getDistance(AnalogRangefinder.Units.INCHES), 6.0,
-                            18.0) - 6.0) / 12;
+                    1 - (Utils.clamp(robot.getSensors().rangefinder.getDistance(AnalogRangefinder.Units.INCHES), 10.0,
+                            26.0) - 10.0) / 16;
 
-            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, distance * 0.45);
+            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, distance * 0.6);
         } else {
             xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
         }
