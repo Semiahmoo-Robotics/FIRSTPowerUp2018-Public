@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import team6458.SemiRobot;
 import team6458.sensor.EncoderPresets;
+import team6458.util.Allocator;
 import team6458.util.Ports;
-import team6458.util.Registrar;
 
 import static team6458.sensor.EncoderPresets.CIMCODER;
 import static team6458.util.Ports.DIO.*;
@@ -19,12 +19,12 @@ import static team6458.util.Ports.DIO.*;
 public final class Drivetrain extends RobotSubsystem {
 
     public final Encoder leftEncoder = createEncoder(CIMCODER,
-            Registrar.digitalInput(LEFT_ENCODER_CHANNEL_A), Registrar.digitalInput(LEFT_ENCODER_CHANNEL_B), true);
+            Allocator.digitalInput(LEFT_ENCODER_CHANNEL_A), Allocator.digitalInput(LEFT_ENCODER_CHANNEL_B), true);
     public final Encoder rightEncoder = createEncoder(CIMCODER,
-            Registrar.digitalInput(RIGHT_ENCODER_CHANNEL_A), Registrar.digitalInput(RIGHT_ENCODER_CHANNEL_B), false);
+            Allocator.digitalInput(RIGHT_ENCODER_CHANNEL_A), Allocator.digitalInput(RIGHT_ENCODER_CHANNEL_B), false);
 
-    private final Spark leftMotor = Registrar.spark(Ports.PWM.LEFT_MOTOR);
-    private final Spark rightMotor = Registrar.spark(Ports.PWM.RIGHT_MOTOR);
+    private final Spark leftMotor = Allocator.spark(Ports.PWM.LEFT_MOTOR);
+    private final Spark rightMotor = Allocator.spark(Ports.PWM.RIGHT_MOTOR);
     public final DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
 
     public Drivetrain(SemiRobot robot) {

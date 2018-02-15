@@ -2,8 +2,8 @@ package team6458.subsystem;
 
 import edu.wpi.first.wpilibj.Spark;
 import team6458.SemiRobot;
+import team6458.util.Allocator;
 import team6458.util.Ports.PWM;
-import team6458.util.Registrar;
 import team6458.util.Utils;
 
 import java.util.stream.Stream;
@@ -13,10 +13,10 @@ import java.util.stream.Stream;
  */
 public final class Ramp extends RobotSubsystem {
 
-    //    public final Spark intakeLeft = Registrar.spark(PWM.LEFT_INTAKE);
-//    public final Spark intakeRight = Registrar.spark(PWM.RIGHT_INTAKE);
-    public final Spark rampLeft = Registrar.spark(PWM.LEFT_RAMP);
-    public final Spark rampRight = Registrar.spark(PWM.RIGHT_RAMP);
+    //    public final Spark intakeLeft = Allocator.spark(PWM.LEFT_INTAKE);
+//    public final Spark intakeRight = Allocator.spark(PWM.RIGHT_INTAKE);
+    public final Spark rampLeft = Allocator.spark(PWM.LEFT_RAMP);
+    public final Spark rampRight = Allocator.spark(PWM.RIGHT_RAMP);
 
     /**
      * The main constructor.
