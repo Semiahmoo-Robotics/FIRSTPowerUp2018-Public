@@ -76,7 +76,7 @@ public class AnalogRangefinder implements Sendable {
         builder.addDoubleProperty("Distance (cm)", () -> getDistance(Units.CM), null);
     }
 
-    enum Units {
+    public enum Units {
         INCHES(1.0, "in"), CM(2.54, "cm");
 
         public final double inchMult;

@@ -27,7 +27,7 @@ public final class Sensors extends RobotSubsystem {
         super(robot, "Sensors");
 
         accelerometer = new BuiltInAccelerometer();
-        rangefinder = new AnalogRangefinder(Allocator.analogInput(Ports.Analog.RANGEFINDER), AnalogRangefinder.DEFAULT_SCALING_FACTOR * 2.5);
+        rangefinder = new AnalogRangefinder(Allocator.analogInput(Ports.Analog.RANGEFINDER), AnalogRangefinder.DEFAULT_SCALING_FACTOR * 2.75);
         SmartDashboard.putData(rangefinder);
         LOGGER.log(Level.INFO, "Calibrating ADXRS250 gyroscope, expect a block");
         gyro = new ADXRS450_Gyro();

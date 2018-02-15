@@ -1,9 +1,11 @@
 package team6458;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.DriveStraightCommand;
+import team6458.sensor.AnalogRangefinder;
 import team6458.util.Utils;
 
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
@@ -12,7 +14,7 @@ import static team6458.util.DashboardKeys.PROXIMITY_RUMBLE;
 /**
  * This is the human interface controller. While not traditionally a proper subsystem,
  * it acts similarly, holding controllers and other data related to the human controlling the robot.
- *
+ * <p>
  * <ul>
  * <li>LS - Drive</li>
  * <li>Hold A/B - Run</li>
@@ -25,6 +27,7 @@ public final class OperatorControl {
 
     /**
      * The coefficient used for the heading lock function. For now, uses the same value for the drive straight command.
+     *
      * @see DriveStraightCommand#GYRO_CORRECTION
      */
     private static final double GYRO_KP = DriveStraightCommand.GYRO_CORRECTION;
@@ -54,8 +57,9 @@ public final class OperatorControl {
 
     /**
      * Call periodically to have the operator control take effect.
-     *
-     * In non-op control mode, this will ensure that any human interfaces such as controllers do not respond unintentionally.
+     * <p>
+     * In non-op control mode, this will ensure that any human interfaces such as controllers do not respond
+     * unintentionally.
      */
     public void periodicUpdate() {
         if (!robot.isOperatorControl()) {
@@ -90,8 +94,9 @@ public final class OperatorControl {
         // Initial magnitude and curve using the controller
         double magnitude = (isRunHeld ? stickY : (stickY * MAX_NOT_RUN_HELD));
         double curve = (isRunHeld ? stickX : (stickX * MAX_NOT_RUN_HELD));
-        double intakeThrottle = Utils.clamp(
-                (-xboxController.getTriggerAxis(Hand.kLeft) + xboxController.getTriggerAxis(Hand.kRight)), -1.0, 1.0);
+        double intakeThrottle = Utils
+                .clamp((-xboxController.getTriggerAxis(Hand.kLeft) + xboxController.getTriggerAxis(Hand.kRight)), -1.0,
+                        1.0);
 
         // Correct for angle drift
         if (isHeadingLocked) {
@@ -106,7 +111,13 @@ public final class OperatorControl {
         SmartDashboard.putNumber(INTAKE_THROTTLE, intakeThrottle);
 
         if (SmartDashboard.getBoolean(PROXIMITY_RUMBLE, false)) {
+            double distance =
+                    1 - (Utils.clamp(robot.getSensors().rangefinder.getDistance(AnalogRangefinder.Units.INCHES), 6.0,
+                            18.0) - 6.0) / 12;
 
+            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, distance * 0.45);
+        } else {
+            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
         }
 
         lastOpControl = true;
