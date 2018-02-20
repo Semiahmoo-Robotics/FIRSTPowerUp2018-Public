@@ -45,25 +45,25 @@ public class AutoDeliverCommand extends CommandGroup {
 
         if (allianceSide == AllianceSide.CENTRE) {
             if (plateSide == PlateSide.LEFT) {
-                addSequential(new DriveStraightCommand(robot, 0.6, throttle));
+                addSequential(new DriveStraightCommand(robot, -0.6, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, 2.8, throttle));
+                addSequential(new DriveStraightCommand(robot, -2.8, throttle));
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, 0.6, throttle));
+                addSequential(new DriveStraightCommand(robot, -0.6, throttle));
             } else {
-                addSequential(new DriveStraightCommand(robot, 1.3, throttle));
+                addSequential(new DriveStraightCommand(robot, -1.3, throttle));
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, 0.8, throttle));
+                addSequential(new DriveStraightCommand(robot, -0.8, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, 1.3, throttle));
+                addSequential(new DriveStraightCommand(robot, -1.3, throttle));
             }
         } else {
-            final int sideSign = plateSide == PlateSide.LEFT ? -1 : 1; // -1 if left plate, 1 for right
-            addSequential(new DriveStraightCommand(robot, 0.94, throttle));
-            addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, 1.67, throttle));
+            final int sideSign = allianceSide == AllianceSide.LEFT ? -1 : 1; // -1 if left plate, 1 for right
+            addSequential(new DriveStraightCommand(robot, -0.84, throttle));
             addSequential(new RotateCommand(robot, -sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, 0.94, throttle));
+            addSequential(new DriveStraightCommand(robot, -1.8, throttle));
+            addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
+            addSequential(new DriveStraightCommand(robot, -0.84, throttle));
         }
 
         if (canDeliver) {

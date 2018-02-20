@@ -93,7 +93,7 @@ public final class SemiRobot extends TimedRobot {
                                 getPlateAssignment().getNearest(), true,
                                 throttle, gradient));
                 autoChooser.addObject("Right position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                        () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
                                 getPlateAssignment().getNearest(), true,
                                 throttle, gradient));
 
@@ -106,7 +106,7 @@ public final class SemiRobot extends TimedRobot {
                                 getPlateAssignment().getNearest(), false,
                                 throttle, gradient));
                 autoChooser.addObject("NO DELIVERY - Right position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                        () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
                                 getPlateAssignment().getNearest(), false,
                                 throttle, gradient));
 
