@@ -13,8 +13,8 @@ import java.util.stream.Stream;
  */
 public final class Ramp extends RobotSubsystem {
 
-    //    public final Spark intakeLeft = Allocator.spark(PWM.LEFT_INTAKE);
-//    public final Spark intakeRight = Allocator.spark(PWM.RIGHT_INTAKE);
+    public final Spark intakeLeft = Allocator.spark(PWM.LEFT_INTAKE);
+    public final Spark intakeRight = Allocator.spark(PWM.RIGHT_INTAKE);
     public final Spark rampLeft = Allocator.spark(PWM.LEFT_RAMP);
     public final Spark rampRight = Allocator.spark(PWM.RIGHT_RAMP);
 
@@ -26,8 +26,7 @@ public final class Ramp extends RobotSubsystem {
     public Ramp(SemiRobot robot) {
         super(robot, "Launcher");
 
-        // Invert a certain side
-//        intakeLeft.setInverted(true);
+        intakeRight.setInverted(true);
         rampLeft.setInverted(true);
     }
 
@@ -37,8 +36,8 @@ public final class Ramp extends RobotSubsystem {
     }
 
     public Stream<Spark> stream() {
-//        return Stream.of(intakeLeft, intakeRight, rampLeft, rampRight);
-        return Stream.of(rampLeft, rampRight);
+        return Stream.of(intakeLeft, intakeRight, rampLeft, rampRight);
+//        return Stream.of(rampLeft, rampRight);
     }
 
     /**
