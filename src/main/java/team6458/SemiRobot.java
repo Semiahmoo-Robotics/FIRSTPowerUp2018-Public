@@ -193,6 +193,7 @@ public final class SemiRobot extends TimedRobot {
             LOGGER.log(Level.WARNING, "Null auto command");
         } else {
             final Command cmd = supplier.get();
+            LOGGER.log(Level.INFO, "Running auto command: " + cmd.getName());
             cmd.start();
         }
     }

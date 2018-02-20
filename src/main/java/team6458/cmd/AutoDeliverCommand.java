@@ -35,9 +35,10 @@ public class AutoDeliverCommand extends CommandGroup {
      * @param throttle       The throttle to drive at
      * @param rotateGradient The speed gradient to use while rotating
      */
-    public AutoDeliverCommand(final SemiRobot robot, final AllianceSide allianceSide, final PlateSide plateSide,
-                              final boolean shouldDeliver, final double throttle, final SpeedGradient rotateGradient) {
-        super();
+    public AutoDeliverCommand(final SemiRobot robot, final AllianceSide allianceSide,
+                              final PlateSide plateSide, final boolean shouldDeliver, final double throttle,
+                              final SpeedGradient rotateGradient) {
+        super(allianceSide.toString() + ", deliver: " + shouldDeliver);
 
         final boolean canDeliver = shouldDeliver &&
                 !((allianceSide == AllianceSide.LEFT && plateSide == PlateSide.RIGHT) ||
