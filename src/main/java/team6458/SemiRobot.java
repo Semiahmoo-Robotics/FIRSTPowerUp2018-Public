@@ -3,7 +3,6 @@ package team6458;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -26,7 +25,13 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static team6458.util.DashboardKeys.*;
+import static team6458.util.DashboardKeys.CHOOSER_AUTONOMOUS;
+import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
+import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
+import static team6458.util.DashboardKeys.GYROSCOPE;
+import static team6458.util.DashboardKeys.LEFT_ENCODER;
+import static team6458.util.DashboardKeys.PROXIMITY_RUMBLE;
+import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 
 /**
  * The main robot class.
@@ -149,23 +154,6 @@ public final class SemiRobot extends TimedRobot {
                 debugCommands.addObject("Drive +" + distance + " m", new DriveStraightCommand(this, distance, 0.35));
                 debugCommands.addObject("Drive -" + distance + " m", new DriveStraightCommand(this, -distance, 0.35));
             }
-
-            debugCommands.addObject("Taunt", new CommandGroup() {
-                {
-                    final double speed = 0.4;
-                    final SpeedGradient grad = new SpeedGradient(speed, speed, 0, 0);
-                    final double waggle = 20.0;
-                    addSequential(new RotateCommand(SemiRobot.this, 180.0, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, -waggle, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, waggle * 2, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, -waggle * 2, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, waggle * 2, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, -waggle * 2, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, waggle * 2, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, -waggle * 2, grad));
-                    addSequential(new RotateCommand(SemiRobot.this, waggle + 180.0, grad));
-                }
-            });
 
             SmartDashboard.putData("DEBUG (Enabling Test Mode will run sel. command)", debugCommands);
         }
