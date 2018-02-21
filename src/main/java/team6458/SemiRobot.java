@@ -30,7 +30,6 @@ import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
 import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
 import static team6458.util.DashboardKeys.GYROSCOPE;
 import static team6458.util.DashboardKeys.LEFT_ENCODER;
-import static team6458.util.DashboardKeys.PROXIMITY_RUMBLE;
 import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 
 /**
@@ -68,21 +67,12 @@ public final class SemiRobot extends TimedRobot {
             sensors = new Sensors(this);
         }
 
-        // Setup the default camera and log the result (successful or not)
-//        if (CameraSetup.setupDefaultCamera()) {
-//            LOGGER.log(Level.INFO, "Default camera started");
-//        } else {
-//            LOGGER.log(Level.WARNING, "Failed to start default camera!");
-//        }
-
         // Write one-time values to the SmartDashboard/Shuffleboard so they can be displayed as widgets
         // Use the DashboardKeys class for string IDs
         // All other continuously updated values are updated in robotPeriodic
         {
             // One-time init so that they appear first
             updateSmartDashboardPeriodic();
-
-            SmartDashboard.putBoolean(PROXIMITY_RUMBLE, false);
 
             // Autonomous command selection
             {

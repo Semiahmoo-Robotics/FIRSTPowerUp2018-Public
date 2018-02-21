@@ -107,16 +107,6 @@ public final class OperatorControl {
         robot.getRamp().setSpeed(intakeThrottle);
         SmartDashboard.putNumber(INTAKE_THROTTLE, intakeThrottle);
 
-//        if (SmartDashboard.getBoolean(PROXIMITY_RUMBLE, false)) {
-//            double distance =
-//                    1 - (Utils.clamp(robot.getSensors().rangefinder.getDistance(AnalogRangefinder.Units.INCHES), 10.0,
-//                            26.0) - 10.0) / 16;
-//
-//            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, distance * 0.6);
-//        } else {
-//            xboxController.setRumble(GenericHID.RumbleType.kRightRumble, 0);
-//        }
-
         lastOpControl = true;
     }
 
