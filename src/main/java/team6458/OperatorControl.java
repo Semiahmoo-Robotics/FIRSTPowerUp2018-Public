@@ -29,9 +29,13 @@ public final class OperatorControl {
      */
     private static final double GYRO_KP = DriveStraightCommand.GYRO_CORRECTION;
     /**
-     * The maximum absolute throttle value when run is not held.
+     * The maximum absolute throttle value when the run button is not held.
      */
-    private static final double MAX_NOT_RUN_HELD = 0.75;
+    private static final double MAX_NOT_RUNNING_THROTTLE = 0.75;
+    /**
+     * The maximum absolute curve value when the run button is not held.
+     */
+    private static final double MAX_NOT_RUNNING_CURVE = 0.85;
 
     private final SemiRobot robot;
     private final XboxController xboxController = new XboxController(0);
@@ -89,8 +93,8 @@ public final class OperatorControl {
         }
 
         // Initial magnitude and curve using the controller
-        double magnitude = (isRunHeld ? stickY : (stickY * MAX_NOT_RUN_HELD));
-        double curve = (isRunHeld ? stickX : (stickX * MAX_NOT_RUN_HELD));
+        double magnitude = (isRunHeld ? stickY : (stickY * MAX_NOT_RUNNING_THROTTLE));
+        double curve = (isRunHeld ? stickX : (stickX * MAX_NOT_RUNNING_CURVE));
         double intakeThrottle = Utils
                 .clamp((-xboxController.getTriggerAxis(Hand.kLeft) + xboxController.getTriggerAxis(Hand.kRight)), -1.0,
                         1.0);
