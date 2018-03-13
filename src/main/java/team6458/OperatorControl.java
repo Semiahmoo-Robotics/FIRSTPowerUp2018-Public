@@ -7,6 +7,7 @@ import team6458.cmd.DriveStraightCommand;
 import team6458.util.Utils;
 
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
+import static team6458.util.DashboardKeys.TANK_CONTROLS;
 
 /**
  * This is the human interface controller. While not traditionally a proper subsystem,
@@ -105,7 +106,14 @@ public final class OperatorControl {
         }
 
         // Drive the robot
-        robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
+        if (!SmartDashboard.getBoolean(TANK_CONTROLS, false)) {
+            // Arcade drive
+            robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
+        } else {
+            final double rightStick = -xboxController.getY(Hand.kRight);
+            robot.getDrivetrain().drive
+                    .tankDrive(magnitude, (isRunHeld ? rightStick : (rightStick * MAX_NOT_RUNNING_THROTTLE)));
+        }
 
         // Drive intake/launcher motors
         robot.getRamp().setSpeed(intakeThrottle);
