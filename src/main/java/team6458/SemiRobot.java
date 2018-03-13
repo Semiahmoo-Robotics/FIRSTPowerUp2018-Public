@@ -31,6 +31,7 @@ import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
 import static team6458.util.DashboardKeys.GYROSCOPE;
 import static team6458.util.DashboardKeys.LEFT_ENCODER;
 import static team6458.util.DashboardKeys.RIGHT_ENCODER;
+import static team6458.util.DashboardKeys.SQUARE_INPUTS;
 import static team6458.util.DashboardKeys.TANK_CONTROLS;
 
 /**
@@ -76,6 +77,7 @@ public final class SemiRobot extends TimedRobot {
             updateSmartDashboardPeriodic();
 
             SmartDashboard.putBoolean(TANK_CONTROLS, SmartDashboard.getBoolean(TANK_CONTROLS, false));
+            SmartDashboard.putBoolean(SQUARE_INPUTS, SmartDashboard.getBoolean(SQUARE_INPUTS, true));
 
             // Autonomous command selection
             {

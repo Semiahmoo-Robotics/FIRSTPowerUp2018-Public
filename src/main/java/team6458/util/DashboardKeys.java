@@ -11,6 +11,7 @@ public final class DashboardKeys {
     public static final String RIGHT_ENCODER = "Right Encoder";
     public static final String INTAKE_THROTTLE = "Intake Throttle";
     public static final String TANK_CONTROLS = "Tank Controls";
+    public static final String SQUARE_INPUTS = "Square Inputs";
 
     public static final String CHOOSER_AUTONOMOUS = "Autonomous Command";
 

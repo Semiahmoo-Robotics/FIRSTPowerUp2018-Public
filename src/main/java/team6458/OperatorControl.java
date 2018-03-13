@@ -7,6 +7,7 @@ import team6458.cmd.DriveStraightCommand;
 import team6458.util.Utils;
 
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
+import static team6458.util.DashboardKeys.SQUARE_INPUTS;
 import static team6458.util.DashboardKeys.TANK_CONTROLS;
 
 /**
@@ -105,14 +106,17 @@ public final class OperatorControl {
             curve = -GYRO_KP * (angle - targetLockedHeading);
         }
 
+        final boolean squaredInputs = SmartDashboard.getBoolean(SQUARE_INPUTS, true);
+
         // Drive the robot
         if (!SmartDashboard.getBoolean(TANK_CONTROLS, false)) {
             // Arcade drive
-            robot.getDrivetrain().drive.arcadeDrive(magnitude, curve);
+            robot.getDrivetrain().drive.arcadeDrive(magnitude, curve, squaredInputs);
         } else {
             final double rightStick = -xboxController.getY(Hand.kRight);
             robot.getDrivetrain().drive
-                    .tankDrive(magnitude, (isRunHeld ? rightStick : (rightStick * MAX_NOT_RUNNING_THROTTLE)));
+                    .tankDrive(magnitude, (isRunHeld ? rightStick : (rightStick * MAX_NOT_RUNNING_THROTTLE)),
+                            squaredInputs);
         }
 
         // Drive intake/launcher motors
