@@ -19,11 +19,11 @@ public class AutoDeliverCommand extends CommandGroup {
     /**
      * The speed at which to run the intakes at.
      */
-    public static final double INTAKE_SPEED = 0.75;
+    public static final double INTAKE_SPEED = 1.0;
     /**
      * The time in seconds to run the intake for.
      */
-    public static final double INTAKE_TIME = 2.0;
+    public static final double INTAKE_TIME = 4.0;
 
     /**
      * Constructor. All parameters should not be null.
