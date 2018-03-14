@@ -70,9 +70,9 @@ public class AutoDeliverCommand extends CommandGroup {
             final int sideSign = allianceSide == AllianceSide.LEFT ? -1 : 1; // -1 if left plate, 1 for right
             addSequential(new DriveStraightCommand(robot, -0.84, throttle));
             addSequential(new RotateCommand(robot, -sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, -1.8, throttle));
+            addSequential(new DriveStraightCommand(robot, -1.5, throttle));
             addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, -0.84, throttle) {
+            addSequential(new DriveStraightCommand(robot, -0.95, throttle) {
                 {
                     setTimeout(0.5);
                 }
