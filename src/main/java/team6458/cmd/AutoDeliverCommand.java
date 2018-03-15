@@ -23,7 +23,7 @@ public class AutoDeliverCommand extends CommandGroup {
     /**
      * The time in seconds to run the intake for.
      */
-    public static final double INTAKE_TIME = 4.0;
+    public static final double INTAKE_TIME = 3.0;
 
     /**
      * Constructor. All parameters should not be null.
@@ -37,7 +37,7 @@ public class AutoDeliverCommand extends CommandGroup {
      */
     public AutoDeliverCommand(final SemiRobot robot, final AllianceSide allianceSide,
                               final PlateSide plateSide, final boolean shouldDeliver, final double throttle,
-                              final SpeedGradient rotateGradient) {
+                              final SpeedGradient rotateGradient, final boolean doBonus) {
         super(allianceSide.toString() + ", deliver: " + shouldDeliver);
 
         final boolean canDeliver = shouldDeliver &&
@@ -81,6 +81,10 @@ public class AutoDeliverCommand extends CommandGroup {
 
         if (canDeliver) {
             addSequential(new RampMotorCommand(robot, INTAKE_SPEED, INTAKE_TIME));
+        }
+
+        if (allianceSide != AllianceSide.CENTRE && doBonus) {
+            addSequential(new AutoCompletionCommand(robot, allianceSide == AllianceSide.RIGHT));
         }
     }
 }

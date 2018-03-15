@@ -3,6 +3,7 @@ package team6458;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -87,40 +88,37 @@ public final class SemiRobot extends TimedRobot {
                 autoChooser.addDefault("Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
                                 getPlateAssignment().getNearest(), true,
-                                throttle, gradient));
+                                throttle, gradient, true));
                 autoChooser.addObject("Left position",
                         () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
                                 getPlateAssignment().getNearest(), true,
-                                throttle, gradient));
+                                throttle, gradient, true));
                 autoChooser.addObject("Right position",
                         () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
                                 getPlateAssignment().getNearest(), true,
-                                throttle, gradient));
+                                throttle, gradient, true));
 
                 // Simply pretend you're on the other side to "avoid" the switch
                 autoChooser.addObject("AVOID SWITCH - Left position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
-                                PlateAssignment.PlateSide.RIGHT, false,
-                                throttle, gradient));
+                        () -> new CommandGroup() {
+                            {
+                                addSequential(new AutoDeliverCommand(SemiRobot.this, AllianceSide.RIGHT,
+                                        PlateAssignment.PlateSide.RIGHT, false,
+                                        throttle, gradient, false));
+                                addSequential(new RotateCommand(SemiRobot.this, 180.0));
+                            }
+                        });
                 autoChooser.addObject("AVOID SWITCH - Right position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
-                                PlateAssignment.PlateSide.LEFT, false,
-                                throttle, gradient));
+                        () -> new CommandGroup() {
+                            {
+                                addSequential(new AutoDeliverCommand(SemiRobot.this, AllianceSide.LEFT,
+                                        PlateAssignment.PlateSide.LEFT, false,
+                                        throttle, gradient, false));
+                                addSequential(new RotateCommand(SemiRobot.this, 180.0));
+                            }
+                        });
 
                 autoChooser.addObject("DO NOT MOVE", InstantCommand::new);
-
-                autoChooser.addObject("NO DELIVERY - Centre position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
-                                getPlateAssignment().getNearest(), false,
-                                throttle, gradient));
-                autoChooser.addObject("NO DELIVERY - Left position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
-                                getPlateAssignment().getNearest(), false,
-                                throttle, gradient));
-                autoChooser.addObject("NO DELIVERY - Right position",
-                        () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
-                                getPlateAssignment().getNearest(), false,
-                                throttle, gradient));
 
                 SmartDashboard.putData(CHOOSER_AUTONOMOUS, autoChooser);
             }
