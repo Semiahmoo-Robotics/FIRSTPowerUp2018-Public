@@ -107,6 +107,8 @@ public final class SemiRobot extends TimedRobot {
                                 PlateAssignment.PlateSide.LEFT, false,
                                 throttle, gradient));
 
+                autoChooser.addObject("DO NOT MOVE", InstantCommand::new);
+
                 autoChooser.addObject("NO DELIVERY - Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
                                 getPlateAssignment().getNearest(), false,
