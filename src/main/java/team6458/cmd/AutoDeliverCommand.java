@@ -52,7 +52,7 @@ public class AutoDeliverCommand extends CommandGroup {
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -1.0, throttle) {
                     {
-                        setTimeout(0.5);
+                        setTimeout(1.0);
                     }
                 });
             } else {
@@ -62,7 +62,7 @@ public class AutoDeliverCommand extends CommandGroup {
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -1.1, throttle) {
                     {
-                        setTimeout(0.5);
+                        setTimeout(1.0);
                     }
                 });
             }
@@ -74,7 +74,7 @@ public class AutoDeliverCommand extends CommandGroup {
             addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
             addSequential(new DriveStraightCommand(robot, -1.1, throttle) {
                 {
-                    setTimeout(0.5);
+                    setTimeout(1.0);
                 }
             });
         }
