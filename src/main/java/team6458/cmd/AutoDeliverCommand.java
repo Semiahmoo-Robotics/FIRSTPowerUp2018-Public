@@ -16,7 +16,7 @@ public class AutoDeliverCommand extends CommandGroup {
         LEFT, CENTRE, RIGHT
     }
 
-    /**
+    /** +u☻0.
      * The speed at which to run the intakes at.
      */
     public static final double INTAKE_SPEED = 1.0;
@@ -50,7 +50,7 @@ public class AutoDeliverCommand extends CommandGroup {
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -2.46, throttle));
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -0.4, throttle) {
+                addSequential(new DriveStraightCommand(robot, -0.5, throttle) {
                     {
                         setTimeout(0.5);
                     }
@@ -60,7 +60,7 @@ public class AutoDeliverCommand extends CommandGroup {
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -1.05, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -1.0, throttle) {
+                addSequential(new DriveStraightCommand(robot, -1.1, throttle) {
                     {
                         setTimeout(0.5);
                     }
@@ -72,7 +72,7 @@ public class AutoDeliverCommand extends CommandGroup {
             addSequential(new RotateCommand(robot, -sideSign * 45, rotateGradient));
             addSequential(new DriveStraightCommand(robot, -1.5, throttle));
             addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, -0.95, throttle) {
+            addSequential(new DriveStraightCommand(robot, -1.1, throttle) {
                 {
                     setTimeout(0.5);
                 }

@@ -97,6 +97,16 @@ public final class SemiRobot extends TimedRobot {
                                 getPlateAssignment().getNearest(), true,
                                 throttle, gradient));
 
+                // Simply pretend you're on the other side to "avoid" the switch
+                autoChooser.addObject("AVOID SWITCH - Left position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
+                                PlateAssignment.PlateSide.RIGHT, false,
+                                throttle, gradient));
+                autoChooser.addObject("AVOID SWITCH - Right position",
+                        () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
+                                PlateAssignment.PlateSide.LEFT, false,
+                                throttle, gradient));
+
                 autoChooser.addObject("NO DELIVERY - Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
                                 getPlateAssignment().getNearest(), false,
