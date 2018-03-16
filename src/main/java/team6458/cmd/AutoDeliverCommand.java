@@ -16,14 +16,14 @@ public class AutoDeliverCommand extends CommandGroup {
         LEFT, CENTRE, RIGHT
     }
 
-    /** +u☻0.
+    /**
      * The speed at which to run the intakes at.
      */
     public static final double INTAKE_SPEED = 1.0;
     /**
      * The time in seconds to run the intake for.
      */
-    public static final double INTAKE_TIME = 3.0;
+    public static final double INTAKE_TIME = 4.0;
 
     /**
      * Constructor. All parameters should not be null.
@@ -36,7 +36,8 @@ public class AutoDeliverCommand extends CommandGroup {
      * @param rotateGradient The speed gradient to use while rotating
      */
     public AutoDeliverCommand(final SemiRobot robot, final AllianceSide allianceSide,
-                              final PlateSide plateSide, final boolean shouldDeliver, final double throttle,
+                              final PlateSide plateSide, final boolean shouldDeliver,
+                              final double throttle, final double lastStretchThrottle,
                               final SpeedGradient rotateGradient) {
         super(allianceSide.toString() + ", deliver: " + shouldDeliver);
 
@@ -44,15 +45,17 @@ public class AutoDeliverCommand extends CommandGroup {
                 !((allianceSide == AllianceSide.LEFT && plateSide == PlateSide.RIGHT) ||
                         (allianceSide == AllianceSide.RIGHT && plateSide == PlateSide.LEFT));
 
+        final double lastStretchTimeout = 2.5;
+
         if (allianceSide == AllianceSide.CENTRE) {
             if (plateSide == PlateSide.LEFT) {
                 addSequential(new DriveStraightCommand(robot, -0.3, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -2.46, throttle));
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -1.0, throttle) {
+                addSequential(new DriveStraightCommand(robot, -1.0, lastStretchThrottle) {
                     {
-                        setTimeout(1.0);
+                        setTimeout(lastStretchTimeout);
                     }
                 });
             } else {
@@ -60,21 +63,21 @@ public class AutoDeliverCommand extends CommandGroup {
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -1.05, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -1.1, throttle) {
+                addSequential(new DriveStraightCommand(robot, -1.1, lastStretchThrottle) {
                     {
-                        setTimeout(1.0);
+                        setTimeout(lastStretchTimeout);
                     }
                 });
             }
         } else {
             final int sideSign = allianceSide == AllianceSide.LEFT ? -1 : 1; // -1 if left plate, 1 for right
-            addSequential(new DriveStraightCommand(robot, -0.84, throttle));
+            addSequential(new DriveStraightCommand(robot, -0.3, throttle));
             addSequential(new RotateCommand(robot, -sideSign * 45, rotateGradient));
             addSequential(new DriveStraightCommand(robot, -1.4, throttle));
             addSequential(new RotateCommand(robot, sideSign * 45, rotateGradient));
-            addSequential(new DriveStraightCommand(robot, -1.1, throttle) {
+            addSequential(new DriveStraightCommand(robot, -2.7, lastStretchThrottle) {
                 {
-                    setTimeout(1.0);
+                    setTimeout(lastStretchTimeout);
                 }
             });
         }
