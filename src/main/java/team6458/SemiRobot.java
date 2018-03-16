@@ -118,7 +118,7 @@ public final class SemiRobot extends TimedRobot {
                             }
                         });
 
-                autoChooser.addObject("DO NOT MOVE", InstantCommand::new);
+                autoChooser.addObject("DO NOT MOVE - NO AUTONOMOUS", InstantCommand::new);
 
                 SmartDashboard.putData(CHOOSER_AUTONOMOUS, autoChooser);
             }
