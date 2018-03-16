@@ -106,7 +106,7 @@ public final class SemiRobot extends TimedRobot {
                                 addSequential(new AutoDeliverCommand(SemiRobot.this, AllianceSide.RIGHT,
                                         PlateAssignment.PlateSide.RIGHT, false,
                                         throttle, throttle, gradient));
-                                addSequential(new RotateCommand(SemiRobot.this, 180.0));
+                                addSequential(new RotateCommand(SemiRobot.this, 165.0));
                             }
                         });
                 autoChooser.addObject("AVOID SWITCH - Right position",
@@ -115,7 +115,7 @@ public final class SemiRobot extends TimedRobot {
                                 addSequential(new AutoDeliverCommand(SemiRobot.this, AllianceSide.LEFT,
                                         PlateAssignment.PlateSide.LEFT, false,
                                         throttle, throttle, gradient));
-                                addSequential(new RotateCommand(SemiRobot.this, 180.0));
+                                addSequential(new RotateCommand(SemiRobot.this, 165.0));
                             }
                         });
 
