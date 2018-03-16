@@ -37,7 +37,7 @@ public class AutoDeliverCommand extends CommandGroup {
      */
     public AutoDeliverCommand(final SemiRobot robot, final AllianceSide allianceSide,
                               final PlateSide plateSide, final boolean shouldDeliver, final double throttle,
-                              final SpeedGradient rotateGradient, final boolean doBonus) {
+                              final SpeedGradient rotateGradient) {
         super(allianceSide.toString() + ", deliver: " + shouldDeliver);
 
         final boolean canDeliver = shouldDeliver &&
@@ -81,10 +81,6 @@ public class AutoDeliverCommand extends CommandGroup {
 
         if (canDeliver) {
             addSequential(new RampMotorCommand(robot, INTAKE_SPEED, INTAKE_TIME));
-        }
-
-        if (allianceSide != AllianceSide.CENTRE && doBonus) {
-            addSequential(new AutoCompletionCommand(robot, allianceSide == AllianceSide.RIGHT));
         }
     }
 }

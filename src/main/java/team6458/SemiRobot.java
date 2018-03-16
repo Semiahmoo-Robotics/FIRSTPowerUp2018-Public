@@ -88,15 +88,15 @@ public final class SemiRobot extends TimedRobot {
                 autoChooser.addDefault("Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
                                 getPlateAssignment().getNearest(), true,
-                                throttle, gradient, true));
+                                throttle, gradient));
                 autoChooser.addObject("Left position",
                         () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
                                 getPlateAssignment().getNearest(), true,
-                                throttle, gradient, true));
+                                throttle, gradient));
                 autoChooser.addObject("Right position",
                         () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
                                 getPlateAssignment().getNearest(), true,
-                                throttle, gradient, true));
+                                throttle, gradient));
 
                 // Simply pretend you're on the other side to "avoid" the switch
                 autoChooser.addObject("AVOID SWITCH - Left position",
@@ -104,7 +104,7 @@ public final class SemiRobot extends TimedRobot {
                             {
                                 addSequential(new AutoDeliverCommand(SemiRobot.this, AllianceSide.RIGHT,
                                         PlateAssignment.PlateSide.RIGHT, false,
-                                        throttle, gradient, false));
+                                        throttle, gradient));
                                 addSequential(new RotateCommand(SemiRobot.this, 180.0));
                             }
                         });
@@ -113,7 +113,7 @@ public final class SemiRobot extends TimedRobot {
                             {
                                 addSequential(new AutoDeliverCommand(SemiRobot.this, AllianceSide.LEFT,
                                         PlateAssignment.PlateSide.LEFT, false,
-                                        throttle, gradient, false));
+                                        throttle, gradient));
                                 addSequential(new RotateCommand(SemiRobot.this, 180.0));
                             }
                         });
