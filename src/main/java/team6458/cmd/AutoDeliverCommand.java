@@ -49,21 +49,21 @@ public class AutoDeliverCommand extends CommandGroup {
 
         if (allianceSide == AllianceSide.CENTRE) {
             if (plateSide == PlateSide.LEFT) {
-                addSequential(new DriveStraightCommand(robot, -0.3, throttle));
+                addSequential(new DriveStraightCommand(robot, -0.2, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -2.46, throttle));
+                addSequential(new DriveStraightCommand(robot, -2.4, throttle));
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -1.0, lastStretchThrottle) {
+                addSequential(new DriveStraightCommand(robot, -1.5, lastStretchThrottle) {
                     {
                         setTimeout(lastStretchTimeout);
                     }
                 });
             } else {
-                addSequential(new DriveStraightCommand(robot, -1.3, throttle));
+                addSequential(new DriveStraightCommand(robot, -0.3, throttle));
                 addSequential(new RotateCommand(robot, 45, rotateGradient));
                 addSequential(new DriveStraightCommand(robot, -1.05, throttle));
                 addSequential(new RotateCommand(robot, -45, rotateGradient));
-                addSequential(new DriveStraightCommand(robot, -1.1, lastStretchThrottle) {
+                addSequential(new DriveStraightCommand(robot, -2.4, lastStretchThrottle) {
                     {
                         setTimeout(lastStretchTimeout);
                     }

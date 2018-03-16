@@ -83,8 +83,8 @@ public final class SemiRobot extends TimedRobot {
             // Autonomous command selection
             {
                 final SpeedGradient gradient = RotateCommand.DEFAULT_GRADIENT;
-                final double throttle = 0.5;
-                final double lastStretchThrottle = 1.0;
+                final double throttle = 0.6;
+                final double lastStretchThrottle = 0.8;
 
                 autoChooser.addDefault("Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
