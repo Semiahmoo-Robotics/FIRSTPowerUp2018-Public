@@ -19,7 +19,7 @@ public class RotateCommand extends RobotCommand {
      *
      * <p>Desmos curve: https://www.desmos.com/calculator/eyrhbvtzcz
      */
-    public static final SpeedGradient DEFAULT_GRADIENT = new SpeedGradient(0.45, 0.2, 20.0, 10.0);
+    public static final SpeedGradient DEFAULT_GRADIENT = new SpeedGradient(0.45, 0.4, 20.0, 10.0);
 
     public final double headingChange;
     public final SpeedGradient speedGradient;
