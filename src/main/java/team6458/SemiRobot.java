@@ -86,15 +86,15 @@ public final class SemiRobot extends TimedRobot {
                 final double throttle = 0.6;
                 final double lastStretchThrottle = 0.8;
 
-                autoChooser.addDefault("Centre position",
+                autoChooser.addDefault("SWITCH DELIVERY - Centre position",
                         () -> new AutoDeliverCommand(this, AllianceSide.CENTRE,
                                 getPlateAssignment().getNearest(), true,
                                 throttle, lastStretchThrottle, gradient));
-                autoChooser.addObject("Left position",
+                autoChooser.addObject("SWITCH DELIVERY - Left position",
                         () -> new AutoDeliverCommand(this, AllianceSide.LEFT,
                                 getPlateAssignment().getNearest(), true,
                                 throttle, lastStretchThrottle, gradient));
-                autoChooser.addObject("Right position",
+                autoChooser.addObject("SWITCH DELIVERY - Right position",
                         () -> new AutoDeliverCommand(this, AllianceSide.RIGHT,
                                 getPlateAssignment().getNearest(), true,
                                 throttle, lastStretchThrottle, gradient));
