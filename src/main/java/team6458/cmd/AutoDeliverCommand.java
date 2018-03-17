@@ -2,7 +2,7 @@ package team6458.cmd;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import team6458.SemiRobot;
-import team6458.cmd.RotateCommand.SpeedGradient;
+import team6458.util.ValueGradient;
 import team6458.util.PlateAssignment.PlateSide;
 
 
@@ -38,7 +38,7 @@ public class AutoDeliverCommand extends CommandGroup {
     public AutoDeliverCommand(final SemiRobot robot, final AllianceSide allianceSide,
                               final PlateSide plateSide, final boolean shouldDeliver,
                               final double throttle, final double lastStretchThrottle,
-                              final SpeedGradient rotateGradient) {
+                              final ValueGradient rotateGradient) {
         super(allianceSide.toString() + ", deliver: " + shouldDeliver);
 
         final boolean canDeliver = shouldDeliver &&

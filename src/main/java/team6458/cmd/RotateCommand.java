@@ -2,6 +2,7 @@ package team6458.cmd;
 
 import team6458.SemiRobot;
 import team6458.util.Utils;
+import team6458.util.ValueGradient;
 
 /**
  * A command that rotates the robot left or right to face a new given relative heading.
@@ -17,10 +18,10 @@ public class RotateCommand extends RobotCommand {
      * <p>
      * Max of 0.45, min of 0.325, range of 20 deg starting at 10 deg.
      */
-    public static final SpeedGradient DEFAULT_GRADIENT = new SpeedGradient(0.45, 0.325, 20.0, 10.0);
+    public static final ValueGradient DEFAULT_GRADIENT = new ValueGradient(0.45, 0.325, 20.0, 10.0);
 
     public final double headingChange;
-    public final SpeedGradient speedGradient;
+    public final ValueGradient speedGradient;
 
     private double originalOrientation;
     private double targetOrientation;
@@ -32,7 +33,7 @@ public class RotateCommand extends RobotCommand {
      * @param headingChange The amount to change the heading by, positive is clockwise
      * @param gradient      The speed gradient to use
      */
-    public RotateCommand(SemiRobot robot, double headingChange, SpeedGradient gradient) {
+    public RotateCommand(SemiRobot robot, double headingChange, ValueGradient gradient) {
         super(robot);
         requires(robot.getDrivetrain());
         setTimeout(2.5);
@@ -88,15 +89,7 @@ public class RotateCommand extends RobotCommand {
         double currentAngle = robot.getSensors().gyro.getAngle();
         double remainingAngle = Math.abs(currentAngle - targetOrientation);
 
-        if (remainingAngle <= speedGradient.rangeOffset) {
-            return speedGradient.minSpeed;
-        } else if (remainingAngle >= speedGradient.rangeOffset + speedGradient.degreesRange) {
-            return speedGradient.maxSpeed;
-        } else {
-            // Compute the throttle which should be in between min and max speed
-            double rangePercentage = (remainingAngle - speedGradient.rangeOffset) / speedGradient.degreesRange;
-            return Utils.lerp(speedGradient.minSpeed, speedGradient.maxSpeed, rangePercentage);
-        }
+        return speedGradient.interpolate(remainingAngle);
     }
 
     @Override
@@ -105,39 +98,4 @@ public class RotateCommand extends RobotCommand {
                 targetOrientation, ANGLE_TOLERANCE) || hasOvershot() || isTimedOut();
     }
 
-    /**
-     * A simple value holder class that holds the speed curve/gradient for rotation.
-     */
-    public static final class SpeedGradient {
-
-        /**
-         * The maximum rotation speed between 0.0 and 1.0. If this is too fast, the gyroscope will not keep up.
-         */
-        public final double maxSpeed;
-        /**
-         * The minimum rotation speed between 0.0 and 1.0. If this is too low, the wheels may not move.
-         */
-        public final double minSpeed;
-        /**
-         * The range in degrees where the {@link #maxSpeed} transitions to the {@link #minSpeed} linearly.
-         * This is based on the degrees remaining plus the {@link #rangeOffset}.
-         */
-        public final double degreesRange;
-        /**
-         * The start of the {@link #degreesRange}. Must greater than or equal to zero.
-         * The remaining angle from zero to this value will always be at the {@link #minSpeed}.
-         */
-        public final double rangeOffset;
-
-        public SpeedGradient(double maxSpeed, double minSpeed, double degreesRange, double rangeOffset) {
-            if (maxSpeed < 0 || maxSpeed > 1 || minSpeed < 0 || minSpeed > maxSpeed || rangeOffset < 0) {
-                throw new IllegalArgumentException("Invalid parameters passed for speed gradient");
-            }
-
-            this.maxSpeed = maxSpeed;
-            this.minSpeed = minSpeed;
-            this.degreesRange = degreesRange;
-            this.rangeOffset = rangeOffset;
-        }
-    }
 }

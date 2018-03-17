@@ -13,7 +13,7 @@ import team6458.cmd.AutoDeliverCommand.AllianceSide;
 import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
-import team6458.cmd.RotateCommand.SpeedGradient;
+import team6458.util.ValueGradient;
 import team6458.subsystem.Drivetrain;
 import team6458.subsystem.Ramp;
 import team6458.subsystem.Sensors;
@@ -82,7 +82,7 @@ public final class SemiRobot extends TimedRobot {
 
             // Autonomous command selection
             {
-                final SpeedGradient gradient = RotateCommand.DEFAULT_GRADIENT;
+                final ValueGradient gradient = RotateCommand.DEFAULT_GRADIENT;
                 final double throttle = 0.6;
                 final double lastStretchThrottle = 0.8;
 
@@ -162,7 +162,7 @@ public final class SemiRobot extends TimedRobot {
             }
 
             debugCommands.addObject("Turn +360 deg at 0.2 speed",
-                    new RotateCommand(this, 360, new SpeedGradient(0.2, 0.2, 20.0, 10.0)));
+                    new RotateCommand(this, 360, new ValueGradient(0.2, 0.2, 20.0, 10.0)));
 
             SmartDashboard.putData("DEBUG (Enabling Test Mode will run sel. command)", debugCommands);
         }
