@@ -78,6 +78,7 @@ public class DriveStraightCommand extends RobotCommand {
 
         final double currentHeading = robot.getSensors().gyro.getAngle();
         final double angleDiff = currentHeading - initialHeading;
+        final double predictedCoast = robot.getDriveStraightCoastDist().getDistance(robot.getDrivetrain().getAverageRate());
 
         robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle.interpolate(getRemainingDistance()), distance),
                 angleDiff * -GYRO_CORRECTION, false);
@@ -91,7 +92,7 @@ public class DriveStraightCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut() || getRemainingDistance() <= (robot.getDriveStraightCoastDist().getDistance(robot.getDrivetrain().getAverageRate()));
+        return isTimedOut() || getRemainingDistance() <= 0.0;
     }
 
     @Override

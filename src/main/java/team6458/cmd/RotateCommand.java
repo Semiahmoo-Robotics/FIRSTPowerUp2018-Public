@@ -77,10 +77,10 @@ public class RotateCommand extends RobotCommand {
     public final boolean hasOvershot() {
         final double currentAngle = robot.getSensors().gyro.getAngle();
         final double remainingAngle = Math.abs(currentAngle - targetOrientation);
+        final double predictedCoast = robot.getRotateCoastDist().getDistance(Math.abs(robot.getSensors().gyro.getRate()));
         return (headingChange >= 0.0 ?
                 currentAngle > targetOrientation + ANGLE_TOLERANCE :
-                currentAngle < targetOrientation - ANGLE_TOLERANCE) ||
-                remainingAngle <= robot.getRotateCoastDist().getDistance(Math.abs(robot.getSensors().gyro.getRate()));
+                currentAngle < targetOrientation - ANGLE_TOLERANCE);
     }
 
     /**
