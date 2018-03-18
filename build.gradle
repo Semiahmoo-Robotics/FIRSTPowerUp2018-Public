@@ -2,7 +2,7 @@ plugins {
     id "java"
     id "eclipse"
     id "idea"
-    id "jaci.openrio.gradle.GradleRIO" version "2018.02.17"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
 }
 
 repositories {
@@ -47,6 +47,7 @@ dependencies {
     compile wpilib()
 //    compile ctre()
 //    compile navx()
+    compile "com.eclipsesource.minimal-json:minimal-json:0.9.5"
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
