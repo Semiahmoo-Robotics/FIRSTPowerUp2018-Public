@@ -58,7 +58,7 @@ public class RotateCoastCalibrationCmd extends CalibrationCommand {
         final CoastDistance result = getResult();
         if (result != null && wasSuccessful() && persistResults) {
             result.persist(PreferenceKeys.ROTATE_CALIBRATION, false);
-            robot.setDriveStraightCoastDist(result);
+            robot.setRotateCoastDist(result);
         }
         LOGGER.log(Level.INFO,
                 "Finished rotate coast calibration: persist=" + persistResults + ", success=" + wasSuccessful());
