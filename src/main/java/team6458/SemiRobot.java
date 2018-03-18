@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.AutoDeliverCommand;
 import team6458.cmd.AutoDeliverCommand.AllianceSide;
 import team6458.cmd.DriveStraightCommand;
-import team6458.cmd.calibration.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
-import team6458.util.ValueGradient;
+import team6458.cmd.calibration.DriveCoastCalibrationCmd;
+import team6458.cmd.calibration.GyroCalibrationCommand;
+import team6458.feedback.CoastDistance;
 import team6458.subsystem.Drivetrain;
 import team6458.subsystem.Ramp;
 import team6458.subsystem.Sensors;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
+import team6458.util.PreferenceKeys;
+import team6458.util.ValueGradient;
 import team6458.util.exception.GetBeforeInitException;
 
 import java.util.Arrays;
@@ -26,14 +29,7 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static team6458.util.DashboardKeys.CHOOSER_AUTONOMOUS;
-import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
-import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
-import static team6458.util.DashboardKeys.GYROSCOPE;
-import static team6458.util.DashboardKeys.LEFT_ENCODER;
-import static team6458.util.DashboardKeys.RIGHT_ENCODER;
-import static team6458.util.DashboardKeys.SQUARE_INPUTS;
-import static team6458.util.DashboardKeys.TANK_CONTROLS;
+import static team6458.util.DashboardKeys.*;
 
 /**
  * The main robot class.
@@ -52,6 +48,9 @@ public final class SemiRobot extends TimedRobot {
     private Drivetrain drivetrain;
     private Sensors sensors;
     private Ramp ramp;
+    // CoastDistances
+    private CoastDistance driveStraightCoastDist = new CoastDistance();
+    private CoastDistance rotateCoastDist = new CoastDistance();
 
     @Override
     public void robotInit() {
@@ -68,6 +67,12 @@ public final class SemiRobot extends TimedRobot {
             ramp = new Ramp(this);
             // Sensors should be last: a gyroscope will be calibrated for around 5 seconds blocking the thread
             sensors = new Sensors(this);
+        }
+
+        // Read preferences
+        {
+            driveStraightCoastDist = CoastDistance.fromPreferences(PreferenceKeys.DRIVE_STRAIGHT_CALIBRATION);
+            rotateCoastDist = CoastDistance.fromPreferences(PreferenceKeys.ROTATE_CALIBRATION);
         }
 
         // Write one-time values to the SmartDashboard/Shuffleboard so they can be displayed as widgets
@@ -146,6 +151,10 @@ public final class SemiRobot extends TimedRobot {
 
             // TESTS -----------------------------------------------------------------------
             debugCommands.addDefault("None", new InstantCommand());
+
+            debugCommands.addDefault("CALIBRATION - Drive coasting",
+                    new DriveCoastCalibrationCmd(this, true, 4.0,
+                            0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0));
 
             // RotateCommand tests
             final int[] angles = {20, 45, 50, 90, 180, 360};
@@ -257,6 +266,26 @@ public final class SemiRobot extends TimedRobot {
             throw new GetBeforeInitException("ramp");
         }
         return ramp;
+    }
+
+    // CoastDistance getters/setters
+
+    public CoastDistance getDriveStraightCoastDist() {
+        return driveStraightCoastDist;
+    }
+
+    public void setDriveStraightCoastDist(CoastDistance driveStraightCoastDist) {
+        if (driveStraightCoastDist != null)
+            this.driveStraightCoastDist = driveStraightCoastDist;
+    }
+
+    public CoastDistance getRotateCoastDist() {
+        return rotateCoastDist;
+    }
+
+    public void setRotateCoastDist(CoastDistance rotateCoastDist) {
+        if (rotateCoastDist != null)
+            this.rotateCoastDist = rotateCoastDist;
     }
 
     // Private methods

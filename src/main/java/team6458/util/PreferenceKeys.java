@@ -6,6 +6,7 @@ package team6458.util;
 public final class PreferenceKeys {
 
     public static final String DRIVE_STRAIGHT_CALIBRATION = "DriveStraightCalibration";
+    public static final String ROTATE_CALIBRATION = "RotateCalibration";
 
     private PreferenceKeys() {}
 
