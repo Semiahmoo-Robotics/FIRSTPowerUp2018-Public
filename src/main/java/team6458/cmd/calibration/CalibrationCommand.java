@@ -12,6 +12,7 @@ public abstract class CalibrationCommand extends CommandGroup {
     public final SemiRobot robot;
     protected CoastDistance result = null;
     protected CoastDistance inUse = null;
+    private boolean wasSuccessful = false;
 
     public CalibrationCommand(SemiRobot robot) {
         super();
@@ -22,20 +23,24 @@ public abstract class CalibrationCommand extends CommandGroup {
     protected void initialize() {
         super.initialize();
         result = null;
+        wasSuccessful = false;
         inUse = new CoastDistance();
     }
 
     @Override
     protected void end() {
-        super.end();
-
-        result = inUse;
-        inUse = null;
+        finishUp(true);
     }
 
     @Override
     protected final void interrupted() {
-        super.interrupted();
+        finishUp(false);
+    }
+
+    private void finishUp(boolean success) {
+        result = inUse;
+        inUse = null;
+        wasSuccessful = success;
     }
 
     /**
@@ -45,4 +50,10 @@ public abstract class CalibrationCommand extends CommandGroup {
         return result;
     }
 
+    /**
+     * @return True if the result was successful (not interrupted or cancelled), false otherwise (or if null)
+     */
+    public boolean wasSuccessful() {
+        return getResult() != null && wasSuccessful;
+    }
 }
