@@ -58,7 +58,7 @@ public class DriveStraightCommand extends RobotCommand {
     }
 
     public static ValueGradient createThrottleGradient(double maxThrottle) {
-        return new ValueGradient(maxThrottle, maxThrottle, 0.0, 0.0); // TODO no gradient change
+        return new ValueGradient(maxThrottle, maxThrottle, 0.0, 0.0);
     }
 
     protected double getRemainingDistance() {
@@ -91,7 +91,7 @@ public class DriveStraightCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut() || getRemainingDistance() <= 0.0;
+        return isTimedOut() || getRemainingDistance() <= (robot.getDriveStraightCoastDist().getDistance(robot.getDrivetrain().getAverageRate()));
     }
 
     @Override

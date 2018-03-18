@@ -89,6 +89,9 @@ public class RotateCommand extends RobotCommand {
         final double currentAngle = robot.getSensors().gyro.getAngle();
         final double remainingAngle = Math.abs(currentAngle - targetOrientation);
 
+        if (remainingAngle <= robot.getRotateCoastDist().getDistance(Math.abs(robot.getSensors().gyro.getRate())))
+            return 0.0;
+
         return speedGradient.interpolate(remainingAngle);
     }
 
