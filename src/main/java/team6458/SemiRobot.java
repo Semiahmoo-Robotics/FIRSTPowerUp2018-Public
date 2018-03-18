@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.AutoDeliverCommand;
 import team6458.cmd.AutoDeliverCommand.AllianceSide;
 import team6458.cmd.DriveStraightCommand;
-import team6458.cmd.GyroCalibrationCommand;
+import team6458.cmd.calibration.GyroCalibrationCommand;
 import team6458.cmd.RotateCommand;
 import team6458.util.ValueGradient;
 import team6458.subsystem.Drivetrain;

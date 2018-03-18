@@ -1,6 +1,7 @@
-package team6458.cmd;
+package team6458.cmd.calibration;
 
 import team6458.SemiRobot;
+import team6458.cmd.RobotCommand;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
