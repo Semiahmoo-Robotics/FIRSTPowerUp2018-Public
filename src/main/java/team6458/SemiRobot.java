@@ -161,9 +161,6 @@ public final class SemiRobot extends TimedRobot {
                 debugCommands.addObject("Drive -" + distance + " m", new DriveStraightCommand(this, -distance, 0.35));
             }
 
-            debugCommands.addObject("Turn +360 deg at 0.2 speed",
-                    new RotateCommand(this, 360, new ValueGradient(0.2, 0.2, 20.0, 10.0)));
-
             SmartDashboard.putData("DEBUG (Enabling Test Mode will run sel. command)", debugCommands);
         }
 
