@@ -86,8 +86,8 @@ public class RotateCommand extends RobotCommand {
         if (hasOvershot())
             return 0.0;
 
-        double currentAngle = robot.getSensors().gyro.getAngle();
-        double remainingAngle = Math.abs(currentAngle - targetOrientation);
+        final double currentAngle = robot.getSensors().gyro.getAngle();
+        final double remainingAngle = Math.abs(currentAngle - targetOrientation);
 
         return speedGradient.interpolate(remainingAngle);
     }

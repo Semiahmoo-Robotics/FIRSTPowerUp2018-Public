@@ -1,7 +1,7 @@
 package team6458.cmd;
 
 import team6458.SemiRobot;
-import team6458.util.Utils;
+import team6458.util.ValueGradient;
 
 /**
  * A command that drives straight for X metres, using the encoders on the {@link team6458.subsystem.Drivetrain}
@@ -22,23 +22,47 @@ public class DriveStraightCommand extends RobotCommand {
      */
     public final double distance;
     /**
-     * The throttle to go at, from 0.0 to 1.0.
+     * The throttle to go at, as a {@link ValueGradient}.
      */
-    public final double throttle;
+    public final ValueGradient throttle;
 
     private double initialHeading;
 
     /**
      * Constructor.
      * @param distance Distance in metres, may be negative
-     * @param throttle Throttle between 0.0 and 1.0 (positive only)
+     * @param throttle Throttle between 0.0 and 1.0 (positive only) as a gradient
+     */
+    public DriveStraightCommand(SemiRobot robot, double distance, ValueGradient throttle) {
+        super(robot);
+        requires(robot.getDrivetrain());
+
+        if (throttle.maximum < 0 || throttle.minimum < 0)
+            throw new IllegalArgumentException("Throttle gradient provided has negative values");
+
+        this.throttle = throttle;
+        this.distance = distance;
+    }
+
+    /**
+     * Constructor.
+     * @param distance Distance in metres, may be negative
+     * @param throttle Throttle between 0.0 and 1.0 (positive only) as a gradient
      */
     public DriveStraightCommand(SemiRobot robot, double distance, double throttle) {
         super(robot);
         requires(robot.getDrivetrain());
 
-        this.throttle = Utils.clamp(Math.abs(throttle), 0.0, 1.0);
+        this.throttle = createThrottleGradient(Math.abs(throttle));
         this.distance = distance;
+    }
+
+    public static ValueGradient createThrottleGradient(double maxThrottle) {
+        return new ValueGradient(maxThrottle, maxThrottle, 0.0, 0.0); // TODO no gradient change
+    }
+
+    protected double getRemainingDistance() {
+        return Math.abs(distance - robot.getDrivetrain().getAverageDistance());
     }
 
     @Override
@@ -55,7 +79,7 @@ public class DriveStraightCommand extends RobotCommand {
         final double currentHeading = robot.getSensors().gyro.getAngle();
         final double angleDiff = currentHeading - initialHeading;
 
-        robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle, distance),
+        robot.getDrivetrain().drive.curvatureDrive(Math.copySign(throttle.interpolate(getRemainingDistance()), distance),
                 angleDiff * -GYRO_CORRECTION, false);
     }
 
@@ -67,7 +91,7 @@ public class DriveStraightCommand extends RobotCommand {
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut() || (distance >= 0 ? robot.getDrivetrain().getAverageDistance() >= distance : robot.getDrivetrain().getAverageDistance() <= distance);
+        return isTimedOut() || getRemainingDistance() <= 0.0;
     }
 
     @Override
