@@ -14,6 +14,7 @@ import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.RotateCommand;
 import team6458.cmd.calibration.DriveCoastCalibrationCmd;
 import team6458.cmd.calibration.GyroCalibrationCommand;
+import team6458.cmd.calibration.RotateCoastCalibrationCmd;
 import team6458.feedback.CoastDistance;
 import team6458.subsystem.Drivetrain;
 import team6458.subsystem.Ramp;
@@ -152,9 +153,12 @@ public final class SemiRobot extends TimedRobot {
             // TESTS -----------------------------------------------------------------------
             debugCommands.addDefault("None", new InstantCommand());
 
-            debugCommands.addDefault("CALIBRATION - Drive coasting",
+            debugCommands.addObject("CALIBRATION - Drive coasting",
                     new DriveCoastCalibrationCmd(this, true, 4.0,
                             0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0));
+            debugCommands.addObject("CALIBRATION - Rotate coasting",
+                    new RotateCoastCalibrationCmd(this, true, 2.0,
+                            0.4, 0.5, 0.6, 0.7));
 
             // RotateCommand tests
             final int[] angles = {20, 45, 50, 90, 180, 360};
