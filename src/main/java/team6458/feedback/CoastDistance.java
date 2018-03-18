@@ -1,6 +1,7 @@
 package team6458.feedback;
 
 import com.eclipsesource.json.*;
+import edu.wpi.first.wpilibj.Preferences;
 import team6458.util.Utils;
 
 import java.util.Map;
@@ -47,6 +48,19 @@ public final class CoastDistance {
     }
 
     /**
+     * @param key The key for the value in the /Preferences NetworkTable
+     * @return The object corresponding to what was persisted, or a new one if it doesn't exist
+     */
+    public static CoastDistance fromPreferences(String key) {
+        final String json = Preferences.getInstance().getString(key, null);
+
+        if (json == null)
+            return new CoastDistance();
+
+        return fromJson(json);
+    }
+
+    /**
      * @param prettyPrint If the output should be pretty-printed
      * @return A string json version of this object
      */
@@ -62,6 +76,15 @@ public final class CoastDistance {
         obj.add("mapping", mapping);
 
         return obj.toString(prettyPrint ? WriterConfig.PRETTY_PRINT : WriterConfig.MINIMAL);
+    }
+
+    /**
+     * Persist this object in the NetworkTables preferences table.
+     * @param key The key to use in the /Preferences table
+     * @param prettyPrint Whether or not to pretty print the json result
+     */
+    public void persist(String key, boolean prettyPrint) {
+        Preferences.getInstance().putString(key, toJson(prettyPrint));
     }
 
     /**
