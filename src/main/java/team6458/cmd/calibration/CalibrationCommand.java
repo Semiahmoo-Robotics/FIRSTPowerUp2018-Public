@@ -26,9 +26,6 @@ public abstract class CalibrationCommand extends CommandGroup {
     }
 
     @Override
-    protected abstract void execute();
-
-    @Override
     protected void end() {
         super.end();
 
