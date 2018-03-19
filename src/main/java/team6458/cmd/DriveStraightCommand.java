@@ -31,7 +31,7 @@ public class DriveStraightCommand extends RobotCommand {
     /**
      * Constructor.
      * @param distance Distance in metres, may be negative
-     * @param throttle Throttle between 0.0 and 1.0 (positive only) as a gradient
+     * @param throttle Throttle between 0.0 and 1.0 (positive only) as a {@link ValueGradient}
      */
     public DriveStraightCommand(SemiRobot robot, double distance, ValueGradient throttle) {
         super(robot);
@@ -47,7 +47,7 @@ public class DriveStraightCommand extends RobotCommand {
     /**
      * Constructor.
      * @param distance Distance in metres, may be negative
-     * @param throttle Throttle between 0.0 and 1.0 (positive only) as a gradient
+     * @param throttle Maximum throttle between 0.0 and 1.0 (positive only)
      */
     public DriveStraightCommand(SemiRobot robot, double distance, double throttle) {
         super(robot);
