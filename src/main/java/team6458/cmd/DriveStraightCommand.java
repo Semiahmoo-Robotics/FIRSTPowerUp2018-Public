@@ -53,12 +53,12 @@ public class DriveStraightCommand extends RobotCommand {
         super(robot);
         requires(robot.getDrivetrain());
 
-        this.throttle = createThrottleGradient(Math.abs(throttle));
+        this.throttle = createThrottleGradient(Math.abs(throttle), Math.abs(distance));
         this.distance = distance;
     }
 
-    public static ValueGradient createThrottleGradient(double maxThrottle) {
-        return new ValueGradient(maxThrottle, maxThrottle, 0.0, 0.0); // TODO no gradient change
+    public static ValueGradient createThrottleGradient(double maxThrottle, double distance) {
+        return new ValueGradient(maxThrottle, Math.min(maxThrottle, 0.35), Math.min(1.0, Math.abs(distance)), 0.0);
     }
 
     protected double getRemainingDistance() {
