@@ -37,6 +37,4 @@ look like a bomb went off.
 * All documentation must be grammatically correct English with no spelling errors
   * Note: text for `@tags` like `@param` or `@returns` do not need a full stop
 * See [PlateAssignment.java](src/main/java/team6458/util/PlateAssignment.java) for a thorough example.
-* Tip: write your documentation like a serial killer is out to get you.
-That's what it feels like to stare at code weeks or days later sometimes.
-Save yourself the hassle in the future and do it properly in the present.
+
