@@ -12,8 +12,10 @@ import team6458.cmd.AutoDeliverCommand;
 import team6458.cmd.AutoDeliverCommand.AllianceSide;
 import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.GyroCalibrationCommand;
+import team6458.cmd.LoadPlaybackCmd;
 import team6458.cmd.PlaybackRecordingCmd;
 import team6458.cmd.RotateCommand;
+import team6458.cmd.SavePlaybackCmd;
 import team6458.recording.RecordAction;
 import team6458.recording.Recording;
 import team6458.subsystem.Drivetrain;
@@ -88,6 +90,8 @@ public final class SemiRobot extends TimedRobot {
             SmartDashboard.putBoolean(RECORD, false);
             SmartDashboard.putBoolean(PLAYING_BACK, false);
             SmartDashboard.putData("Playback Recording", new PlaybackRecordingCmd(this));
+            SmartDashboard.putData("Save Recording", new SavePlaybackCmd(this));
+            SmartDashboard.putData("Load Recording", new LoadPlaybackCmd(this));
 
             // Autonomous command selection
             {
