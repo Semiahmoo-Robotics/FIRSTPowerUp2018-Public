@@ -12,13 +12,16 @@ import team6458.cmd.AutoDeliverCommand;
 import team6458.cmd.AutoDeliverCommand.AllianceSide;
 import team6458.cmd.DriveStraightCommand;
 import team6458.cmd.GyroCalibrationCommand;
+import team6458.cmd.PlaybackRecordingCmd;
 import team6458.cmd.RotateCommand;
-import team6458.util.ValueGradient;
+import team6458.recording.RecordAction;
+import team6458.recording.Recording;
 import team6458.subsystem.Drivetrain;
 import team6458.subsystem.Ramp;
 import team6458.subsystem.Sensors;
 import team6458.util.DashboardKeys;
 import team6458.util.PlateAssignment;
+import team6458.util.ValueGradient;
 import team6458.util.exception.GetBeforeInitException;
 
 import java.util.Arrays;
@@ -31,6 +34,8 @@ import static team6458.util.DashboardKeys.CMD_GYRO_CALIBRATE;
 import static team6458.util.DashboardKeys.CMD_RESET_ENCODERS;
 import static team6458.util.DashboardKeys.GYROSCOPE;
 import static team6458.util.DashboardKeys.LEFT_ENCODER;
+import static team6458.util.DashboardKeys.RECORD;
+import static team6458.util.DashboardKeys.PLAYING_BACK;
 import static team6458.util.DashboardKeys.RIGHT_ENCODER;
 import static team6458.util.DashboardKeys.SQUARE_INPUTS;
 import static team6458.util.DashboardKeys.TANK_CONTROLS;
@@ -48,6 +53,7 @@ public final class SemiRobot extends TimedRobot {
     private PlateAssignment plateAssignment = PlateAssignment.ALL_INVALID;
     // Operator control
     private OperatorControl opControl;
+    public Recording lastRecording = null;
     // Subsystems
     private Drivetrain drivetrain;
     private Sensors sensors;
@@ -79,6 +85,9 @@ public final class SemiRobot extends TimedRobot {
 
             SmartDashboard.putBoolean(TANK_CONTROLS, SmartDashboard.getBoolean(TANK_CONTROLS, false));
             SmartDashboard.putBoolean(SQUARE_INPUTS, SmartDashboard.getBoolean(SQUARE_INPUTS, true));
+            SmartDashboard.putBoolean(RECORD, false);
+            SmartDashboard.putBoolean(PLAYING_BACK, false);
+            SmartDashboard.putData("Playback Recording", new PlaybackRecordingCmd(this));
 
             // Autonomous command selection
             {
@@ -175,6 +184,7 @@ public final class SemiRobot extends TimedRobot {
     public void disabledInit() {
         // Disables any trailing cmds
         Scheduler.getInstance().removeAll();
+        SmartDashboard.putBoolean(RECORD, false);
     }
 
     @Override
@@ -197,6 +207,9 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        if (SmartDashboard.getBoolean(RECORD, false)) {
+            lastRecording = new Recording(this);
+        }
     }
 
     @Override
@@ -213,7 +226,11 @@ public final class SemiRobot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        getOperatorControl().periodicUpdate();
+        RecordAction action = getOperatorControl().periodicUpdate();
+        if (lastRecording != null && action != null && SmartDashboard.getBoolean(RECORD, false)) {
+            lastRecording.add(action);
+        }
+        SmartDashboard.putBoolean(PLAYING_BACK, opControl.recording != null);
 
         // Run the scheduler. This does nothing if it is disabled.
         Scheduler.getInstance().run();
@@ -317,4 +334,5 @@ public final class SemiRobot extends TimedRobot {
     public PlateAssignment getPlateAssignment() {
         return plateAssignment;
     }
+
 }

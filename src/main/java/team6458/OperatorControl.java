@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team6458.cmd.DriveStraightCommand;
+import team6458.recording.RecordAction;
+import team6458.recording.RecordingPlayback;
 import team6458.util.Utils;
 
 import static team6458.util.DashboardKeys.INTAKE_THROTTLE;
@@ -53,6 +55,8 @@ public final class OperatorControl {
      */
     private boolean isHeadingLocked = false;
 
+    public RecordingPlayback recording = null;
+
     public OperatorControl(SemiRobot robot) {
         this.robot = robot;
         lastOpControl = robot.isOperatorControl();
@@ -64,7 +68,7 @@ public final class OperatorControl {
      * In non-op control mode, this will ensure that any human interfaces such as controllers do not respond
      * unintentionally.
      */
-    public void periodicUpdate() {
+    public RecordAction periodicUpdate() {
         if (!robot.isOperatorControl() || robot.isDisabled()) {
             if (lastOpControl) {
                 // No human is allowed to control the robot at this time, stop motors and cancel anything necessary
@@ -77,9 +81,12 @@ public final class OperatorControl {
             SmartDashboard.putNumber(INTAKE_THROTTLE, 0.0);
 
             lastOpControl = false;
-            return;
+            recording = null;
+            return null;
         }
 
+        final RecordingPlayback recording = this.recording;
+        final boolean isPlayingBack = recording != null;
         final double stickX = xboxController.getX(Hand.kLeft); // positive is clockwise
         final double stickY = -xboxController.getY(Hand.kLeft); // positive is forward
         final double angle = robot.getSensors().gyro.getAngle();
@@ -106,7 +113,19 @@ public final class OperatorControl {
             curve = -GYRO_KP * (angle - targetLockedHeading);
         }
 
-        final boolean squaredInputs = SmartDashboard.getBoolean(SQUARE_INPUTS, true);
+        final boolean squaredInputs = !isPlayingBack && SmartDashboard.getBoolean(SQUARE_INPUTS, true);
+
+        if (isPlayingBack) {
+            RecordAction current = recording.step();
+            if (current != null) {
+                magnitude = current.magnitude;
+                curve = current.curve;
+                intakeThrottle = current.intake;
+            } else {
+                this.recording = null;
+                magnitude = curve = intakeThrottle = 0.0;
+            }
+        }
 
         // Drive the robot
         if (!SmartDashboard.getBoolean(TANK_CONTROLS, false)) {
@@ -124,6 +143,8 @@ public final class OperatorControl {
         SmartDashboard.putNumber(INTAKE_THROTTLE, intakeThrottle);
 
         lastOpControl = true;
+
+        return isPlayingBack ? null : new RecordAction(magnitude, curve, intakeThrottle, squaredInputs);
     }
 
 }

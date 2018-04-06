@@ -44,4 +44,13 @@ public final class Utils {
         return Math.min(max, Math.max(min, value));
     }
 
+    /**
+     * Squares a number, retaining the sign.
+     * @param value The value
+     * @return The squared value, with sign preserved
+     */
+    public static double squareKeepSign(double value) {
+        return Math.copySign(value * value, value);
+    }
+
 }

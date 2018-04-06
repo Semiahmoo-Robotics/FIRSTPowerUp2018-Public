@@ -12,6 +12,8 @@ public final class DashboardKeys {
     public static final String INTAKE_THROTTLE = "Intake Throttle";
     public static final String TANK_CONTROLS = "Tank Controls";
     public static final String SQUARE_INPUTS = "Square Inputs";
+    public static final String RECORD = "START RECORDING (Set before Teleop Init)";
+    public static final String PLAYING_BACK = "Is Playing Back";
 
     public static final String CHOOSER_AUTONOMOUS = "Autonomous Command";
 
