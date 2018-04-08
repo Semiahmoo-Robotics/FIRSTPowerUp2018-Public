@@ -10,7 +10,7 @@ public class RecordAction {
 
     public RecordAction(double throttle, double curve, double intake, boolean squaredInputs) {
         this.magnitude = squaredInputs ? Utils.squareKeepSign(throttle) : throttle;
-        this.curve = squaredInputs ? Utils.squareKeepSign(curve) : throttle;
+        this.curve = squaredInputs ? Utils.squareKeepSign(curve) : curve;
         this.intake = intake;
     }
 

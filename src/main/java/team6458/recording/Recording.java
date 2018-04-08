@@ -35,7 +35,7 @@ public class Recording {
     }
 
     public byte[] toByteArray() {
-        ByteBuffer buffer = ByteBuffer.allocate(actions.size() * 24);
+        ByteBuffer buffer = ByteBuffer.allocate(actions.size() * 24 + 4);
         buffer.putInt(actions.size());
         actions.forEach(action -> buffer.putDouble(action.curve).putDouble(action.magnitude).putDouble(action.intake));
         return buffer.array();

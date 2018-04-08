@@ -113,7 +113,7 @@ public final class OperatorControl {
             curve = -GYRO_KP * (angle - targetLockedHeading);
         }
 
-        final boolean squaredInputs = !isPlayingBack && SmartDashboard.getBoolean(SQUARE_INPUTS, true);
+        boolean squaredInputs = !isPlayingBack && SmartDashboard.getBoolean(SQUARE_INPUTS, true);
 
         if (isPlayingBack) {
             RecordAction current = recording.step();
@@ -121,6 +121,7 @@ public final class OperatorControl {
                 magnitude = current.magnitude;
                 curve = current.curve;
                 intakeThrottle = current.intake;
+                squaredInputs = false;
             } else {
                 this.recording = null;
                 magnitude = curve = intakeThrottle = 0.0;
